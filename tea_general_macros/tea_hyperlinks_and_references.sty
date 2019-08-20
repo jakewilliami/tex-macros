@@ -1,0 +1,24 @@
+\usepackage{hypdoc}
+\usepackage{hyperref}
+\AtEndPreamble{\usepackage{cleveref}}
+\usepackage{endnotes}
+
+
+
+
+\hypersetup{
+		colorlinks=true,				
+		%linkcolor=gray!65!red}								%nice colour
+		%linkcolor=Ivory4!40!Firebrick3							%nice colour
+		linkcolor=redtea,									%trademark teagoslavic colour
+		urlcolor=redtea}
+
+\renewcommand\makeenmark{\textsuperscript{[\theenmark]}}% end note marker = superscripted number in brackets
+\patchcmd{\theendnotes}								%OR this one
+	{\makeatletter}
+	{\makeatletter\renewcommand\makeenmark{[\theenmark] }}
+	{}{}	
+		
+\makeatletter	%allows \hyperref[ label ]{\footnoteref{ label }}
+	\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother

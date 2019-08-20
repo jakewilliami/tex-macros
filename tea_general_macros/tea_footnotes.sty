@@ -1,0 +1,17 @@
+\RequirePackage{footnotebackref}
+\usepackage{tablefootnote}
+%\usepackage{footnote}
+%\usepackage{footmisc}
+%\usepackage{fixfoot}
+
+
+
+
+\let\oldFootnote\footnote		%multiple footnotes
+		\newcommand\nextToken\relax
+		\renewcommand\footnote[1]{%
+			\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+		\newcommand\isFootnote{%
+			\ifx\footnote\nextToken\textsuperscript{,}\fi}
+			
+\renewcommand\thefootnote{{\selectfont\fontfamily{garamondx}\textosfI{\arabic{footnote}}}}

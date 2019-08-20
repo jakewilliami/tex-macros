@@ -1,0 +1,82 @@
+%\PassOptionsToPackage{swashQ}{garamondx}
+\RequirePackage{garamondx}
+\RequirePackage{fancyhdr}
+\PassOptionsToPackage{utf8}{inputenc}
+\RequirePackage{inputenc}
+\PassOptionsToPackage{english}{babel}
+\RequirePackage{babel}
+%\PassOptionsToPackage{left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}{geormetry} %top and bottom have a bit too much space
+\RequirePackage{geometry}
+\RequirePackage{fullpage} %good amount of text
+%\geometry{a4paper,total={170mm,257mm},left=20mm,top=20mm} %VERY lots of text
+\RequirePackage{ifthen}
+\usepackage[table]{xcolor}
+\PassOptionsToPackage{protrusion=true}{microtype}
+\RequirePackage{microtype}
+\RequirePackage{etoolbox}
+\usepackage{setspace}
+\usepackage{xpatch}
+\usepackage{multicol}
+\usepackage{hyphenat}
+%\PassOptionsToPackage{none}{hyphenat}
+%\usepackage{textcomp}
+\usepackage{changepage}%defines \adjustwidth{}{}
+\usepackage{titlesec}%This and titletoc are used for redefining the section and subsection heading styles
+\usepackage{titletoc}
+%\usepackage{parskip}
+\usepackage[skins]{tcolorbox}
+
+
+
+
+
+
+
+\AtEndPreamble{
+			\def\emdash
+			{\discretionary{}{}{\kern 0.1em}---\discretionary{}{}{\kern 0.1em}}
+			}
+
+\AtEndPreamble{
+\author{\scshape\small\bfseries 
+	Jake W. Ireland
+		}
+	\date{
+		\today
+		}
+			}
+
+%\texorpdfstring{\protect\ref{}}{}		%for when referencing in section titles
+
+\definecolor{redtea}{rgb}{0.6823529412,0.2792156863,0.2666666667} 
+
+\widowpenalty10000	
+\clubpenalty10000
+
+\addto\captionsenglish{\renewcommand*\abstractname{}}		%Renew abstract name.  Best practice is to copy this into your preamble after inputting macros
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[C]{\selectfont\fontfamily{garamondx}\textosfI{\thepage}} % except the center
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}}
+\pagestyle{plain}
+
+\addto\captionsenglish{%Make  Contents title scshape
+  \renewcommand{\contentsname}%
+    {\scshape Contents}%
+}
+
+\titleformat{\section}[hang]{\fontsize{14.4}{18}\scshape\bfseries}{\thesection}{1em}{}[]%This line and the following line of code is to redefine all section and subsection headings so be \scshape whilst still keeping their original formatting (i.e., size and spacing from previous section, etc.).  Unfortunately I can't quite figure out how to do this automatically with the parts headings, so I will just do that manually for the time being.  It could also be noted that this formatting does not extend to the ToC.  I actually like the parts headings in the ToC to be scshape without the sections and subsections to be, so this is preferable until I find a workaround
+\titleformat{\subsection}[hang]{\fontsize{12}{14}\scshape\bfseries}{\thesubsection}{1em}{}[]
+
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\definecolor{darkbyzantium}{rgb}{0.36, 0.22, 0.33}
+\definecolor{darkelectricblue}{rgb}{0.33, 0.41, 0.47}
+\definecolor{arylideyellow}{rgb}{1.0, 0.8, 0.25}
+\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+\definecolor{cinnamon}{rgb}{0.82, 0.41, 0.12}
+
+
+
+

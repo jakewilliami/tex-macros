@@ -1,0 +1,201 @@
+\RequirePackage{amsthm}
+\PassOptionsToPackage{garamondx}{newtxmath}
+\RequirePackage{newtxmath}
+\RequirePackage{mathtools}
+\RequirePackage{physics}
+%\usepackage{amssymb} %not needed with newtxmath
+\usepackage{arydshln}
+\usepackage{dsfont}%for real and complex numbers
+\usepackage{gensymb}%required for the \degree symbol
+\usepackage{tabu}%required for tabular in mathmode
+\usepackage{blkarray}%required for the \blockarray commands
+
+
+
+
+%\makeatletter			%The following four commands is to define a \pushright command in the align environment
+%\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+%%\newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
+%\makeatother
+\renewcommand\qed{\hfill\ensuremath{\blacksquare}}	%I have to put this *after* the \eq or \eqn, as the `aligned` environment doesn't allow the below commands to work with \tag...
+%\renewcommand*\qedsymbol{\hfill\ensuremath{\blacksquare}}
+%\renewcommand\qed{\tag*{\hfill\ensuremath{\blacksquare}}}
+
+\newcommand\eq[1]{			%change this to a \newenvironment maybe?
+		\begin{equation}
+		\begin{aligned}
+		\centering
+		#1
+		\end{aligned}
+		\end{equation}}
+\newcommand\eqn[1]{
+		\begin{equation*}
+		\begin{aligned}
+		\centering
+		#1
+		\end{aligned}
+		\end{equation*}}
+
+\renewcommand{\theequation}{{\selectfont\fontfamily{garamondx}\textosfI{\arabic{equation}}}}
+
+\def\textimplies{\ensuremath{\;\implies\;}}%bc I'm lazy
+\def\textimpliedby{\ensuremath{\;\impliedby\;}}
+\def\textiff{\ensuremath{\;\iff\;}}
+
+	\makeatletter%Augmented Matrices e.g. \begin{pmatrix}[cc|or:c]
+	\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+		\hskip -\arraycolsep
+		\let\@ifnextchar\new@ifnextchar
+		\array{#1}}
+	\makeatother
+	
+\def\paren#1{\ensuremath{\left(#1\right)}}
+\def\bparen#1{\ensuremath{\left[#1\right]}}
+
+\def\intdd{\mathop{}\!\dd}%because there is no integral space
+\def\intddx{\mathop{}\!\dd x}
+\def\dvx{\dv{x}}
+
+\def\reals{\ensuremath{\mathds{R}}~}
+\def\complex{\ensuremath{\mathds{C}}~}	
+\def\realsns{\ensuremath{\mathds{R}}}	%defining this without the space (ns=no space)
+\def\complexns{\ensuremath{\mathds{C}}}
+
+
+\def\thm{theorem~}
+\def\thms{theorems~}
+\def\Thm{Theorem~}
+\def\Thms{Theorems~}
+\def\thmns{theorem}		%defining this without the space (ns=no space)
+\def\thmsns{theorems}
+\def\Thmns{Theorem}
+\def\Thmsns{Theorems}
+
+\def\undertilde#1{\mathord{\vtop{\ialign{##\crcr		%Defines an \undertilde for vector representation (copied from `undertilde.sty `; not clever enough for this to be my own code, but I don't have undertilde installed)
+				\ensuremath{\hfil\displaystyle{#1}\hfil}\crcr\noalign{\kern1.5pt\nointerlineskip}
+				\ensuremath{\hfil\widetilde{}\hfil}\crcr\noalign{\kern1.5pt}}}}}
+\let\utilde\undertilde	%bc I'm lazy
+
+\def\by#1{\ensuremath{\text{\hspace*{5em}\hfill by~#1}}}
+
+\def\=={\ensuremath{\equiv}}
+
+\def\notzero{\ensuremath{\not\kern-2.25pt 0}}
+
+\def\mathveebar{\ensuremath{\veebar}}
+\let\lxor\mathveebar
+
+\def\divides{\ensuremath{\mid}}
+\def\notdivides{\ensuremath{\nmid}}
+
+\newcounter{thm}
+\setcounter{thm}{0}
+\newcounter{defn}
+\setcounter{defn}{0}
+			
+\renewcommand{\thm}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=redtea,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Theorem \stepcounter{thm}\thethm}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+					
+\newcommand{\defn}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=darkbyzantium,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Definition}]
+						%\stepcounter{defn}\thedefn}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+		
+\newcommand{\cor}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=arylideyellow,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Corollary \stepcounter{thm}\thethm}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+			
+\newcommand{\lemma}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=darkolivegreen,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Lemma \stepcounter{thm}\thethm}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+			
+\newcommand{\prop}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=darkelectricblue,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Proposition \stepcounter{thm}\thethm}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+			
+\newcommand{\notation}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=cinnamon,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Notation}]
+						%\stepcounter{defn}\thedefn}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+
+
+

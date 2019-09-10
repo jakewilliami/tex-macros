@@ -4,23 +4,9 @@
 \usepackage{caption}
 \usepackage{tcolorbox}
 \tcbuselibrary{fitting,skins,most}
-
-\renewcommand{\thm}[1]
-			{%
-		\begin{center}
-			\begin{tcolorbox}[skin=widget,
-						boxrule=1mm,
-						coltitle=black,
-						colframe=redtea,
-						colback=gray!10!white,
-						width=(.9\linewidth),
-						before=,
-						after=,
-						adjusted title={\scshape\bfseries Theorem \stepcounter{thm}\thethm}]
-					#1
-			\end{tcolorbox}
-		\end{center}
-			}
+				
+				
+%for definition of \thm box, see tea_mathematical.sty; cannot redefine thm before defining it in amsthm				
 					
 \newcommand{\defn}[1]
 			{%

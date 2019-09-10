@@ -96,5 +96,20 @@
 \def\textsubs#1{\ensuremath{_{\text{#1}}}}
 \def\textsups#1{\ensuremath{^{\text{#1}}}}
 
-
+\renewcommand{\thm}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=redtea,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Theorem \stepcounter{thm}\thethm}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
 

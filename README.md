@@ -5,7 +5,7 @@ This repo will show the progression of my macros used on LaTeX, in order to **a)
 ---
 
 ## Usage
-There exists several `.sty` files.  Download these, and import them as follows:
+There exists several `.sty` files.  Download these, and import them as follows before `\begin{document}` in the `article` class:
 
 ```
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_general_typesetting.sty}

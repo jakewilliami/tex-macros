@@ -1,6 +1,6 @@
 # LaTeX Macros
 
-This repo will show the progression of my macros used on LaTeX, in order to **a)** keep track of history of my macros, and **b)** extend my (currently limited) knowledge of Git and GitHub.  I hope that this provides good coding practice for any future coding-related endeavours.
+This repository will show the progression of my macros used on LaTeX, in order to **a)** keep track of history of my macros, and **b)** extend my (currently limited) knowledge of Git and GitHub.  I hope that this provides good coding practice for any future coding-related endeavours.
 
 ---
 
@@ -18,6 +18,8 @@ There exists several `.sty` files.  Download these, and import them as follows b
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_chemical.sty}
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_miscellaneous.sty}
 ```
+
+Three main directories exist in this repository.  One for general macros in everyday use, with my favourite font (garamond; see below for how to obtain on a Mac).  One is an American Psychology Association format, in Times New Roman Font, and APA-style bibliography.  Finally, we have a directory for some templates using these.  Happy LaTeX-ing!
 
 ---
 

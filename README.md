@@ -12,6 +12,7 @@ There exists several `.sty` files.  Download these, and import them as follows b
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_hyperlinks_and_references.sty}
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_figures.sty}
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_tables.sty}
+  \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_table_of_x.sty}
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_footnotes.sty}
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_lists.sty}
   \input{/<Downloads Folder>/my_macros/tea_general_macros/tea_mathematical.sty}

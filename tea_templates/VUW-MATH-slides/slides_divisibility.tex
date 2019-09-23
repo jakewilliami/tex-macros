@@ -1,0 +1,76 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\title{Divisibility}
+\date[Math 161]{Math 161 -- Discrete Mathematics and Logic}
+\author[Dr Day]{Dr Adam Day}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+
+\usetheme{vuw}
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{The Divisibility Relation}
+
+\begin{itemize}
+ \item $\N = \{0,1,2,3,4,5,\ldots\}$
+\item $\Z =\{\ldots, -3,-2,-1,0,1,2,3,\ldots\}$
+\end{itemize}
+
+\begin{definition}
+ Let $a$ and $b$ be integers. We say that $a$ \textit{divides} $b$ and  write $a \mid b$ if for some integer $e$ we have that $a\cdot e= b$. 
+\end{definition}
+
+\begin{itemize}
+ \item if $a$ does not divide $b$ we write $a \nmid b$. 
+ \item e.g.\ $4 \mid 12$, $3 \nmid 100$.
+ \item For any $n$, $n \mid 0$. 
+ \end{itemize}
+
+
+\begin{lemma}
+The divisibility relation on $\Z$ is reflexive and transitive.
+\end{lemma}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{More Lemmas}
+
+\begin{definition}
+ Let $a$ and $b$ be integers. We say that $a$ \textit{divides} $b$ and  write $a \mid b$ if for some integer $e$ we have that $a\cdot e= b$. 
+\end{definition}
+
+\vfill
+
+ \begin{lemma}
+ If $a$ and $b$ are integers such that $a \mid b$ and $b \mid a$ then $a= \pm b$. 
+\end{lemma}
+
+\vfill
+
+
+
+\begin{lemma}
+\label{lem: sum}
+Let $a,b,c \in \Z$. 
+ If $a\mid b$ and $a \mid c$ then $a \mid (b +c)$ and $a\mid (b-c)$.
+\end{lemma}
+\end{frame}
+
+
+
+\end{document}
+
+

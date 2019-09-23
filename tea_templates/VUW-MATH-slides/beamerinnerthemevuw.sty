@@ -1,0 +1,35 @@
+\mode<presentation>
+
+\setbeamertemplate{background}{
+  \begin{tikzpicture}
+  \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+   \fill[color=UniRed] (0,7.5) rectangle(\the\paperwidth,9.2);
+  \node  at (10,4.6) {\includegraphics[height=3.5cm]{my_tile.png}};
+  \node[color=white] at (6,8.4) {\Large \textbf{School of Mathematics and Statistics}};
+  \fill[color=UniGreen] (0,0.5) rectangle(\the\paperwidth,2.2);
+  \ifnum\thepage>1\relax%
+   \fill[white,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+   \fi
+  \end{tikzpicture}
+}
+
+% Title page
+\defbeamertemplate*{title page}{texsx}[1][]
+{ 
+   \vskip4cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=2.7cm,sep=8pt,#1]{title page header}
+      \usebeamerfont{title}\inserttitle\par%
+    \end{beamercolorbox}%
+    \vskip2.2cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{author}
+      \usebeamerfont{author}\insertauthor%
+    \end{beamercolorbox}
+     \vskip0.2cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{date}
+      \usebeamerfont{author}\insertdate%
+    \end{beamercolorbox}
+  \vfill
+}
+
+\mode
+<all>

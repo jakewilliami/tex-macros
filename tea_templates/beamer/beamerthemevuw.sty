@@ -2,6 +2,7 @@
 
 % Requirement
 \RequirePackage{tikz}
+\RequirePackage{garamondx}
 
 % Settings
 \useinnertheme{vuw}
@@ -13,8 +14,14 @@
 
 \addtobeamertemplate{block begin}{\setbeamercolor{enumerate item}{fg=white}}{}
 
+\setbeamerfont{title}{family=\rmfamily, size=\LARGE}%, series=\bf}
+\setbeamerfont{author}{family=\rmfamily, shape=\itshape}
+\setbeamerfont{frametitle}{family=\rmfamily, series=\bfseries}
+\setbeamerfont{institute}{family=\rmfamily, series=\bfseries, size=\normalsize}
+\setbeamerfont{body}{family=\rmfamily}
 
-\setbeamerfont{title}{size=\LARGE, series=\bf}
-
+\AtBeginDocument{
+    \usebeamerfont{body}
+    }
 
 \mode<all>

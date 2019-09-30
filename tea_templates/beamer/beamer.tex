@@ -1,0 +1,103 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{wasysym}%for telephone symbol
+
+\def\myassociation{
+	%enter your association here
+	}
+
+\title{Theoretical and Computational Chemistry}
+\subtitle{Lecture 1}
+\date[Math 161]{CHEM203 --- Physical Chemistry}
+\author[Dr Hume]{Dr. Paul Hume}
+\institute[institute]{\hfill\href{mailto:paul.hume@vuw.ac.nz}{\texttt{paul.hume@vuw.ac.nz}}\\
+\hfill\phone{} 04 463 6760 (internal ext. 6760)\\
+\hfill Alan MacDiarmid Bldg. 2nd Floor, Office 203}
+
+
+\newcommand{\E}{\mathcal{E}}
+
+\usetheme{vuw}
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Housekeeping}
+
+\begin{itemize}
+ \item Lecture slides, practise questions and assignment are available on BlackBoard
+\item Assignments: Due date as on BlackBoard (Online submission only)
+\item Computational Chemistry Tutorials in \textbf{KK216 Cyber Comms}
+Will be focussed on the assignment, which is a computer lab
+Should take approximately 2 - 3 hours (in total) to complete
+Thursdays and Fridays from 9 am – 10 am
+(weeks beginning 30 Sept and 7 Oct)
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Housekeeping}
+
+Apart from Atkins \& de Paula “Physical Chemistry” 9th ed, Oxford\\\parskip1em
+Jensen “Introduction to Computational Chemistry” 2nd ed, Wiley
+Cramer “Essentials of Computational Chemistry” 2nd ed, Wiley
+Lewars “Computational Chemistry”, 2nd ed, Springer
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Theoretical and Computational Chemistry}
+
+All Computational Chemistry is built upon some form of physical description of a
+molecular system
+
+\begin{definition}
+	Sometimes this description uses fundamental physical concepts and builds everything from scratch (\textbf{\textit{ab-initio}})
+\end{definition}
+
+\begin{definition}
+Sometimes a mixture between fundamental concepts and some empirical parameters is used (\textbf{\textit{semi-empirical}})
+\end{definition}
+
+\begin{definition}
+	Sometimes the description is purely phenomenological and our description is based on a loose analogy with a different system (\textbf{\textit{empirical}})
+\end{definition}	
+	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ab-Initio Methods}
+	
+	The domain of physics that describes how electrons and protons interact is Quantum Mechanics\footnote{
+	(Note: There is more than one “Quantum Theory” and some problems in Chemistry require us to go beyond the Schrödinger Equation. For example the Dirac Equation for systems with heavy atoms to include the effects of Special Relativity Theory or Quantum Electrodynamics for highly accurate descriptions)
+	}
+
+	Models that solve the \textbf{Schr\"odinger Equation} are called ``\textbf{ab-initio}'' (from the beginning). This is the realm of Quantum Chemistry.
+	
+	\[
+	\hat{H}\Psi(\tau)=\E\Psi(\tau)
+	\]
+	\[
+	\hat{H}=\sum_{a=1}^{M}\sum_{b<a}^{M}\frac{Z_a\cdot Z_b}{r_{ab}}-\sum_{i=1}^{N}\sum_{a=1}^{M}\frac{Z_a}{r_{ia}}+\sum_{i=1}^{N}\sum_{j<i}^{N}\frac{1}{r_{ij}}-\sum_{i=1}^{N}\frac{1}{2}\nabla_{i}^{2}-\sum_{a=1}^{M}\frac{1}{2m_a}\nabla_{a}^{2}
+	\]
+	
+\end{frame}
+
+
+
+\end{document}
+
+

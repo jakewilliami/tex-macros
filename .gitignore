@@ -1,2 +1,11 @@
 .DS_Store
 init_notes.md
+
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.log

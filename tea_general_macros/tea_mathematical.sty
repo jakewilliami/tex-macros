@@ -112,4 +112,15 @@
 			\end{tcolorbox}
 		\end{center}
 			}
+            
+\usetikzlibrary{arrows}
+
+\def\mylongmapsto#1{%
+	\hspace{1pt}\begin{tikzpicture}
+	\draw (0,0.5mm) -- (0,-0.5mm);
+	\newlength\mylength
+	\setlength{\mylength}{\widthof{#1}}
+	\draw[->,>=angle 90,line width=0.5pt] (0,0) -- (1.2\mylength,0) node[midway] {#1};
+	\end{tikzpicture}\hspace{1pt}
+}
 

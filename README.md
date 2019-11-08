@@ -9,6 +9,21 @@ Simply run
 ```
 cd ${HOME} && git clone https://github.com/jakewilliami/tex-macros.git
 ```
+If you don't have a TeX version, I ran the following
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && \
+echo -e "\u001b[1;38;5;2mHomebrew installed successfully.\u001b[0;38m" && \
+brew tap caskroom/cask && \
+echo -e "\u001b[1;38;5;2mHomebrew cask installed successfully.\u001b[0;38m" && \
+brew cask install mactex && \
+echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and MacTeX apps/tools installed successfully.\u001b[0;38m" && \
+cd /tmp && \
+curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
+sudo texlua install-getnonfreefonts && \
+sudo getnonfreefonts --sys --all && \
+cd ${HOME} && \
+echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
+```
 
 ## Usage
 See templates.

@@ -4,6 +4,12 @@ This repository will show the progression of my macros used on LaTeX, in order t
 
 ---
 
+## Installation
+Simply run
+```
+cd ${HOME} && git clone https://github.com/jakewilliami/tex-macros.git
+```
+
 ## Usage
 See templates.
 

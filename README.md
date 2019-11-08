@@ -28,7 +28,7 @@ echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
 ## Usage
 See templates.
 
-Three main directories exist in this repository.  One for general macros in everyday use, with my favourite font (garamond; see below for how to obtain on a Mac).  One is an American Psychology Association format, in Times New Roman Font, and APA-style bibliography.  Finally, we have a directory for some templates using these.  Happy LaTeX-ing!
+Three main directories exist in this repository.  One for general macros in everyday use, with my favourite font (garamond; see above for how to obtain on a Mac).  One is an American Psychology Association format, in Times New Roman Font, and APA-style bibliography.  Finally, we have a directory for some templates using these.  Happy LaTeX-ing!
 
 ---
 

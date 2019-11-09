@@ -10,13 +10,16 @@ IMMUT_OLD_NO=$(echo ${TIME_SHEET_OLD_NO})
 IMMUT_NEW_NO=$(echo ${TIME_SHEET_NEW_NO})
 
 
-#Clean up
-clean-exit() {
-    [[ -f ${BASH_DIR}/textcolours.txt ]] && \
-    rm ${BASH_DIR}/textcolours.txt
-    exit $?
-}
+if [[ $USER = "jakeireland" ]]
+then
+    :
+else
+    # Ensure jq is installed
+    source ${BASH_DIR}/dependencies/jq-dep.sh
+fi
 
+# Colours
+source ${BASH_DIR}/colours/json-colour-parser.sh
 
 make_ts_dir() {
     mkdir "Time Sheet $IMMUT_NEW_NO" || clean-exit
@@ -32,10 +35,6 @@ cd_ts_dir() {
         cd Time\ Sheet\ $IMMUT_OLD_NO
     fi
 }
-
-
-# Colours
-jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' ${BASH_DIR}/textcolours.json | sed -e 's/=\([^" >][^ >]*\)/="\1"/g' >> ${BASH_DIR}/textcolours.txt && source ${BASH_DIR}/textcolours.txt
 
 
 # Help

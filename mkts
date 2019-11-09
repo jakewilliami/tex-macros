@@ -1,7 +1,16 @@
 #! /bin/bash
 
 
-BASH_DIR="${HOME}/bin/scripts/bash/"
+BASH_DIR="${HOME}/scripts/bash/"
+WORK_DIR="${HOME}/Desktop/Assorted Personal Documents/Work/"
+MACROS_DIR="${HOME}/tex-macros/tea_templates/time-sheet/"
+
+cd "${WORK_DIR}" || exit $?
+
+ts1="${MACROS_DIR}/ts1"
+ts2="${MACROS_DIR}/ts2"
+ts3="${MACROS_DIR}/ts3"
+ts4="${MACROS_DIR}/ts4"
 
 
 TIME_SHEET_OLD_NO=$(for i in ./*; do if [[ -d $i ]]; then echo $i; fi; done | grep -Eo "[0-9]{1,4}" | sort -nr | head -1)
@@ -75,15 +84,16 @@ make_tex() {
     cd_ts_dir t || clean-exit
     if [[ -s time-sheet-${IMMUT_OLD_NO}i.txt ]] && [[ -s time-sheet-${IMMUT_OLD_NO}d.txt ]]
     then
-        cat ../ts1 >> time-sheet-${IMMUT_OLD_NO}.tex && \
+        cat ${ts1} >> time-sheet-${IMMUT_OLD_NO}.tex && \
         cat time-sheet-${IMMUT_OLD_NO}d.txt >> time-sheet-${IMMUT_OLD_NO}.tex
-        cat ../ts2 >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat ${ts2} >> time-sheet-${IMMUT_OLD_NO}.tex
         cat time-sheet-${IMMUT_OLD_NO}i.txt >> time-sheet-${IMMUT_OLD_NO}.tex
-        cat ../ts3 >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat ${ts3} >> time-sheet-${IMMUT_OLD_NO}.tex
         TOT_TIME=$(cat time-sheet-${IMMUT_OLD_NO}i.txt | grep -Eo '[0-9]{1,4}.[0-9]{1,4}\\\\$' | grep -Eo "[0-9]{1,4}.[0-9]{1,4}" | paste -sd+ - | bc)
         echo $TOT_TIME >> time-sheet-${IMMUT_OLD_NO}.tex
-        cat ../ts4 >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat ${ts4} >> time-sheet-${IMMUT_OLD_NO}.tex
         latex time-sheet-${IMMUT_OLD_NO}.tex
+        open -a Preview.app time-sheet-${IMMUT_OLD_NO}.pdf
         clean-exit
     else
         opt_err_no_txt

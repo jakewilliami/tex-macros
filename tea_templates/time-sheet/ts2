@@ -1,0 +1,23 @@
+}}
+
+%determine spacing
+\onehalfspacing
+
+
+%Document
+\begin{document}
+	\maketitle
+	\vspace*{-2em}
+
+	
+\begin{longtable}{p{1.6cm}|p{4cm}p{3cm}p{3.5cm}p{2cm}}
+		\hline
+		\textsc{\textbf{Date of Duty}}&\textsc{Assigned Duty}&\textsc{Directed By}&\textsc{Temporal Domain}&\textsc{Number of Hours Worked}\\
+		\hline
+		\endfirsthead
+		\hline
+		\endhead
+		\hline
+		\endfoot
+		\endlastfoot
+		\hline

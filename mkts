@@ -1,0 +1,140 @@
+#! /bin/bash
+
+
+BASH_DIR="${HOME}/bin/scripts/bash/"
+
+
+TIME_SHEET_OLD_NO=$(for i in ./*; do if [[ -d $i ]]; then echo $i; fi; done | grep -Eo "[0-9]{1,4}" | sort -nr | head -1)
+TIME_SHEET_NEW_NO=$(echo "$(($TIME_SHEET_OLD_NO + 1))")
+IMMUT_OLD_NO=$(echo ${TIME_SHEET_OLD_NO})
+IMMUT_NEW_NO=$(echo ${TIME_SHEET_NEW_NO})
+
+
+#Clean up
+clean-exit() {
+    [[ -f ${BASH_DIR}/textcolours.txt ]] && \
+    rm ${BASH_DIR}/textcolours.txt
+    exit $?
+}
+
+
+make_ts_dir() {
+    mkdir "Time Sheet $IMMUT_NEW_NO" || clean-exit
+}
+
+
+cd_ts_dir() {
+    if [[ -z $1 ]]
+    then
+        cd Time\ Sheet\ $IMMUT_NEW_NO || clean-exit
+    elif [[ $1 == "t" ]]
+    then
+        cd Time\ Sheet\ $IMMUT_OLD_NO
+    fi
+}
+
+
+# Colours
+jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' ${BASH_DIR}/textcolours.json | sed -e 's/=\([^" >][^ >]*\)/="\1"/g' >> ${BASH_DIR}/textcolours.txt && source ${BASH_DIR}/textcolours.txt
+
+
+# Help
+display_help() {
+    echo -e "${BWHITE}Usage: mkts -i [write up what you have done]; mkts -t${NORM}"
+    echo
+    echo -e "${ITWHITE}The present script will help to create my time-sheets.${NORM}"
+    echo
+    echo -e "${BBLUE}\t -i | --input \t\t${BYELLOW}Makes directory, and then  ${ULINE}${BBLUE}i${BYELLOW}nput${NORM} ${BYELLOW}files (for date and work done).${NORM}"
+    echo -e "${BBLUE}\t -t | --tex \t\t${BYELLOW}Makes ${ULINE}${BBLUE}T${BYELLOW}eX${NORM} ${BYELLOW}file and produces PDF output.${NORM}"
+    echo -e "${BBLUE}\t -h | --help \t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
+    clean-exit
+}
+
+
+opt_err() {
+    HELP="${BYELLOW}Invalid option.  Use option -h for help.${NORM}"
+    echo -e "${HELP}"
+	clean-exit
+}
+
+
+opt_err_no_opt() {
+    HELP="${BYELLOW}Must be run with option.  Use option -h for help.${NORM}"
+    echo -e "${HELP}"
+	clean-exit
+}
+
+
+opt_err_no_txt() {
+    HELP="${BYELLOW}There is no content to your time sheet.  Please run \`mkts -i\` to add input files.${NORM}"
+    echo -e "${HELP}"
+	clean-exit
+}
+
+
+make_tex() {
+    cd_ts_dir t || clean-exit
+    if [[ -s time-sheet-${IMMUT_OLD_NO}i.txt ]] && [[ -s time-sheet-${IMMUT_OLD_NO}d.txt ]]
+    then
+        cat ../ts1 >> time-sheet-${IMMUT_OLD_NO}.tex && \
+        cat time-sheet-${IMMUT_OLD_NO}d.txt >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat ../ts2 >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat time-sheet-${IMMUT_OLD_NO}i.txt >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat ../ts3 >> time-sheet-${IMMUT_OLD_NO}.tex
+        TOT_TIME=$(cat time-sheet-${IMMUT_OLD_NO}i.txt | grep -Eo '[0-9]{1,4}.[0-9]{1,4}\\\\$' | grep -Eo "[0-9]{1,4}.[0-9]{1,4}" | paste -sd+ - | bc)
+        echo $TOT_TIME >> time-sheet-${IMMUT_OLD_NO}.tex
+        cat ../ts4 >> time-sheet-${IMMUT_OLD_NO}.tex
+        latex time-sheet-${IMMUT_OLD_NO}.tex
+        clean-exit
+    else
+        opt_err_no_txt
+    fi
+}
+
+
+make_text() {
+    make_ts_dir && \
+    cd_ts_dir && \
+    echo "% \textbf{date}&duty&director&t1--t2&hours\\\\" >> time-sheet-${IMMUT_NEW_NO}i.txt && \
+    echo "%date1%\\textsuperscript{%th1%} %month1%, %year1%\\\\\\textbf{Week Ending:} Wednesday, %date2%\\textsuperscript{%th2%} %month2%, %year2%" >> time-sheet-${IMMUT_NEW_NO}d.txt && \
+    echo ""
+    oinb "time-sheet-${IMMUT_NEW_NO}i.txt"
+    oinb "time-sheet-${IMMUT_NEW_NO}d.txt"
+    clean-exit
+}
+
+
+while getopts ":-:tih" OPTION; do
+        case $OPTION in
+                -)
+                    case $OPTARG in
+                        tex)
+                            make_tex ;;
+                        input)
+                            make_text ;;
+                        help)
+                            display_help ;;
+                        *)
+                            opt_err ;;
+                    esac ;;
+                t)
+                    make_tex ;;
+                i)
+                    make_text ;;
+                h)
+                    display_help ;;
+                *)
+                    opt_err ;;
+        esac
+done
+
+
+# If no options
+if [[ -z $1 ]]
+then
+    opt_err_no_opt
+fi
+
+
+# Clean up
+clean-exit

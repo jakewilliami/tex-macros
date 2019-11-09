@@ -1,0 +1,112 @@
+#!/bin/bash
+
+BASH_DIR="${HOME}/scripts/bash/"
+TEMPLATES_DIR="${HOME}/tex-macros/tea_templates/"
+BEAMER_DIR="${TEMPLATES_DIR}/beamer/"
+
+if [[ $USER = "jakeireland" ]]
+then
+    :
+else
+    # Ensure jq is installed
+    source ${BASH_DIR}/dependencies/jq-dep.sh
+fi
+
+# Colours
+source ${BASH_DIR}/colours/json-colour-parser.sh
+
+# Invalid Option
+opt_err() {
+    HELP="${BYELLOW}Invalid option.  Use option -h for help.${NORM}"
+    echo -e "${HELP}"
+	clean-exit
+}
+
+# Help
+display_help() {
+    echo -e "${BWHITE}Usage: mktex [option] [dir] [file name]${NORM}"
+    echo
+    echo -e "${ITWHITE}The present script will help to make a new LaTeX file using predefined templates.${NORM}"
+    echo
+    echo -e "${BBLUE}\t -g | --general        ${BYELLOW} Chooses the ${ULINE}${BBLUE}g${BYELLOW}eneral${NORM} ${BYELLOW}template.${NORM}"
+    echo -e "${BBLUE}\t -a | --apa \t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}A${BYELLOW}merical Psychological Association${NORM}${BYELLOW} template.${NORM}"
+    echo -e "${BBLUE}\t -b | --beamer \t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
+    echo -e "${BBLUE}\t -p | --poi \t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
+    echo -e "${BBLUE}\t -h | --help \t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
+    clean-exit
+}
+
+# Check if dir is specified
+check_dir_spec() {
+    if [[ -z $1 ]]
+    then
+        echo -e "${BYELLOW}You must specify a directory in which to make the .tex file.${BNORM}"
+        clean-exit
+    fi  
+}
+
+
+# Build templte
+build_template() {
+    check_dir_spec $2 && \
+    if [[ $1 = 'beamer' ]]
+    then
+        cp ${BEAMER_DIR}/*.png $2/
+        cp ${BEAMER_DIR}/*.sty $2/
+        cp ${BEAMER_DIR}/beamer.tex $2/ && \
+        if [[ -z $3 ]]
+        then
+            mv "${2}/${1}.tex" "${2}/document.tex"
+        else
+            mv "${2}/${1}.tex" "${2}/${3}.tex"
+        fi
+    else
+        cp ${TEMPLATES_DIR}/$1.tex $2/ && \
+        if [[ -z $3 ]]
+        then
+            mv "${2}/${1}.tex" "${2}/document.tex"
+        else
+            mv "${2}/${1}.tex" "${2}/${3}.tex"
+        fi
+    fi
+}
+
+# Make templates
+while getopts ":-:gabph" OPTION; do
+        case $OPTION in
+                -)
+                    case $OPTARG in
+                        help)
+                            display_help ;;
+                        general)
+                            build_template template_Teagoslavic_Typesetting $2 $3 ;;
+                        apa)
+                            build_template template_Teagoslavic_APA $2 $3 ;;
+                        beamer)
+                            build_template beamer $2 $3 ;;
+                        poi)
+                            build_template template_Tea_P-O-I $2 $3 ;;
+                        *)
+                            opt_err ;;
+                    esac ;;
+                h)
+                    display_help ;;
+                g)
+                    build_template template_Teagoslavic_Typesetting $2 $3 ;;
+                a)
+                    build_template template_Teagoslavic_APA $2 $3 ;;
+                b)
+                    build_template beamer $2 $3 ;;
+                p)
+                    build_template template_Tea_P-O-I $2 $3 ;;
+                *)
+                    opt_err ;;
+        esac
+done
+
+# if no options were passed                   
+if [ $OPTIND -eq 1 ]
+then 
+    echo -e "${BYELLOW}You must pass an option to the script.  Please use -h for help.${NORM}"
+    clean-exit
+fi

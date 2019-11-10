@@ -32,14 +32,8 @@
 
 
 \AtEndPreamble{
-			\def\emdash
-			{\discretionary{}{}{\kern 0.1em}---\discretionary{}{}{\kern 0.1em}}
-			}
-
-\AtEndPreamble{
-\author{\scshape\small\bfseries 
-	Jake W. Ireland
-		}
+	\def\emdash
+		{\discretionary{}{}{\kern 0.1em}---\discretionary{}{}{\kern 0.1em}}
 	\date{
 		\today
 		}
@@ -52,7 +46,6 @@
 \widowpenalty10000	
 \clubpenalty10000
 
-\addto\captionsenglish{\renewcommand*\abstractname{}}		%Renew abstract name.  Best practice is to copy this into your preamble after inputting macros
 
 \fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields

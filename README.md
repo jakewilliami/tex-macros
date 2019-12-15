@@ -25,6 +25,19 @@ cd ${HOME} && \
 echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
 ```
 
+On my Linux machine I ran
+```
+sudo pacman -S texmaker texlive-most && \
+echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m" && \
+cd /tmp && \
+curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
+sudo texlua install-getnonfreefonts && \
+sudo getnonfreefonts --sys --all && \
+cd ${HOME} && \
+echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
+```
+A note on Linux: any mention of `/Users/` in the .tex templates will need to be changed to `/home/`.
+
 ## Usage
 See templates.
 

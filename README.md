@@ -22,7 +22,8 @@ curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreef
 sudo texlua install-getnonfreefonts && \
 sudo getnonfreefonts --sys --all && \
 cd ${HOME} && \
-echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
+echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m" && \
+chmod u+x mktex
 ```
 
 On my Linux machine I ran
@@ -34,14 +35,21 @@ curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreef
 sudo texlua install-getnonfreefonts && \
 sudo getnonfreefonts --sys --all && \
 cd ${HOME} && \
-echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
+echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m" && \
+chmod u+x mktex
 ```
 A note on Linux: any mention of `/Users/` in the .tex templates will need to be changed to `/home/`.
 
 ## Usage
-See templates.
+See `mktex -h`.
 
-Three main directories exist in this repository.  One for general macros in everyday use, with my favourite font (garamond; see above for how to obtain on a Mac).  One is an American Psychology Association format, in Times New Roman Font, and APA-style bibliography.  Finally, we have a directory for some templates using these.  Happy LaTeX-ing!
+Three main directories exist in this repository:
+
+1) One directory for general macros for everyday use, with my favourite font (garamond;see above for how to obtain on a Mac).  This directory has a sub-style sheet for bibliography (called `tea_hyperlinks_and_references_cite.sty`).  Ensure you have a `references.bib` in your working directory for this style sheet.  Note that, using TeXShop, I have added the line `% !TEX TS-program = lualatexmk` at the top of the template.
+2) One is an American Psychology Association format, in Times New Roman Font, and APA-style bibliography.
+3) Finally, we have a directory for some templates using these, which `mktex` references, as well as some some `beamer` stuff in this directory.
+
+Happy LaTeX-ing!
 
 ---
 

@@ -45,7 +45,7 @@ See `mktex -h`.
 
 Three main directories exist in this repository:
 
-1) One directory for general macros for everyday use, with my favourite font (garamond;see above for how to obtain on a Mac).  This directory has a sub-style sheet for bibliography (called `tea_hyperlinks_and_references_cite.sty`).  Ensure you have a `references.bib` in your working directory for this style sheet.  Note that, using TeXShop, I have added the line `% !TEX TS-program = lualatexmk` at the top of the template.
+1) One directory for general macros for everyday use, with my favourite font (garamond;see above for how to obtain on a Mac).  This directory has a sub-style sheet for bibliography (called `tea_hyperlinks_and_references_cite.sty`).  Ensure you have a `references.bib` in your working directory for this style sheet.  Note that, using TeXShop, I have added the line `% !TEX TS-program = pdflatexmk` at the top of the template.
 2) One is an American Psychology Association format, in Times New Roman Font, and APA-style bibliography.
 3) Finally, we have a directory for some templates using these, which `mktex` references, as well as some some `beamer` stuff in this directory.
 

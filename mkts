@@ -54,6 +54,7 @@ display_help() {
     echo
     echo -e "${BBLUE}\t -i | --input \t\t${BYELLOW}Makes directory, and then  ${ULINE}${BBLUE}i${BYELLOW}nput${NORM} ${BYELLOW}files (for date and work done).${NORM}"
     echo -e "${BBLUE}\t -t | --tex \t\t${BYELLOW}Makes ${ULINE}${BBLUE}T${BYELLOW}eX${NORM} ${BYELLOW}file and produces PDF output.${NORM}"
+    echo -e "${BBLUE}\t -o | --open \t\t${BYELLOW}${ULINE}${BBLUE}O${BYELLOW}pens${NORM} ${BYELLOW}work directory.${NORM}"
     echo -e "${BBLUE}\t -h | --help \t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
     clean-exit
 }
@@ -113,7 +114,7 @@ make_text() {
 }
 
 
-while getopts ":-:tih" OPTION; do
+while getopts ":-:tioh" OPTION; do
         case $OPTION in
                 -)
                     case $OPTARG in

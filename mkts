@@ -118,6 +118,8 @@ while getopts ":-:tioh" OPTION; do
         case $OPTION in
                 -)
                     case $OPTARG in
+                        open)
+                            open "${WORK_DIR}" ;;
                         tex)
                             make_tex ;;
                         input)
@@ -127,6 +129,8 @@ while getopts ":-:tioh" OPTION; do
                         *)
                             opt_err ;;
                     esac ;;
+                o)
+                    open "${WORK_DIR}" ;;
                 t)
                     make_tex ;;
                 i)

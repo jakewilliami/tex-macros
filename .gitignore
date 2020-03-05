@@ -9,3 +9,6 @@ init_notes.md
 *.synctex.gz
 *.toc
 *.log
+*.fdb_latexmk
+*.hd
+*.fls

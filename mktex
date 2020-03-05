@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BASH_DIR="${HOME}/scripts/bash/"
 TEMPLATES_DIR="${HOME}/tex-macros/templates/"
@@ -28,10 +28,11 @@ display_help() {
     echo
     echo -e "${ITWHITE}The present script will help to make a new LaTeX file using predefined templates.${NORM}"
     echo
-    echo -e "${BBLUE}\t -g | --general        ${BYELLOW} Chooses the ${ULINE}${BBLUE}g${BYELLOW}eneral${NORM} ${BYELLOW}template.${NORM}"
-    echo -e "${BBLUE}\t -b | --beamer \t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
-    echo -e "${BBLUE}\t -p | --poi \t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
-    echo -e "${BBLUE}\t -h | --help \t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
+    echo -e "${BBLUE}\t -g | --general\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}g${BYELLOW}eneral${NORM} ${BYELLOW}template.${NORM}"
+    echo -e "${BBLUE}\t -f | --figure\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}f${BYELLOW}igure${NORM} ${BYELLOW}template.${NORM}"
+    echo -e "${BBLUE}\t -b | --beamer\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
+    echo -e "${BBLUE}\t -p | --poi\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
+    echo -e "${BBLUE}\t -h | --help\t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
     clean-exit
 }
 
@@ -71,12 +72,14 @@ build_template() {
 }
 
 # Make templates
-while getopts ":-:gabph" OPTION; do
+while getopts ":-:gfbph" OPTION; do
         case $OPTION in
                 -)
                     case $OPTARG in
                         help)
                             display_help ;;
+                        figure)
+                            build_template template_flow_chart $2 $3 ;;
                         general)
                             build_template template_Teagoslavic_Typesetting $2 $3 ;;
                         beamer)
@@ -86,6 +89,8 @@ while getopts ":-:gabph" OPTION; do
                         *)
                             opt_err ;;
                     esac ;;
+                f)
+                    build_template template_flow_chart $2 $3 ;;
                 h)
                     display_help ;;
                 g)

@@ -1,0 +1,49 @@
+\documentclass[border=5pt,tikz]{standalone}
+
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{garamondx}
+\usepackage[x11names]{xcolor}
+
+
+\def\emdash
+		{\discretionary{}{}{\kern 0.1em}---\discretionary{}{}{\kern 0.1em}}
+
+\definecolor{redtea}{rgb}{0.6823529412,0.2792156863,0.2666666667}
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\definecolor{darkbyzantium}{rgb}{0.36, 0.22, 0.33}
+\definecolor{darkelectricblue}{rgb}{0.33, 0.41, 0.47}
+\definecolor{deepchestnut}{rgb}{0.73, 0.31, 0.28}
+
+
+\usetikzlibrary{shapes.geometric, arrows, positioning}
+
+\tikzstyle{nodeStyleGreen}=[rectangle, rounded corners, minimum width=7em, minimum height=2em, text centered, draw=black, fill=darkolivegreen!30, text width=11em]
+\tikzstyle{nodeStylePurple} = [rectangle, rounded corners, minimum width=7em, minimum height=2em, text centered, draw=black, fill=darkbyzantium!30, text width=11em]
+\tikzstyle{nodeStyleBlue}=[rectangle, rounded corners, minimum width=10em, minimum height=2em, text centered, draw=black, fill=darkelectricblue!30, text width=11em]
+\tikzstyle{nodeStyleRed}=[rectangle, rounded corners, minimum width=7em, minimum height=2em, text centered, draw=black, fill=deepchestnut!30, text width=11em]
+\tikzstyle{arrow}=[very thick, ->, >=latex]
+\tikzstyle{dashedarrow}=[dashed, very thick, ->, >=latex]
+
+
+% lets text tt with line breaks
+\renewcommand{\texttt}[1]{%
+  \begingroup
+  \ttfamily
+  \begingroup\lccode`~=`/\lowercase{\endgroup\def~}{/\discretionary{}{}{}}%
+  \begingroup\lccode`~=`[\lowercase{\endgroup\def~}{[\discretionary{}{}{}}%
+  \begingroup\lccode`~=`.\lowercase{\endgroup\def~}{.\discretionary{}{}{}}%
+  \catcode`/=\active\catcode`[=\active\catcode`.=\active
+  \scantokens{#1\noexpand}%
+  \endgroup
+}
+
+\begin{document}
+	\begin{tikzpicture}[node distance=8em]	
+	
+		\node()[]{};
+		\draw[arrow]()--();
+		
+	\end{tikzpicture}
+\end{document}

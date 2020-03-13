@@ -15,22 +15,3 @@
 \input{\string~/tex-macros/general_macros/mathematical.sty}
 \input{\string~/tex-macros/general_macros/chemical.sty}
 \input{\string~/tex-macros/general_macros/miscellaneous.sty}
-
-
-\makeatletter
-\xpatchcmd{\@maketitle}
-  {\@title}
-  {\vspace*{-9ex}\fontsize{20}{28}\scshape\@title}
-  {}{}
-  \xpatchcmd{\@maketitle}
-  {\@author}
-  {\fontsize{10}{18}\scshape\small\bfseries\@author}
-  {}{}
-\makeatother
-
-
-\addto\captionsenglish{\renewcommand*\abstractname{Abstract}}		%Renew abstract name
-
-\AtBeginDocument{
-	\maketitle
-				}

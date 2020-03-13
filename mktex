@@ -3,6 +3,7 @@
 BASH_DIR="${HOME}/scripts/bash/"
 TEMPLATES_DIR="${HOME}/tex-macros/templates/"
 BEAMER_DIR="${TEMPLATES_DIR}/beamer/"
+CLASS_DIR="${TEMPLATES_DIR}/../general_macros/class/"
 
 if [[ $USER = "jakeireland" ]]
 then
@@ -24,13 +25,15 @@ opt_err() {
 
 # Help
 display_help() {
-    echo -e "${BWHITE}Usage: mktex [option] [dir] [file name]${NORM}"
+    echo -e "${BWHITE}Usage: mktex [h] [gcfbp] [dir] [file name] || mktex [b] [dir]${NORM}"
     echo
-    echo -e "${ITWHITE}The present script will help to make a new LaTeX file using predefined templates.${NORM}"
+    echo -e "${ITWHITE}The present script will help to make a new LaTeX file using predefined templates. Important note: because I am bad at shell scripting, only mix options together (i.e., \`-Bc\`, NOT \`--class --bib\`).${NORM}"
     echo
     echo -e "${BBLUE}\t -g | --general\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}g${BYELLOW}eneral${NORM} ${BYELLOW}template.${NORM}"
+    echo -e "${BBLUE}\t -c | --class\t\t${BYELLOW}Chooses the general template via the ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
     echo -e "${BBLUE}\t -f | --figure\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}f${BYELLOW}igure${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -b | --beamer\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
+    echo -e "${BBLUE}\t -B | --bib\t\t${BYELLOW}Creates a ${ULINE}${BBLUE}B${BYELLOW}ibliography${NORM}${BYELLOW} file named \`references.bib\` in a given directory.${NORM}"
     echo -e "${BBLUE}\t -p | --poi\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
     echo -e "${BBLUE}\t -h | --help\t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
     clean-exit
@@ -49,19 +52,29 @@ check_dir_spec() {
 # Build templte
 build_template() {
     check_dir_spec $2 && \
-    if [[ $1 = 'beamer' ]]
+    if [[ "${1}" == 'beamer' ]]
     then
-        cp ${BEAMER_DIR}/*.png $2/
-        cp ${BEAMER_DIR}/*.sty $2/
-        cp ${BEAMER_DIR}/beamer.tex $2/ && \
+        cp -r "${BEAMER_DIR}"/*.png "${2}/"
+        cp -r "${BEAMER_DIR}"/*.sty "${2}/"
+        cp "${BEAMER_DIR}/beamer.tex" "${2}/" && \
         if [[ -z $3 ]]
         then
-            mv "${2}/${1}.tex" "${2}/document.tex"
+            mv "${2}/beamer.tex" "${2}/document.tex"
         else
-            mv "${2}/${1}.tex" "${2}/${3}.tex"
+            mv "${2}/beamer.tex" "${2}/${3}.tex"
+        fi
+    elif [[ "${1}" == 'class' ]]
+    then
+        cp -r "${CLASS_DIR}"/*.cls "${2}/"
+        cp "${TEMPLATES_DIR}/template_Class_Typesetting.tex" "${2}/"
+        if [[ -z $3 ]]
+        then
+            mv "${2}/template_Class_Typesetting.tex" "${2}/document.tex"
+        else
+            mv "${2}/template_Class_Typesetting.tex" "${2}/${3}.tex"
         fi
     else
-        cp ${TEMPLATES_DIR}/$1.tex $2/ && \
+        cp "${TEMPLATES_DIR}/${1}.tex" "${2}/" && \
         if [[ -z $3 ]]
         then
             mv "${2}/${1}.tex" "${2}/document.tex"
@@ -71,11 +84,19 @@ build_template() {
     fi
 }
 
+create_bib() {
+    touch "${1}/references.bib"
+}
+
 # Make templates
-while getopts ":-:gfbph" OPTION; do
+while getopts ":-:gfbphc" OPTION; do
         case $OPTION in
                 -)
                     case $OPTARG in
+                        bib)
+                            create_bib $2 ;;
+                        class)
+                            build_template class $2 $3 ;;
                         help)
                             display_help ;;
                         figure)
@@ -89,6 +110,10 @@ while getopts ":-:gfbph" OPTION; do
                         *)
                             opt_err ;;
                     esac ;;
+                B)
+                    create_bib $2 ;;
+                c)
+                    build_template class $2 $3 ;;
                 f)
                     build_template template_flow_chart $2 $3 ;;
                 h)

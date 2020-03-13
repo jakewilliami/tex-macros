@@ -5,23 +5,8 @@ TEMPLATES_DIR="${HOME}/tex-macros/templates/"
 BEAMER_DIR="${TEMPLATES_DIR}/beamer/"
 CLASS_DIR="${TEMPLATES_DIR}/../general_macros/class/"
 
-if [[ $USER = "jakeireland" ]]
-then
-    :
-else
-    # Ensure jq is installed
-    source ${BASH_DIR}/dependencies/jq-dep.sh
-fi
-
-# Colours
-source ${BASH_DIR}/colours/json-colour-parser.sh
-
-# Invalid Option
-opt_err() {
-    HELP="${BYELLOW}Invalid option.  Use option -h for help.${NORM}"
-    echo -e "${HELP}"
-	clean-exit
-}
+# source required scripts
+source "${BASH_DIR}"/dependencies/source-dependencies.sh
 
 # Help
 display_help() {
@@ -31,12 +16,15 @@ display_help() {
     echo
     echo -e "${BBLUE}\t -g | --general\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}g${BYELLOW}eneral${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -c | --class\t\t${BYELLOW}Chooses the general template via the ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
-    echo -e "${BBLUE}\t -C | --classBib\t\t${BYELLOW}Chooses the general template via the citations ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
+    echo -e "${BBLUE}\t -C | --classBib\t${BYELLOW}Chooses the general template via the citations ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
     echo -e "${BBLUE}\t -f | --figure\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}f${BYELLOW}igure${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -b | --beamer\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
     echo -e "${BBLUE}\t -B | --bib\t\t${BYELLOW}Creates a ${ULINE}${BBLUE}B${BYELLOW}ibliography${NORM}${BYELLOW} file named \`references.bib\` in a given directory.${NORM}"
     echo -e "${BBLUE}\t -p | --poi\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
     echo -e "${BBLUE}\t -h | --help\t\t${BYELLOW}Shows ${ULINE}${BBLUE}h${BYELLOW}elp${NORM} ${BYELLOW}(present output).${NORM}"
+    help_help '2'
+    help_examples '\`% !TEX TS-program = pdflatex\` is used at the start of the arteacle* classes.'
+    help_examples 'Also note that the input file name should omit the .tex extension.'
     clean-exit
 }
 

@@ -1,0 +1,7 @@
+graph G {
+    rankdir=RL
+    node [width=0.1 shape=point]
+    a -- b;
+    b -- a;
+    a -- b;
+  }

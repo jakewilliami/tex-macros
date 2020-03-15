@@ -1,0 +1,49 @@
+\documentclass[border=2pt]{standalone}
+\usepackage{garamondx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{xcolor}\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\usepgfplotslibrary{units}
+\usepackage{filecontents}
+\begin{filecontents*}{Scarce}
+x,y
+0.1,1.6
+2,2
+\end{filecontents*}
+\begin{filecontents*}{Control}
+x,y
+0.1,1.4
+2,1	
+\end{filecontents*}
+
+\usepackage{xcolor}
+\definecolor{redtea}{rgb}{0.6823529412,0.2792156863,0.2666666667}
+\usepackage{siunitx}
+\usepackage{changepage}
+
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+width=\linewidth,
+grid=major,
+grid style={dashed,gray!30},
+xlabel=\raisebox{-2ex}{\scshape\bfseries Trait Anxiety},
+ylabel={\scshape\bfseries Kiasu Behaviour},
+x unit=,
+y unit=,
+legend style={at={(0.5,-0.2)},anchor=north},
+x tick label style={rotate=90,anchor=east},
+xtick={},
+xticklabels={}
+ytick={},
+yticklabels={}
+]
+\addplot[redtea!70,very thick] table [smooth,col sep=comma,x, y,mark=none] {Scarce};
+\addplot[darkolivegreen!70,very thick] table [smooth,col sep=comma,x, y,mark=none] {Control};
+\end{axis}
+\node at (7,8) {\textcolor{redtea}{Scare Resources}};\\\node at (7,1) {\textcolor{darkolivegreen}{Control}};
+\node at (1.5,-0.5) {Low};
+\node at (9,-0.5) {High};
+\end{tikzpicture}
+\end{document}

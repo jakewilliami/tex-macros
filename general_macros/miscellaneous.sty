@@ -21,4 +21,28 @@
 
 \def\redteacolour#1{\textcolor{redtea}{#1}}
 
+% redefining author and title style on \maketitle
+\makeatletter
+\xpatchcmd{\@maketitle}
+  {\@title}
+  {\vspace*{-9ex}\fontsize{20}{28}\LARGE\scshape\@title}
+  {}{}
+  \xpatchcmd{\@maketitle}
+  {\@author}
+  {\fontsize{10}{18}\scshape\small\bfseries\@author}
+  {}{}
+\makeatother
+
+% Ensuring date is processed last so that is will be changed if needed
+\let\olddate\date
+\renewcommand{\date}[1]{\AtEndPreamble{\olddate{#1}}}
+
+
+\addto\captionsenglish{\renewcommand*\abstractname{Abstract}}		%Renew abstract name
+
+\AtBeginDocument{
+	\maketitle
+		}
+
+
 

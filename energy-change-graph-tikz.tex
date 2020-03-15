@@ -1,0 +1,73 @@
+\documentclass[border=6pt]{standalone}
+\usepackage{garamondx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepgfplotslibrary{units}
+\usepackage{xcolor}
+\definecolor{redtea}{rgb}{0.6823529412,0.2792156863,0.2666666667}
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\definecolor{darkbyzantium}{rgb}{0.36, 0.4, 0.33}
+\definecolor{darkelectricblue}{rgb}{0.33, 0.41, 0.47}
+\definecolor{deepchestnut}{rgb}{0.73, 0.31, 0.6}
+\definecolor{azuremist}{rgb}{0.94, 1.0, 1.0}
+\usepackage{siunitx}
+\usepackage{changepage}
+\usepackage{calc}
+\pgfplotsset{samples}
+\usepackage{verbatim}
+
+
+\pgfplotsset{ every non boxed x axis/.append style={x axis line style=-}}
+
+
+
+
+\newcommand{\eplot}[6]{
+\addplot[redtea, very thick] coordinates {
+	(#1)
+	(#2)
+};
+\addplot[redtea, very thick] coordinates {
+	(#3)
+	(#4)
+};
+\addplot[redtea, very thick] coordinates {
+	(#5)
+	(#6)
+};
+\addplot[gray, very thick,dotted] coordinates {
+	(#2)
+	(#3)
+};
+\addplot[gray, very thick,dotted] coordinates {
+	(#4)
+	(#5)
+};
+}
+
+
+\begin{document}
+	\begin{tikzpicture}
+	\begin{axis}[
+	width=\linewidth,
+	grid=major,
+	grid style={gray!30},
+	axis lines=middle,
+	xmax=10,
+	xmin=-0,
+	ymin=0,
+	ymax=10,
+	ylabel={\scshape Energy = $E$},
+	xlabel={},
+	xtick={},
+	xticklabels={},
+	ytick={},
+	yticklabels={},
+%	restrict y to domain=-7:12
+	]
+	
+	\eplot{1, 3}{2.5, 3}{4, 7}{5.5, 7}{7, 1}{8.5, 1}
+
+	\end{axis}
+	\end{tikzpicture}
+\end{document}

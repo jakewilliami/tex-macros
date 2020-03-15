@@ -1,0 +1,44 @@
+\documentclass{standalone}
+
+\usepackage{garamondx}
+\usepackage{standalone}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{anyfontsize}
+
+\newcommand{\atom}[2]{
+\node[#2](){\textcolor{white}{\fontsize{60}{50}\selectfont #1}};
+}
+\newcommand{\smallatom}[2]{
+	\node[#2](){\textcolor{white}{\fontsize{40}{30}\selectfont #1}};
+}
+\newcommand{\vsmallatom}[2]{
+	\node[#2](){\textcolor{white}{\fontsize{30}{20}\selectfont #1}};
+}
+
+
+\begin{document}
+	
+\includegraphics{dimer_fig.pdf}
+
+\begin{tikzpicture}[overlay, remember picture]
+\vsmallatom{F3}{xshift=-40cm,yshift=15.5cm}
+\atom{F2}{xshift=-43cm,yshift=7.5cm}
+\atom{F1}{xshift=-45.5cm,yshift=16.7cm}
+\atom{C1}{xshift=-40.5cm,yshift=12.7cm}
+\atom{C2}{xshift=-33.5cm,yshift=12.5cm}
+\atom{O2}{xshift=-31.1cm,yshift=7.7cm}
+\atom{O1}{xshift=-31.3cm,yshift=18cm}
+\smallatom{H1}{xshift=-26.8cm,yshift=17.6cm}
+
+\vsmallatom{F6}{xshift=-9.5cm,yshift=7.5cm}
+\atom{F5}{xshift=-7cm,yshift=16cm}
+\atom{F4}{xshift=-4cm,yshift=7cm}
+\atom{C3}{xshift=-9.2cm,yshift=10.7cm}
+\atom{C4}{xshift=-16.2cm,yshift=11cm}
+\atom{O4}{xshift=-19cm,yshift=15.6cm}
+\atom{O3}{xshift=-18.5cm,yshift=5.6cm}
+\smallatom{H2}{xshift=-23cm,yshift=5.8cm}
+\end{tikzpicture}
+	
+\end{document}

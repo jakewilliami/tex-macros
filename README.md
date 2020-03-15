@@ -11,6 +11,14 @@ cd ${HOME} && \
 git clone https://github.com/jakewilliami/tex-macros.git
 ```
 
+Now try it out!
+```
+chmod u+x ${HOME}/tex-macros/mktex && \
+cd ${HOME}/Documents/ && \
+mkdir test && \
+mktex -c test
+```
+
 I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory.  To get the former, you can simply run the following in any desired directory (with the knowledge you will be downloading a binary file):
 ```
 curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/pytex > pytex && \

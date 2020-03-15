@@ -11,12 +11,26 @@ cd ${HOME} && \
 git clone https://github.com/jakewilliami/tex-macros.git
 ```
 
-I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory, as well as [pythontex](https://github.com/gpoore/pythontex/) to integrate python into LaTeX.  To get the former, you can simply run the following in any desired directory (with the knowledge you will be downloading a binary file):
+I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory.  To get the former, you can simply run the following in any desired directory (with the knowledge you will be downloading a binary file):
 ```
 curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/pytex > pytex && \
 chmod u+x pytex && \
 ./pytex -h
 ```
+
+## Plots, Flow Charts, Dot Graphs, and Figures
+
+Flow charts are easy enough to make with TiKz.  We are okay here.  Some plots are also okay to make in TiKz; see examples.
+
+For graph theory, I tend to use [GraphViz](https://www.graphviz.org/).  Of course, nothing can beat TiKz sometimes, but for help with transfering `.dot` files into TeX, run
+```
+curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/mkgraph > mkgraph && \
+chmod u+x mkgraph && \
+./mkgraph -h
+```
+TeX macros are currently being developed for dot-graphs, flow charts, plots, and general figures.  I find that TiKz is a steep learning curve, so have patience with me...
+
+Another option specific to plotting is to use [Python](https://www.python.org/).  For integration of Python into LaTeX, see [pythontex](https://github.com/gpoore/pythontex/), a tool that allows python code *within* a LaTeX document.  See also [tikzplotlib](https://github.com/nschloe/tikzplotlib) for transfering python graphs to TiKz.  If this is not producing great results, try exporting as pdf from [matplotlib](https://matplotlib.org/tutorials/text/pgf.html) directly.
 
 
 ## Usage

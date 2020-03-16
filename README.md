@@ -20,6 +20,7 @@ Simply run
 ```
 cd ${HOME} && \
 git clone https://github.com/jakewilliami/tex-macros.git && \
+export PATH=$PATH:${HOME}/tex-macros && \
 for i in ${HOME}/tex-macros/*
 do
   if [[ -f ${i} && -x ${i} ]]

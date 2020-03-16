@@ -66,11 +66,23 @@ echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and MacTeX apps/tools instal
 
 On my Arch machine I ran
 ```
-sudo pacman -S texmaker texlive-most && \
+sudo pacman -S texlive-most texmaker && \
 echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
 ```
 
-To get the font Garamond, I ran on an Unix machine
+On my Fedora machine I ran
+```
+sudo dnf install texlive-scheme-full texmaker && \
+echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
+```
+
+On my Debian machine I ran
+```
+sudo apt install texlive-full texmaker texmaker-data && \
+echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
+```
+
+To get the font Garamond on any Unix machine, I ran:
 ```
 cd /tmp && \
 curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \

@@ -2,6 +2,17 @@
 
 This repository will show the progression of my macros used on LaTeX, in order to **a)** keep track of history of my macros, and **b)** extend my (currently limited) knowledge of Git and GitHub.  I hope that this provides good coding practice for any future coding-related endeavours.
 
+
+## Contents
+
+- [LaTeX Macros](#latex-macros)
+- [Contents](#contents)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Obtaining LaTeX and GaramondX](#obtaining-latex-and-garamondx)
+- [Plots, Flow Charts, Dot Graphs, and Figures](#plots-flow-charts-dot-graphs-and-figures)
+- [Version History](#version-history)
+
 ---
 
 ## Installation
@@ -25,21 +36,6 @@ curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/pytex > 
 chmod u+x pytex && \
 ./pytex -h
 ```
-
-## Plots, Flow Charts, Dot Graphs, and Figures
-
-Flow charts are easy enough to make with TiKz.  We are okay here.  Some plots are also okay to make in TiKz; see examples.
-
-For graph theory, I tend to use [GraphViz](https://www.graphviz.org/).  Of course, nothing can beat TiKz sometimes, but for help with transfering `.dot` files into TeX, run
-```
-curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/mkgraph > mkgraph && \
-chmod u+x mkgraph && \
-./mkgraph -h
-```
-TeX macros are currently being developed for dot-graphs, flow charts, plots, and general figures.  I find that TiKz is a steep learning curve, so have patience with me...
-
-Another option specific to plotting is to use [Python](https://www.python.org/).  For integration of Python into LaTeX, see [pythontex](https://github.com/gpoore/pythontex/), a tool that allows python code *within* a LaTeX document.  See also [tikzplotlib](https://github.com/nschloe/tikzplotlib) for transfering python graphs to TiKz.  If this is not producing great results, try exporting as pdf from [matplotlib](https://matplotlib.org/tutorials/text/pgf.html) directly.
-
 
 ## Usage
 See `mktex -h`.
@@ -82,6 +78,34 @@ sudo getnonfreefonts --sys --all && \
 cd ${HOME} && \
 echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m" && \
 ```
+
+### Plots, Flow Charts, Dot Graphs, and Figures
+
+ - **Flow Charts**
+ Flow charts are easy enough to make with TiKz.  We are okay here.  Some plots are also okay to make in TiKz; see examples.
+
+ - **Dot Graphs**
+ For graph theory, I tend to use [GraphViz](https://www.graphviz.org/).  Of course, nothing can beat TiKz sometimes, but for help with transfering `.dot` files into TeX, run
+```
+curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/mkgraph > mkgraph && \
+chmod u+x mkgraph && \
+./mkgraph -h
+```
+
+ - **Plots**
+ Another option specific to plotting is to use [Python](https://www.python.org/).  For integration of Python into LaTeX, see [pythontex](https://github.com/gpoore/pythontex/), a tool that allows python code *within* a LaTeX document.  See also [tikzplotlib](https://github.com/nschloe/tikzplotlib) for transfering python graphs to TiKz.  If this is not producing great results, try exporting as pdf from [matplotlib](https://matplotlib.org/tutorials/text/pgf.html) directly.
+ One such plot I have made a script for are [Slope Fields](https://www.wikiwand.com/en/Slope_field).  For installation of this script, run
+ ```
+curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/mksfield > mksfield && \
+chmod u+x mksfield && \
+./mksfield -h
+```
+ 
+ - ***Figures*
+ Please see examples for some figures.
+ 
+ 
+ TeX macros are currently being developed for dot-graphs, flow charts, plots, and general figures.  I find that TiKz is a steep learning curve, so have patience with me...
 
 ### Version History
 

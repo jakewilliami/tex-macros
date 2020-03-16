@@ -19,7 +19,14 @@ This repository will show the progression of my macros used on LaTeX, in order t
 Simply run
 ```
 cd ${HOME} && \
-git clone https://github.com/jakewilliami/tex-macros.git
+git clone https://github.com/jakewilliami/tex-macros.git && \
+for i in ${HOME}/tex-macros/*
+do
+  if [[ -f ${i} && -x ${i} ]]
+  then
+    chmod u+x ${i}
+  fi
+done
 ```
 
 Now try it out!
@@ -30,12 +37,7 @@ mkdir test && \
 mktex -c test
 ```
 
-I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory.  To get the former, you can simply run the following in any desired directory (with the knowledge you will be downloading a binary file):
-```
-curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/pytex > pytex && \
-chmod u+x pytex && \
-./pytex -h
-```
+I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory.  To get the former, you can simply run the following in any desired directory: `pytex -h`.
 
 ## Usage
 See `mktex -h`.
@@ -58,18 +60,16 @@ echo -e "\u001b[1;38;5;2mHomebrew installed successfully.\u001b[0;38m" && \
 brew install cask && \
 echo -e "\u001b[1;38;5;2mHomebrew cask installed successfully.\u001b[0;38m" && \
 brew cask install mactex && \
-echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and MacTeX apps/tools installed successfully.\u001b[0;38m" && \
-chmod u+x mktex
+echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and MacTeX apps/tools installed successfully.\u001b[0;38m"
 ```
 
 On my Arch machine I ran
 ```
 sudo pacman -S texmaker texlive-most && \
-echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m" && \
-chmod u+x mktex
+echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
 ```
 
-To get the font Garamond, I ran
+To get the font Garamond, I ran on an Unix machine
 ```
 cd /tmp && \
 curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
@@ -85,21 +85,11 @@ echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
  Flow charts are easy enough to make with TiKz.  We are okay here.  Some plots are also okay to make in TiKz; see examples.
 
  - **Dot Graphs&mdash;**
- For graph theory, I tend to use [GraphViz](https://www.graphviz.org/).  Of course, nothing can beat TiKz sometimes, but for help with transfering `.dot` files into TeX, run
-```
-curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/mkgraph > mkgraph && \
-chmod u+x mkgraph && \
-./mkgraph -h
-```
+ For graph theory, I tend to use [GraphViz](https://www.graphviz.org/).  Of course, nothing can beat TiKz sometimes, but for help with transfering `.dot` files into TeX, run `mkgraph -h`.
 
  - **Plots&mdash;**
  Another option specific to plotting is to use [Python](https://www.python.org/).  For integration of Python into LaTeX, see [pythontex](https://github.com/gpoore/pythontex/), a tool that allows python code *within* a LaTeX document.  See also [tikzplotlib](https://github.com/nschloe/tikzplotlib) for transfering python graphs to TiKz.  If this is not producing great results, try exporting as pdf from [matplotlib](https://matplotlib.org/tutorials/text/pgf.html) directly.
- One such plot I have made a script for are [Slope Fields](https://www.wikiwand.com/en/Slope_field).  For installation of this script, run
- ```
-curl https://raw.githubusercontent.com/jakewilliami/scripts/master/bash/mksfield > mksfield && \
-chmod u+x mksfield && \
-./mksfield -h
-```
+ One such plot I have made a script for are [Slope Fields](https://www.wikiwand.com/en/Slope_field).  For installation of this script, run `mksfield -h`.
  
  - **Figures&mdash;**
  Please see examples for some figures.

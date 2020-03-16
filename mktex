@@ -40,6 +40,7 @@ check_dir_spec() {
 
 # Build templte
 build_template() {
+# create template!
     check_dir_spec $2 && \
     if [[ "${1}" == 'beamer' ]]
     then
@@ -79,6 +80,20 @@ build_template() {
             mv "${2}/${1}.tex" "${2}/document.tex"
         else
             mv "${2}/${1}.tex" "${2}/${3}.tex"
+        fi
+    fi
+# make name Jake W. Ireland if it's me!
+    if [[ $(whoami) == "jakeireland" ]]
+    then
+        if [[ "${1}" == 'class' ]] || [[ "${1}" == 'classBib' ]]
+        then
+            if [[ -f "${2}/document.tex" ]]
+            then
+                perl -pi -e 's/\\author{}/\\author{Jake W\. Ireland}/g' "${2}/document.tex"
+            elif [[ -f "${2}/${3}.tex" ]]
+            then
+                perl -pi -e 's/\\author{}/\\author{Jake W\. Ireland}/g' "${2}/${3}.tex"
+            fi
         fi
     fi
 }

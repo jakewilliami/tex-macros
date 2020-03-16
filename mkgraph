@@ -1,0 +1,94 @@
+#! /usr/bin/env bash
+
+# define bash directory
+BASH_DIR="${HOME}/scripts/bash/"
+
+# source required scripts
+source "${BASH_DIR}"/dependencies/source-dependencies.sh
+
+# get script dependencies
+is-command-then-install "${PYTHON3}" "${FDUPES}" "${JQ}" dot2tex
+is-library-then-install "${PZIP}"
+
+
+# Help
+display_help() {
+    help_start 'mkgraph [-h] [-pt] [path/to/file.dot]' 'The present script will turn a .dot file made using graphviz into a TeX file and compile as a PDF.'
+    help_commands '-p' '--postscript' '1' 'Compiles a' 'p' 'ostscript' 'file from the dot file.'
+    help_commands '-t' '--tex' '2' 'Creates a' 't' 'ex' 'file from the dot file and compiles a PDF.'
+    help_help '2'
+    clean-exit
+}
+
+
+postscript_make() {
+    if [ -z "${1}" ]
+    then
+        echo "${BYELLOW}This option requires a file name as an argument.${NORM}"
+        clean-exit
+    fi
+    FILENAME="${1%.*}"
+    [ -e "${FILENAME}.ps" ] && rm "${FILENAME}.ps"
+    dot -Tps "${FILENAME}.dot" -o "${FILENAME}.ps" #-Kfdp -n
+    open "${FILENAME}.ps"
+}
+
+
+tex_make() {
+    if [ -z "${1}" ]
+    then
+        echo "${BYELLOW}This option requires a file name as an argument.${NORM}"
+        clean-exit
+    fi
+    FILENAME="${1%.*}"
+    dot2tex --force \
+            --figonly \
+            --usepdflatex\
+            --styleonly \
+            --tikzedgelabels \
+            "${FILENAME}.dot" \
+            --output "${FILENAME}.tex" # --usepdflatex --crop < - use these if inporting pdf
+    echo "${BWHITE}Insert into your TeX document using:${NORM}${ITWHITE} \`\\begin{center}\\input{\"$(PWD)/$(basename ${FILENAME}.tex)\"}\\end{center}\`.${NORM}"
+    [ -e "${FILENAME}.out" ] && rm "${FILENAME}.out"
+    [ -e "${FILENAME}.log" ] && rm "${FILENAME}.log"
+    [ -e "${FILENAME}.aux" ] && rm "${FILENAME}.aux"
+    [ -e "${FILENAME}.pdf.aux" ] && rm "${FILENAME}.pdf.aux"
+}
+
+
+OPTIND=1
+while getopts ":-:hpt" OPTION; do
+        case $OPTION in
+                -)
+                    case $OPTARG in
+                        tex)
+                            tex_make "${2}" ;;
+                        postscript)
+                            postscript_make "${2}" ;;
+                        help)
+                            display_help ;;
+                        *)
+                            opt_err ;;
+                    esac ;;
+                t)
+                    tex_make "${2}" ;;
+                p)
+                    postscript_make "${2}" ;;
+                h)
+                    display_help ;;
+                *)
+                    opt_err ;;
+        esac
+done
+
+
+# List if no options parsed
+if [[ -z $1 ]]
+then
+    opt_err_none
+    clean-exit
+fi
+
+
+# Clean up
+clean-exit

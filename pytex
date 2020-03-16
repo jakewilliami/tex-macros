@@ -1,0 +1,64 @@
+#! /usr/bin/env bash
+
+# https://github.com/gpoore/pythontex
+# https://github.com/marcuswhybrow/texshop-pdflatex
+
+# define bash directory
+BASH_DIR="${HOME}/scripts/bash/"
+
+# source required scripts
+source "${BASH_DIR}"/dependencies/source-dependencies.sh
+
+# get script dependencies
+is-command-then-install "${PYTHON3}"
+
+if [[ ! -f /Library/TeX/texbin/pythontex || ! -d /usr/local/texlive/2019/texmf-dist/scripts/pythontex ]]
+then
+    echo "${BRED}Please install pythontex as it is required to use python within LaTeX.  See gpoore/pythontex on GitHub.${NORM}"
+    clean-exit
+fi
+
+# Help
+display_help() {
+    help_start 'pytex [-h] [path/to/file.tex]' 'The present script will compile a .tex file with embedded python code.'
+    # help_commands '-p' '--postscript' '1' 'Compiles a' 'p' 'ostscript' 'file from the dot file.'
+    # help_commands '-t' '--tex' '2' 'Creates a' 't' 'ex' 'file from the dot file and compiles a PDF.'
+    help_help '2'
+    clean-exit
+}
+
+# compile with pythontex, pushing temporary files to /tmp/
+pycompile() {
+    FILENAME="${1%.*}"
+    pdflatex -interaction=nonstopmode "${FILENAME}.tex"
+    /usr/local/texlive/2019/texmf-dist/scripts/pythontex/pythontex3.py "${FILENAME}.tex"
+    pdflatex -interaction=nonstopmode "${FILENAME}.tex"
+    open "${FILENAME}.pdf"
+}
+
+
+OPTIND=1
+while getopts ":-:h" OPTION; do
+        case $OPTION in
+                -)
+                    case $OPTARG in
+                        help)
+                            display_help ;;
+                        *)
+                            opt_err ;;
+                    esac ;;
+                h)
+                    display_help ;;
+                *)
+                    opt_err ;;
+        esac
+done
+
+
+# if no options passed
+pycompile "${1}"
+clean-exit
+
+
+# Clean up
+clean-exit

@@ -1,0 +1,106 @@
+#! /bin/bash
+# script to make slope field!
+
+# define bash directory
+BASH_DIR="${HOME}"/scripts/bash/
+SLOPE_TEMPLATE="${HOME}/tex-macros/templates/figures/slope-field.tex"
+
+# source required scripts
+source ${BASH_DIR}/dependencies/source-dependencies.sh
+
+if [ ! -d "${HOME}/" ]
+then
+    mkdir -p "${HOME}/tex-macros/templates/figures/"
+fi
+
+if [ ! -f "${HOME}/tex-macros/templates/figures/slope-field.tex" ]
+then
+    curl https://raw.githubusercontent.com/jakewilliami/tex-macros/master/templates/figures/slope-field.tex > "${HOME}/tex-macros/~/tex-macros/templates/figures/slope-field.tex"
+fi
+
+
+# Help
+display_help() { #Displays help
+    help_start 'mksfield [option...] [dir] [input_eqn]' 'The present script will create a slope field in TiKz using a given equation.'
+    # help_commands '-c' '--commit-count' '1' 'Prints the current' 'c' 'ommit count' 'on working branch in the past 24 hours'
+    help_help '2'
+    help_examples 'Please be sure that the input_eqn is in computer-friendly form.  I.e., write `2y+4` as `2*y+4`, etc.'
+    clean-exit
+}
+
+
+INPUT_EQN="${2}"
+INPUT_DIR="${1}" ### Consider having input formated computer-friendly, and sed-ing out the astrixes
+make_field() {
+    echo -e "${BBLUE}===>${NORM}${BWHITE}\tCopying slope field template to input ${INPUT_DIR}/ ${NORM}"
+    if [ "${1}" == '.' ]
+    then
+        ABS_PATH="$(cd "$(dirname "${INPUT_DIR}")"; pwd)/"""
+    else
+        ABS_PATH="${INPUT_DIR}"
+    fi
+    EQN_PROCESSED=$(echo "${INPUT_EQN}" | sed 's/\*//g')
+    if [ ! -f "${ABS_PATH}/slope-field.tex" ]
+    then
+        cp "${SLOPE_TEMPLATE}" "${INPUT_DIR}/"
+    else
+        echo -e "${BYELLOW}===>${NORM}${ITYELLOW}\tOverwriting ${ABS_PATH}/slope-field.tex.  Press control + C within five seconds to cancel.${NORM}" && \
+        sleep 5
+        rm "${INPUT_DIR}/slope-field.tex" && \
+        rm "${INPUT_DIR}/slope-field.pdf" > /dev/null
+        cp "${SLOPE_TEMPLATE}" "${INPUT_DIR}/"
+    fi
+    echo -e "${BBLUE}===>${NORM}${BWHITE}\tCompiling PDF from given equation. ${NORM}"
+    perl -pi -e "s/:::myEquation:::/${EQN_PROCESSED}/g" "${ABS_PATH}/slope-field.tex"
+    perl -pi -e "s/:::computerFriendlyEquation:::/${INPUT_EQN}/g" "${ABS_PATH}/slope-field.tex"
+    if [ ! -f "/Library/TeX/Root/bin/pdflatex.py" ]
+    then
+        cd "${ABS_PATH}/" || clean-exit
+        pdflatex "slope-field.tex"
+        cd - > /dev/null
+    else
+        cd "${ABS_PATH}/" || clean-exit
+        /Library/TeX/Root/bin/pdflatex.py "slope-field.tex"
+        cd - > /dev/null
+    fi
+    open "${ABS_PATH}/slope-field.pdf"
+    echo -e "${BBLUE}===>${NORM}${BWHITE}\tCreating slope-field-code-only.tex.  Input via the following:${NORM}"
+    echo -e "\t\t${ITWHITE}\\\begin{center}\\input{\"${ABS_PATH}/slope-field-code-only.tex\"}\\end{center}${NORM}"
+    LINE_COUNT_TEX_FILE=$(wc -l "${ABS_PATH}/slope-field.tex" | awk '{print $1}')
+    LINE_PICTURE_ENDS_AT="82"
+    LINE_PICTURE_STARTS_AT="48"
+    head -n "${LINE_PICTURE_ENDS_AT}" "${ABS_PATH}/slope-field.tex" | tail -n "$((${LINE_COUNT_TEX_FILE}-${LINE_PICTURE_STARTS_AT}))" > "${ABS_PATH}/slope-field-code-only.tex"
+}
+
+
+
+
+# Options
+while getopts ":-:h" OPTION
+do
+        case $OPTION in
+                -)  #Long options for bash (without GNU)
+                    case $OPTARG in
+                        help)
+                            display_help ;;
+                        *)
+                            opt_err ;;
+                    esac ;;
+                h)
+                    display_help ;;
+                *)
+                    opt_err ;;
+        esac
+done
+
+
+# if no options passed
+if [ $OPTIND -eq 1 ]
+then
+    make_field
+fi
+shift $((OPTIND-1))
+
+
+# Clean up
+clean-exit

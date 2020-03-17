@@ -48,6 +48,11 @@ Two directories exist in this repository:
 1) One directory for general macros for everyday use, with my favourite font (Garamond; see below for how to obtain on a Mac).  This directory has a sub-style sheet for bibliography (called `tea_hyperlinks_and_references_cite.sty`).  Ensure you have a `references.bib` in your working directory for this style sheet.  Note that, using TeXShop, I have added the line `% !TEX TS-program = pdflatex` at the top of the template.  We can also use `pdflatexmk` for our bibliography class.  Just as importantly, in this directory is the `class` subdirectory, which reads files from its parent to
 2) We also have a directory for some templates using these, which `mktex` references, as well as some some `beamer` stuff in this directory.
 
+I have configured TeXShop: press `⌘` + `,` and click on the `Engine` tab.  In the `pdflatex` box, I have
+```
+/Library/TeX/Root/bin/pdflatex.py --file-line-error --synctex=1
+```
+
 Happy LaTeX-ing!
 
 ---

@@ -90,7 +90,7 @@ To get the font Garamond on any Unix machine, I ran:
 cd /tmp && \
 curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
 sudo texlua install-getnonfreefonts && \
-sudo getnonfreefonts --sys --all && \
+sudo getnonfreefonts --sys --force --all && \
 cd - > /dev/null && \
 echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
 ```

@@ -114,9 +114,7 @@ echo -e "\u001b[1;38;5;2mFont \`pdflatex.py\` installed successfully.\u001b[0;38
 
  - **Plots&mdash;**
  Another option specific to plotting is to use [Python](https://www.python.org/).  For integration of Python into LaTeX, see [pythontex](https://github.com/gpoore/pythontex/), a tool that allows python code *within* a LaTeX document.  See also [tikzplotlib](https://github.com/nschloe/tikzplotlib) for transfering python graphs to TiKz.  If this is not producing great results, try exporting as pdf from [matplotlib](https://matplotlib.org/tutorials/text/pgf.html) directly.
- One such plot I have made a script for are [Slope Fields](https://www.wikiwand.com/en/Slope_field).  For installation of this script, run `mksfield -h`.
- 
-I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory.  To get the former (pythontex), you can simply run the following in any desired directory: `pytex -h`.
+ One such plot I have made a script for are [Slope Fields](https://www.wikiwand.com/en/Slope_field).  For installation of this script, run `mksfield -h`.  I also downloaded [pdflatex.py](https://github.com/marcuswhybrow/texshop-pdflatex) for removal of auxilary files to a temporary directory.  To get the former (pythontex), you can simply run the following in any desired directory: `pytex -h`.
  
  - **Figures&mdash;**
  Please see examples for some figures.

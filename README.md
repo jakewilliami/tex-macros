@@ -101,7 +101,7 @@ cd /Library/TeX/Root/bin/ && \
 curl https://raw.githubusercontent.com/marcuswhybrow/texshop-pdflatex/master/pdflatex.py | sudo tee pdflatex.py > /dev/null && \
 sudo chmod +x /Library/TeX/Root/bin/pdflatex.py && \
 cd - > /dev/null && \
-echo -e "\u001b[1;38;5;2mFont \`pdflatex.py\` installed successfully.\u001b[0;38m"
+echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatex.py\` installed successfully.\u001b[0;38m"
 ```
 
 ### Plots, Flow Charts, Dot Graphs, and Figures

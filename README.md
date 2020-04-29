@@ -9,7 +9,7 @@ This repository will show the progression of my macros used on LaTeX, in order t
 - [Contents](#contents)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Obtaining LaTeX and GaramondX](#obtaining-latex-garamondx-and-pdflatex.py)
+- [Obtaining LaTeX, GaramondX, and PDFLaTeX.py](#obtaining-latex-garamondx-and-pdflatex.py)
 - [Plots, Flow Charts, Dot Graphs, and Figures](#plots-flow-charts-dot-graphs-and-figures)
 - [Version History](#version-history)
 

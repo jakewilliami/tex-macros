@@ -40,12 +40,11 @@ tex_make() {
         echo "${BYELLOW}This option requires a file name as an argument.${NORM}"
         clean-exit
     fi
-    FILENAME="${1%.*}"
+    FILENAME="${1%.*}" # --figonly \             --nodeoptions='every node/.style={text width=2cm, text centered, rounded corners, fill=black!10}' \ # -f tikz \ node[above left] --tikzedgelabels \
     dot2tex --force \
-            --figonly \
             --usepdflatex\
             --styleonly \
-            --tikzedgelabels \
+            --nodeoptions="xshift=-1em" \
             "${FILENAME}.dot" \
             --output "${FILENAME}.tex" # --usepdflatex --crop < - use these if inporting pdf
     echo "${BWHITE}Insert into your TeX document using:${NORM}${ITWHITE} \`\\begin{center}\\input{\"$(PWD)/$(basename ${FILENAME}.tex)\"}\\end{center}\`.${NORM}"

@@ -3,7 +3,7 @@
 
 BASH_DIR="${HOME}/scripts/bash/"
 WORK_DIR="${HOME}/Desktop/Assorted Personal Documents/Work/"
-MACROS_DIR="${HOME}/tex-macros/tea_templates/time-sheet/"
+MACROS_DIR="${HOME}/tex-macros/templates/time-sheet/"
 
 cd "${WORK_DIR}" || exit $?
 

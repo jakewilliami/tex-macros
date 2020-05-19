@@ -1,4 +1,4 @@
-% !TEX TS-program = pdflatex
+% !TEX TS-program = pdflatexmk
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{arteacleBib}[A LaTeX Article Class of Teagoslavia]
 

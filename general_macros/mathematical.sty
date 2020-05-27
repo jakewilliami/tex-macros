@@ -128,5 +128,10 @@
 	\end{tikzpicture}\hspace{1pt}
 }
 
-\def\curly#1{\left\{#1\right\}}
+\def\curly#1{\ensuremath{\left\{#1\right\}}}
 
+\def\squares#1{\ensuremath{\left[#1\right]}}
+
+\def\laplace#1{\ensuremath{\mathcal{L}\left\{#1\right\}\left(s\right)}}
+
+\def\invlaplace#1{\ensuremath{\mathcal{L}^{-1}\left\{#1\right\}\left(s\right)}}

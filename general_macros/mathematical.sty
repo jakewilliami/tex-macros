@@ -11,6 +11,7 @@
 \usepackage{blkarray}%required for the \blockarray commands
 \usepackage{pythontex} % REQUIRES -interaction=nonstopmode
 \usepackage{pgfplots}
+\usepackage{dutchcal} % makes mathcal look much nicer
 
 \pgfplotsset{compat = newest}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
@@ -135,3 +136,31 @@
 \def\laplace#1{\ensuremath{\mathcal{L}\left\{#1\right\}\left(s\right)}}
 
 \def\invlaplace#1{\ensuremath{\mathcal{L}^{-1}\left\{#1\right\}\left(s\right)}}
+
+\definecolor{ForestGreen}{rgb}{0.133, 0.545, 0.133}
+
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while,\@variable,\@constraint,\@show,ustrip,println,Polynomial},%
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{%
+    language         = Julia,
+    basicstyle       = \ttfamily,
+    keywordstyle     = \bfseries\color{blue},
+    stringstyle      = \color{magenta},
+    commentstyle     = \color{ForestGreen},
+    showstringspaces = false,
+}
+
+\def\lxor{\veebar}
+
+\def\vect#1{\ensuremath{\boldsymbol{#1}}}

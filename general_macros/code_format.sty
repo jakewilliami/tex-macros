@@ -1,0 +1,38 @@
+
+\definecolor{ForestGreen}{rgb}{0.133, 0.545, 0.133}
+\definecolor{WhatZoeReckonsIsEmeraldGreen}{rgb}{0.490196078,0.698039216,0.270588235}
+\definecolor{JuliaPink}{rgb}{0.654901961,0.607843137,0.756862745}
+\definecolor{MyTurquoise}{rgb}{0.380392157,0.615686275,0.658823529}
+
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   morekeywords = [2]{julia},
+   morekeywords = [3]{\@variable,\@constraint,\@show,ustrip,println,Polynomial,apart,print,\@vars,binomial,factorial},
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{
+	backgroundcolor=\color{gray!20},%
+    numbers=left, numberstyle=\tiny\selectfont\fontfamily{garamondx}\textosfI, stepnumber=2, numbersep=5pt,%
+    }
+
+\lstset{%
+     language         = Julia,
+     basicstyle       = \ttfamily,
+     keywordstyle     = \bfseries\color{JuliaPink},
+     stringstyle      = \color{magenta},
+     commentstyle     = \color{ForestGreen},
+     showstringspaces = false,
+     keywordstyle     = [2]{\bfseries\color{WhatZoeReckonsIsEmeraldGreen}},
+     keywordstyle     = [3]{\bfseries\color{MyTurquoise}},
+}
+
+

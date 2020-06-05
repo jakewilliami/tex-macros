@@ -1,0 +1,11 @@
+~/tex-macros/general_macros/general_typesetting.sty
+~/tex-macros/general_macros/hyperlinks_and_references.sty
+~/tex-macros/general_macros/figures.sty
+~/tex-macros/general_macros/tables.sty
+~/tex-macros/general_macros/table_of_x.sty
+~/tex-macros/general_macros/footnotes.sty
+~/tex-macros/general_macros/lists.sty
+~/tex-macros/general_macros/mathematical.sty
+~/tex-macros/general_macros/code_format.sty
+~/tex-macros/general_macros/chemical.sty
+~/tex-macros/general_macros/miscellaneous.sty

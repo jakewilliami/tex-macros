@@ -13,5 +13,6 @@
 \input{\string~/tex-macros/general_macros/footnotes.sty}
 \input{\string~/tex-macros/general_macros/lists.sty}
 \input{\string~/tex-macros/general_macros/mathematical.sty}
+\input{\string~/tex-macros/general_macros/code_format.sty}
 \input{\string~/tex-macros/general_macros/chemical.sty}
 \input{\string~/tex-macros/general_macros/miscellaneous.sty}

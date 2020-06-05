@@ -11,7 +11,8 @@
 \usepackage{blkarray}%required for the \blockarray commands
 \usepackage{pythontex} % REQUIRES -interaction=nonstopmode
 \usepackage{pgfplots}
-\usepackage{dutchcal} % makes mathcal look much nicer
+\usepackage{dutchcal} % makes mathcal look much nicer; allows mathcal to be lower case
+%\usepackage{nicematrix}
 
 \pgfplotsset{compat = newest}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
@@ -137,30 +138,22 @@
 
 \def\invlaplace#1{\ensuremath{\mathcal{L}^{-1}\left\{#1\right\}\left(s\right)}}
 
-\definecolor{ForestGreen}{rgb}{0.133, 0.545, 0.133}
 
-\lstdefinelanguage{Julia}%
-  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
-      end,export,false,for,function,immutable,import,importall,if,in,%
-      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
-      using,while,\@variable,\@constraint,\@show,ustrip,println,Polynomial},%
-   sensitive=true,%
-   alsoother={$},%
-   morecomment=[l]\#,%
-   morecomment=[n]{\#=}{=\#},%
-   morestring=[s]{"}{"},%
-   morestring=[m]{'}{'},%
-}[keywords,comments,strings]%
-
-\lstset{%
-    language         = Julia,
-    basicstyle       = \ttfamily,
-    keywordstyle     = \bfseries\color{blue},
-    stringstyle      = \color{magenta},
-    commentstyle     = \color{ForestGreen},
-    showstringspaces = false,
-}
 
 \def\lxor{\veebar}
 
-\def\vect#1{\ensuremath{\boldsymbol{#1}}}
+\def\vect#1{\ensuremath{\mathbf{\boldsymbol{#1}}}}
+
+\newcommand{\rrefarrow}[2]{\hspace*{1em}\myrightarrow{#1}{#2}\hspace*{1em}}
+
+\def\ker#1{\ensuremath{\mathcal{ker}#1}}
+\def\range#1{\ensuremath{\text{Range}#1}}
+\def\dim#1{\ensuremath{\text{dim}\paren{#1}}}
+\def\rank#1{\ensuremath{\text{Rank}#1}}
+\def\isomorph{\ensuremath{\cong}}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{% <---- BEWARE
+            \node[shape=circle,draw=redtea,inner sep=2pt] (char) {#1};}}
+
+\newcommand\permute[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\combination[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}

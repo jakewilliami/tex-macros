@@ -4,7 +4,7 @@
 \usepackage{tikz}
 \usepgfplotslibrary{units}
 \usepackage{filecontents}
-\begin{filecontents*}{data}
+\begin{filecontents*}{data.dat}
 Wavelength (nm),Absorbance (AU)
 190,0.200946331
 191,0.185967445
@@ -421,7 +421,7 @@ y unit=,
 legend style={at={(0.5,-0.2)},anchor=north},
 x tick label style={rotate=90,anchor=east},
 ]
-\addplot[redtea] table [smooth,col sep=comma,x=Wavelength (nm), y=Absorbance (AU),mark=none] {data};
+\addplot[redtea] table [smooth,col sep=comma,x=Wavelength (nm), y=Absorbance (AU),mark=none] {data.dat};
 \end{axis}
 \end{tikzpicture}
 \end{document}

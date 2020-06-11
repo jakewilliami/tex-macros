@@ -94,6 +94,11 @@ sudo getnonfreefonts --sys --force --all && \
 cd - > /dev/null && \
 echo -e "\u001b[1;38;5;2mFont \`garamondx\` installed successfully.\u001b[0;38m"
 ```
+It should be noted that I have had issues with Garamondx on Arch particularly.  It works, and then I get the error `/usr/share/texmf-dist/tex/latex/filehook-scrlfile.sty Error; ! Package filehook Error: Detected 'scrlfile' package with unknown definition of \InputFileExists.  Use the 'force' option of 'filehook' to overwrite it.`  Here are some potential fixes:
+- Simply reinstalling `garamondx` may work, though this is annoying.  
+- It looks like this error is actually from the (`chemmacros`)[https://tex.stackexchange.com/questions/512189/problem-with-chemmacros-beamer-and-filehook-scrlfile-sty] package; adding `\PassOptionsToPackage{force}{filehook}` to your preamble (**before adding everything else**).  
+- Ensure you are running the correct version of TeXLive if all else fails.
+I don't think this is a problem with arch, I think this is a problem with my system. 
 
 To get PDFLaTeX.py installed, run the following:
 ```

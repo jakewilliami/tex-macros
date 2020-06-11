@@ -2,3 +2,16 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{multirow}
+\usepackage{rotating}
+\usepackage{makecell}
+
+\usepackage{enumitem,booktabs,cfr-lm}
+\usepackage[referable]{threeparttablex}
+\renewlist{tablenotes}{enumerate}{1}
+\makeatletter
+\setlist[tablenotes]{label=\tnote{\alph*},ref=\alph*,itemsep=\z@,topsep=\z@skip,partopsep=\z@skip,parsep=\z@,itemindent=\z@,labelindent=\tabcolsep,labelsep=.2em,leftmargin=*,align=left,before={\footnotesize}}
+\makeatother
+
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+
+\renewcommand\theadfont{\normalsize}

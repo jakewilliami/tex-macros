@@ -51,7 +51,7 @@ display_help() {
 # get kernel- and os-specific dependencies
 case $KERNEL in
     Darwin)
-        is-library-then-install "${GREP_PACKAGE}"
+        is-library-then-install "${GREP_PACKAGE}" "${COREUTILS}"
         OPEN_COMMAND="open"
         ;;
     Linux)

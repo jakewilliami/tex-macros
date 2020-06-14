@@ -157,3 +157,33 @@
 
 \newcommand\permute[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
 \newcommand\combination[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\def\z{\mathcal{z}}
+
+\newcommand{\restricts}[1]{\ensuremath{\divides_{_{#1}}}}
+
+\def\numbers{\ensuremath{\mathds{F}}}
+\def\span#1{\ensuremath{\text{span}\paren{#1}}}	
+\def\dim#1{\ensuremath{\text{dim}\paren{#1}}}
+
+\usepackage[toc]{multitoc}
+\renewcommand*{\multicolumntoc}{2}
+\setlength{\columnseprule}{0.5pt}
+
+\usepackage{dutchcal}
+\def\ker#1{\ensuremath{\mathcal{ker}#1}}
+\def\range#1{\ensuremath{\text{Range}#1}}
+
+\usetikzlibrary{arrows}
+
+\def\mylongmapsto#1{%
+	\hspace{1pt}\begin{tikzpicture}
+	\draw (0,0.5mm) -- (0,-0.5mm);
+	\newlength\mylength
+	\setlength{\mylength}{\widthof{#1}}
+	\draw[->,>=angle 90,line width=0.5pt] (0,0) -- (1.2\mylength,0) node[midway] {#1};
+	\end{tikzpicture}\hspace{1pt}
+}
+
+\newcommand{\vnisomorph}{\rotatebox[origin=c]{-90}{\isomorph}}
+\newcommand{\vpisomorph}{\rotatebox[origin=c]{90}{\isomorph}}

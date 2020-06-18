@@ -16,7 +16,7 @@ display_help() {
     echo
     echo -e "${BBLUE}\t -g | --general\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}g${BYELLOW}eneral${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -c | --class\t\t${BYELLOW}Chooses the general template via the ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
-    echo -e "${BBLUE}\t -C | --classBib\t${BYELLOW}Chooses the general template via the citations ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
+    echo -e "${BBLUE}\t -C | --classBib\t${BYELLOW}[DEPRECATED] Chooses the general template via the citations ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
     echo -e "${BBLUE}\t -f | --figure\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}f${BYELLOW}igure${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -b | --beamer\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
     echo -e "${BBLUE}\t -B | --bib\t\t${BYELLOW}Creates a ${ULINE}${BBLUE}B${BYELLOW}ibliography${NORM}${BYELLOW} file named \`references.bib\` in a given directory.${NORM}"
@@ -65,27 +65,12 @@ build_template() {
         fi
     elif [[ "${1}" == 'classBib' ]]
     then
-        cp -r "${CLASS_DIR}/arteacleBib.cls" "${2}/"
-        cp "${TEMPLATES_DIR}/template_Class_Bib_Typesetting.tex" "${2}/"
-        if [[ -z $3 ]]
-        then
-            mv "${2}/template_Class_Bib_Typesetting.tex" "${2}/document.tex"
-        else
-            mv "${2}/template_Class_Bib_Typesetting.tex" "${2}/${3}.tex"
-        fi
-    else
-        cp "${TEMPLATES_DIR}/${1}.tex" "${2}/" && \
-        if [[ -z $3 ]]
-        then
-            mv "${2}/${1}.tex" "${2}/document.tex"
-        else
-            mv "${2}/${1}.tex" "${2}/${3}.tex"
-        fi
+        echo -e "${BYELLOW}This option is deprecated.  See the \`bib-apa\` for the arteacle class.${NORM}"
     fi
 # make name Jake W. Ireland if it's me!
     if [[ $(whoami) == "jakeireland" ]]
     then
-        if [[ "${1}" == 'class' ]] || [[ "${1}" == 'classBib' ]]
+        if [[ "${1}" == 'class' ]]
         then
             if [[ -f "${2}/document.tex" ]]
             then

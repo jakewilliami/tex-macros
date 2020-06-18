@@ -103,7 +103,7 @@ I don't think this is a problem with arch, I think this is a problem with my sys
 To get PDFLaTeX.py installed, run the following:
 ```
 cd /Library/TeX/Root/bin/ && \
-curl https://raw.githubusercontent.com/marcuswhybrow/texshop-pdflatex/master/pdflatex.py | sudo tee pdflatex.py > /dev/null && \
+curl -s https://raw.githubusercontent.com/marcuswhybrow/texshop-pdflatex/master/pdflatex.py | sudo tee pdflatex.py > /dev/null && \
 sudo chmod +x /Library/TeX/Root/bin/pdflatex.py && \
 cd - > /dev/null && \
 echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatex.py\` installed successfully.\u001b[0;38m"

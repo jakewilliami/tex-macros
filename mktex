@@ -55,7 +55,10 @@ build_template() {
         fi
     elif [[ "${1}" == 'class' ]]
     then
-        cp -r "${CLASS_DIR}/arteacle.cls" "${2}/"
+        if [ ! -e "${2}/arteacle.cls" ]
+        then
+            cp -r "${CLASS_DIR}/arteacle.cls" "${2}/"
+        fi
         cp "${TEMPLATES_DIR}/template_Class_Typesetting.tex" "${2}/"
         if [[ -z $3 ]]
         then
@@ -67,19 +70,35 @@ build_template() {
     then
         echo -e "${BYELLOW}This option is deprecated.  See the \`bib-apa\` for the arteacle class.${NORM}"
     fi
-# make name Jake W. Ireland if it's me!
-    if [[ $(whoami) == "jakeireland" ]]
+    
+    # make name Jake W. Ireland if it's me!
+    if [[ "$(whoami)" == "jakeireland" ]]
     then
         if [[ "${1}" == 'class' ]]
         then
             if [[ -f "${2}/document.tex" ]]
             then
-                perl -pi -e 's/\\author{}/\\author{Jake W\. Ireland}/g' "${2}/document.tex"
+                perl -pi -e 's/\\author\{\}/\\author\{Jake W\. Ireland\}/g' "${2}/document.tex"
             elif [[ -f "${2}/${3}.tex" ]]
             then
-                perl -pi -e 's/\\author{}/\\author{Jake W\. Ireland}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\author\{\}/\\author\{Jake W\. Ireland\}/g' "${2}/${3}.tex"
             fi
         fi
+    fi
+    
+    # open the file
+    if [[ -f "${2}/document.tex" ]]
+    then
+        [[ "${KERNEL}" == "Darwin" ]] && \
+            open "${2}/document.tex"
+        [[ "${KERNEL}" == "Linux" ]] && \
+            xdg-open "${2}/document.tex"
+    elif [[ -f "${2}/${3}.tex" ]]
+    then
+        [[ "${KERNEL}" == "Darwin" ]] && \
+            open "${2}/${3}.tex"
+        [[ "${KERNEL}" == "Linux" ]] && \
+            xdg-open "${2}/${3}.tex"
     fi
 }
 

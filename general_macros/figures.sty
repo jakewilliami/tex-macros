@@ -8,7 +8,8 @@
 				
 				
 %for definition of \thm box, see tea_mathematical.sty; cannot redefine thm before defining it in amsthm				
-					
+
+%%% Definition			
 \newcommand{\defn}[1]
 			{%
 		\begin{center}
@@ -26,6 +27,40 @@
 			\end{tcolorbox}
 		\end{center}
 			}
+			
+%\NewDocumentEnvironment{definition}{o}
+% {
+% 	\begin{center}
+%			\begin{tcolorbox}[skin=widget,
+%						boxrule=1mm,
+%						coltitle=black,
+%						colframe=darkbyzantium,
+%						colback=gray!10!white,
+%						width=(.9\linewidth),
+%						before=,
+%						after=,
+%						adjusted title={\scshape\bfseries Definition}]
+%					#1
+% }
+% {
+% 	\end{tcolorbox}
+%		\end{center}
+% }
+%\renewenvironment{defn}[1]{
+%	\begin{center}
+%			\begin{tcolorbox}[skin=widget,
+%						boxrule=1mm,
+%						coltitle=black,
+%						colframe=darkbyzantium,
+%						colback=gray!10!white,
+%						width=(.9\linewidth),
+%						before=,
+%						after=,
+%						adjusted title={\scshape\bfseries Definition}]
+%					#1}{
+%			\end{tcolorbox}
+%		\end{center}
+%}
 		
 \newcommand{\cor}[1]
 			{%
@@ -91,6 +126,42 @@
 						after=,
 						adjusted title={\scshape\bfseries Notation}]
 						%\stepcounter{defn}\thedefn}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+			
+\newcommand{\formula}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=white,
+						colframe=charcoal,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Formula}]
+						%\stepcounter{defn}\thedefn}]
+					#1
+			\end{tcolorbox}
+		\end{center}
+			}
+			
+			
+\newcommand{\example}[1]
+			{%
+		\begin{center}
+			\begin{tcolorbox}[skin=widget,
+						boxrule=1mm,
+						coltitle=black,
+						colframe=greentea,
+						colback=gray!10!white,
+						width=(.9\linewidth),
+						before=,
+						after=,
+						adjusted title={\scshape\bfseries Example}]
 					#1
 			\end{tcolorbox}
 		\end{center}

@@ -9,6 +9,8 @@
 \newcounter{remark}
 %\stepcounter{remark}
 \setcounter{remark}{1}
+\newcounter{policydecision}
+\setcounter{policydecision}{1}
 
 \usetikzlibrary{decorations.pathreplacing,calc}		%for braces over multiple itemisation
 \def\tikzmarklist#1{\tikz[overlay,remember picture] \node (#1) {};}
@@ -30,3 +32,5 @@
 \def\definitionnounderline#1#2{\begin{description}\item[#1]#2\end{description}}%only defined for following command
 \newcommand{\remark}[1]{\definitionnounderline{Remark \theremark\stepcounter{remark}}{#1}}
 %\def\remark#1#{\begin{description}\item[Remark \theremark\stepcounter{remark}]{#1}\end{description}}%was putting description on a different line to the deading for some reason
+
+\newcommand{\policydecision}[1]{\definitionnounderline{Policy Decision \thepolicydecision\stepcounter{policydecision}}{#1}}

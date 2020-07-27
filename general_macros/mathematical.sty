@@ -13,6 +13,9 @@
 \usepackage{pgfplots}
 \usepackage{dutchcal} % makes mathcal look much nicer; allows mathcal to be lower case
 %\usepackage{nicematrix}
+\usepackage{algorithm} % algorithms
+\usepackage[noend]{algpseudocode} % http://ctan.org/pkg/algorithmicx
+
 
 \pgfplotsset{compat = newest}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
@@ -190,3 +193,7 @@
 \newcommand{\vpisomorph}{\rotatebox[origin=c]{90}{\isomorph}}
 
 \let\bar\overline % because I always use \bar and am always dissapointed at how short it is, and then have to look up which one I am thinking of...
+
+\def\abs#1{\left|#1\right|}
+\def\union{\cup}
+\def\intersect{\cap}

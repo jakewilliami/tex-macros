@@ -34,9 +34,10 @@
 \input{\string~/tex-macros/general_macros/miscellaneous.sty}
 
 
-%%% Put any custom features after this line!
+%%%%%% Put any custom features after this line! %%%%%%
 
 %\texorpdfstring{\protect\ref{}}{}		%for when referencing in section titles
 \addto\captionsenglish{
 	\renewcommand*\abstractname{Abstract}		%Renew abstract name
 }
+

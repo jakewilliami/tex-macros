@@ -15,7 +15,7 @@
 %\usepackage{nicematrix}
 \usepackage{algorithm} % algorithms
 \usepackage[noend]{algpseudocode} % http://ctan.org/pkg/algorithmicx
-
+%\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 
 \pgfplotsset{compat = newest}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
@@ -245,3 +245,27 @@
 \def\set#1#2{\curly{#1 \suchthat #2}}
 
 \let\embedsto\hookrightarrow
+
+
+\providecommand{\monus}{% Don't redefine it if available
+  \mathbin{% We want a binary operation
+    \vphantom{+}% The same height as a plus or minus
+    \text{% Change size in sub/superscripts
+      \mathsurround=0pt % To be on the safe side
+      \ooalign{% Superimpose the two symbols
+        \noalign{\kern-.35ex}% but the dot is raised a bit
+        \hidewidth$\smash{\cdot}$\hidewidth\cr % Dot
+        \noalign{\kern.35ex}% Backup for vertical alignment
+        $-$\cr % Minus
+      }%
+    }%
+  }%
+}
+
+\let\proves\models
+\let\believes\models
+\let\satisfies\models
+
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{algorithm}% http://ctan.org/pkg/algorithm
+

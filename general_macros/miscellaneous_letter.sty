@@ -1,0 +1,42 @@
+\RequirePackage{ulem}
+\usepackage[en-GB,showdow]{datetime2}
+\usepackage{blindtext}
+\usepackage{wasysym} % for \smiley{} \frowney{}
+
+\DTMlangsetup[en-GB]{ord=raise,monthyearsep={,\space},dowdaysep={,\space}}
+
+\def\maori{M\=aori}
+
+%\DTMdisplaydate{dow}{day}{month}{year}
+
+\def\defined#1{\uline{\textsc{#1}}}	%consider changing to \uline, defined in general macro?	%this is not skipping a line when I want it to in \remark{}
+%\newcommand\defined[1]{\uline{\textsc{#1}}}
+
+\renewcommand{\th}{\textsuperscript{th}~}
+\def\st{\textsuperscript{st}~}
+\def\nd{\textsuperscript{nd}~}
+\def\rd{\textsuperscript{rd}~}
+
+\AtBeginDocument{\normalem}%The ulem package makes \emph underlined rather than italicised  %can use [normalem] as option also
+
+\def\redteacolour#1{\textcolor{redtea}{#1}}
+
+% redefining author and title style on \maketitle
+%\makeatletter
+%\xpatchcmd{\@maketitle}
+%  {\@title}
+%  {\vspace*{-9ex}\fontsize{20}{28}\LARGE\scshape\@title}
+%  {}{}
+%  \xpatchcmd{\@maketitle}
+%  {\@author}
+%  {\fontsize{10}{18}\scshape\small\bfseries\@author}
+%  {}{}
+%\makeatother
+
+% Ensuring date is processed last so that is will be changed if needed
+\let\olddate\date
+\renewcommand{\date}[1]{\AtEndPreamble{\olddate{#1}}}
+
+\AtEndPreamble{
+	\date{\today}
+}

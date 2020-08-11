@@ -16,6 +16,7 @@
 \usepackage{algorithm} % algorithms
 \usepackage[noend]{algpseudocode} % http://ctan.org/pkg/algorithmicx
 %\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{marvosym}
 
 \pgfplotsset{compat = newest}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
@@ -85,6 +86,7 @@
 \def\integers{\ensuremath{\mathds{Z}}}
 \def\polys{\ensuremath{\mathcal{P}}}
 \def\matrices{\ensuremath{\mathcal{M}}}
+
 
 
 \def\thm{theorem}
@@ -262,9 +264,16 @@
   }%
 }
 
-\let\proves\models
+% fix lightning symbol provided by marvosym
+\renewcommand{\mvchr}[1]{\mbox{\mvs\symbol{#1}}}
+
+\let\varproves\models
 \let\believes\models
 \let\satisfies\models
+\def\proves{\ensuremath{\vdash}\kern-.7em -}%extends the "arm" of the symbol, bc garamond??
+\def\contradiction{\ensuremath{\rightarrow\mspace{-2mu}\leftarrow}}
+\let\varcontradiction\bot
+\let\varvarcontradiction\Lightning
 
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \usepackage{algorithm}% http://ctan.org/pkg/algorithm

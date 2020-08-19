@@ -18,6 +18,7 @@ display_help() {
     echo -e "${BBLUE}\t -c | --class\t\t${BYELLOW}Chooses the general template via the ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
     echo -e "${BBLUE}\t -C | --classBib\t${BYELLOW}[DEPRECATED] Chooses the general template via the citations ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
     echo -e "${BBLUE}\t -f | --figure\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}f${BYELLOW}igure${NORM} ${BYELLOW}template.${NORM}"
+    echo -e "${BBLUE}\t -l | --letter\t\t${BYELLOW}Chooses the class for Teagoslavic ${ULINE}${BBLUE}l${BYELLOW}etter${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -b | --beamer\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
     echo -e "${BBLUE}\t -B | --bib\t\t${BYELLOW}Creates a ${ULINE}${BBLUE}B${BYELLOW}ibliography${NORM}${BYELLOW} file named \`references.bib\` in a given directory.${NORM}"
     echo -e "${BBLUE}\t -p | --poi\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
@@ -53,6 +54,19 @@ build_template() {
         else
             mv "${2}/beamer.tex" "${2}/${3}.tex"
         fi
+    elif [[ "${1}" == 'letter' ]]
+    then
+        if [ ! -e "${2}/lettear.cls" ]
+        then
+            cp -r "${CLASS_DIR}/lettear.cls" "${2}/"
+        fi
+        cp "${TEMPLATES_DIR}/template_Class_Letter.tex" "${2}/"
+        if [[ -z $3 ]]
+        then
+            mv "${2}/template_Class_Letter.tex" "${2}/document.tex"
+        else
+            mv "${2}/template_Class_Letter.tex" "${2}/${3}.tex"
+        fi
     elif [[ "${1}" == 'class' ]]
     then
         if [ ! -e "${2}/arteacle.cls" ]
@@ -78,10 +92,26 @@ build_template() {
         then
             if [[ -f "${2}/document.tex" ]]
             then
-                perl -pi -e 's/\\author\{\}/\\author\{Jake W\. Ireland\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\author\{\}/\\author\{Jake W\. Ireland\}/g' "${2}/document.tex" # escape \ once; escape \ {
             elif [[ -f "${2}/${3}.tex" ]]
             then
                 perl -pi -e 's/\\author\{\}/\\author\{Jake W\. Ireland\}/g' "${2}/${3}.tex"
+            fi
+        elif [[ "${1}" == 'letter' ]]
+        then
+            if [[ -f "${2}/document.tex" ]]
+            then
+                perl -pi -e 's/\\signature\{Your name\}/\\signature\{Jake William Ireland\}/g' "${2}/document.tex" # change signature
+                perl -pi -e 's/\\address\{Street \\\\ City \\\\ Country\}/\\address\{Victoria University of Wellington,\\\\Wellington,\\\\ New Zealand\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\closing{\Yours Faithfully,\}/\\closing\{I am, very sincerely yours,\\\\ With much respect and highest consideration,\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\begin\{letter\}\{Company name \\\\ Street\\\\ City\\\\ Country\}/\\begin\{letter\}\{\}\%\{Company name \\\\ Street\\\\ City\\\\ Country\}/g' "${2}/document.tex"
+            elif [[ -f "${2}/${3}.tex" ]]
+            then
+                perl -pi -e 's/\\signature\{Your name\}/\\signature\{Jake William Ireland\}/g' "${2}/${3}.tex" # change signature
+                perl -pi -e 's/\\address\{Street \\\\ City \\\\ Country\}/\\address\{Victoria University of Wellington,\\\\Wellington,\\\\ New Zealand\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\closing\{\Yours Faithfully,\}/\\closing\{I am, very sincerely yours,\\\\ With much respect and highest consideration,\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\begin\{letter\}\{Company name \\\\ Street\\\\ City\\\\ Country\}/\\begin\{letter\}\{\}\%\{Company name \\\\ Street\\\\ City\\\\ Country\}/g' "${2}/${3}.tex"
+
             fi
         fi
     fi
@@ -107,12 +137,14 @@ create_bib() {
 }
 
 # Make templates
-while getopts ":-:gfbphcCB" OPTION; do
+while getopts ":-:glfbphcCB" OPTION; do
         case $OPTION in
                 -)
                     case $OPTARG in
                         bib)
                             create_bib $2 ;;
+                        letter)
+                            build_template letter $2 $3;;
                         class)
                             build_template class $2 $3 ;;
                         classBib)
@@ -132,6 +164,8 @@ while getopts ":-:gfbphcCB" OPTION; do
                     esac ;;
                 C)
                     build_template classBib $2 $3 ;;
+                l)
+                    build_template letter $2 $3;;
                 B)
                     create_bib $2 ;;
                 c)

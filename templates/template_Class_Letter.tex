@@ -1,0 +1,18 @@
+% !TEX TS-program = pdflatexmk.py
+\documentclass{lettear}
+
+\signature{Your name}
+\address{Street \\ City \\ Country}
+\def\myopening{Dear Sir or Madam}
+
+\begin{document}
+\begin{letter}{Company name \\ Street\\ City\\ Country}
+\opening{\myopening\emdash:}
+\phantom{\myopening\emdash:}%
+    % Your message goes here
+    
+\closing{Yours Faithfully,}
+%\ps{P.S. Here goes your ps.}
+%\encl{Enclosures.}
+\end{letter}
+\end{document}

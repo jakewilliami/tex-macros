@@ -12,24 +12,22 @@
 \usepackage{pythontex} % REQUIRES -interaction=nonstopmode
 \usepackage{pgfplots}
 \usepackage{dutchcal} % makes mathcal look much nicer; allows mathcal to be lower case
-%\usepackage{nicematrix}
+%% \usepackage{nicematrix}
 \usepackage{algorithm} % algorithms
 \usepackage[noend]{algpseudocode} % http://ctan.org/pkg/algorithmicx
-%\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+%% \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{marvosym}
 
 \pgfplotsset{compat = newest}
 \usetikzlibrary{shapes.geometric, arrows, positioning}
-
-
 
 %\makeatletter			%The following four commands is to define a \pushright command in the align environment
 %\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
 %%\newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
 %\makeatother
 \renewcommand\qed{\hfill\ensuremath{\blacksquare}}	%I have to put this *after* the \eq or \eqn, as the `aligned` environment doesn't allow the below commands to work with \tag...
-%\renewcommand*\qedsymbol{\hfill\ensuremath{\blacksquare}}
-%\renewcommand\qed{\tag*{\hfill\ensuremath{\blacksquare}}}
+\renewcommand*\qedsymbol{\hfill\ensuremath{\blacksquare}}
+\renewcommand\qed{\tag*{\hfill\ensuremath{\blacksquare}}}
 
 % basically hfill for math mode
 \makeatletter
@@ -111,7 +109,7 @@
 
 \newcommand{\measureremainder}[1]{%
 \begin{tikzpicture}[overlay,remember picture]
-    % Helper nodes
+    %% Helper nodes
     \path (current page.north west) ++(\hoffset, -\voffset)
         node[anchor=north west, shape=rectangle, inner sep=0, minimum width=\paperwidth, minimum height=\paperheight]
         (pagearea) {};
@@ -121,7 +119,7 @@
         node[anchor=north west, shape=rectangle, inner sep=0, minimum width=\textwidth, minimum height=\textheight]
         (textarea) {};
 
-    % Measure distance to right text border
+    Measure distance to right text border
     \path let \p0 = (0,0), \p1 = (textarea.east) in
         [/utils/exec={\pgfmathsetlength#1{\x1-\x0}\global#1=#1}];
 
@@ -210,7 +208,7 @@
 \newcommand{\restricts}[1]{\ensuremath{\divides_{_{#1}}}}
 
 \def\numbers{\ensuremath{\mathds{F}}}
-\def\span#1{\ensuremath{\text{span}\paren{#1}}}	
+%\def\span#1{\ensuremath{\text{span}\paren{#1}}}	
 \def\dim#1{\ensuremath{\text{dim}\paren{#1}}}
 
 \usepackage[toc]{multitoc}
@@ -264,7 +262,7 @@
   }%
 }
 
-% fix lightning symbol provided by marvosym
+%% fix lightning symbol provided by marvosym\r
 \renewcommand{\mvchr}[1]{\mbox{\mvs\symbol{#1}}}
 
 \let\varproves\models

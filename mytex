@@ -4,8 +4,8 @@
 #There exists an alias in ~/.bashrc that looks like
 #alias mytex="source mytex"
 
-DIR="${HOME}/tex-macros"
-BASH_DIR="${HOME}/scripts/bash"
+DIR="${HOME}/projects/tex-macros/"
+BASH_DIR="${HOME}/projects/scripts/bash/"
 
 # source required scripts
 source ${BASH_DIR}/dependencies/source-dependencies.sh

@@ -11,9 +11,9 @@ fi
 
 
 ### DEFINE IMPORTANT DIRECTORIES AND FILE LOCATIONS
-BASH_DIR="${HOME}/scripts/bash/"
+BASH_DIR="${HOME}/projects/scripts/bash/"
 WORK_DIR="${HOME}/Desktop/Assorted Personal Documents/Work/"
-MACROS_DIR="${HOME}/tex-macros/templates/time-sheet/"
+MACROS_DIR="${HOME}/projects/tex-macros/templates/time-sheet/"
 ts1="${MACROS_DIR}/ts1"
 ts2="${MACROS_DIR}/ts2"
 ts3="${MACROS_DIR}/ts3"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-BASH_DIR="${HOME}/scripts/bash/"
-TEMPLATES_DIR="${HOME}/tex-macros/templates/"
+BASH_DIR="${HOME}/projects/scripts/bash/"
+TEMPLATES_DIR="${HOME}/projects/tex-macros/templates/"
 BEAMER_DIR="${TEMPLATES_DIR}/beamer/"
 CLASS_DIR="${TEMPLATES_DIR}/../general_macros/class/"
 

@@ -15,23 +15,23 @@
 \ProcessOptions\relax
 
 
-\input{\string~/tex-macros/general_macros/general_typesetting.sty}
+\input{\string~/projects/tex-macros/general_macros/general_typesetting.sty}
 
 \ifbibapa
-	\input{\string~/tex-macros/general_macros/hyperlinks_and_references_cite.sty} 
+	\input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references_cite.sty} 
 \else
-	\input{\string~/tex-macros/general_macros/hyperlinks_and_references.sty} 
+	\input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references.sty} 
 \fi
 
-\input{\string~/tex-macros/general_macros/figures.sty}
-\input{\string~/tex-macros/general_macros/tables.sty}
-\input{\string~/tex-macros/general_macros/table_of_x.sty}
-\input{\string~/tex-macros/general_macros/footnotes.sty}
-\input{\string~/tex-macros/general_macros/lists.sty}
-\input{\string~/tex-macros/general_macros/mathematical.sty}
-\input{\string~/tex-macros/general_macros/code_format.sty}
-\input{\string~/tex-macros/general_macros/chemical.sty}
-\input{\string~/tex-macros/general_macros/miscellaneous.sty}
+\input{\string~/projects/tex-macros/general_macros/figures.sty}
+\input{\string~/projects/tex-macros/general_macros/tables.sty}
+\input{\string~/projects/tex-macros/general_macros/table_of_x.sty}
+\input{\string~/projects/tex-macros/general_macros/footnotes.sty}
+\input{\string~/projects/tex-macros/general_macros/lists.sty}
+\input{\string~/projects/tex-macros/general_macros/mathematical.sty}
+\input{\string~/projects/tex-macros/general_macros/code_format.sty}
+\input{\string~/projects/tex-macros/general_macros/chemical.sty}
+\input{\string~/projects/tex-macros/general_macros/miscellaneous.sty}
 
 
 %%%%%% Put any custom features after this line! %%%%%%

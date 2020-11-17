@@ -1,16 +1,25 @@
+\usepackage{listings}
+\usepackage{mdframed}
+\usepackage{courier} % better ttfamily
 
 \definecolor{ForestGreen}{rgb}{0.133, 0.545, 0.133}
 \definecolor{WhatZoeReckonsIsEmeraldGreen}{rgb}{0.490196078,0.698039216,0.270588235}
 \definecolor{JuliaPink}{rgb}{0.654901961,0.607843137,0.756862745}
 \definecolor{MyTurquoise}{rgb}{0.380392157,0.615686275,0.658823529}
+\definecolor{aliceblue}{rgb}{0.941176471,0.97254902,1}
+\definecolor{skyblue}{rgb}{0.52734375,0.8046875,1}
+\definecolor{lightgray}{rgb}{0.82421875,0.82421875,0.82421875}
+
+\lstset{basicstyle=\ttfamily,breaklines=true}
 
 \lstdefinelanguage{Julia}%
-  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+  {alsoletter={:,::,&&,||,>,<,>>,<<,>>>,<<<},
+	morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
       end,export,false,for,function,immutable,import,importall,if,in,%
       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
-      using,while,mod,invmod,gcd,gcdx},%
+      using,while,:,::,&&,||,>,<,>>,<<,>>>,<<<,where},%
    morekeywords = [2]{julia},
-   morekeywords = [3]{\@variable,\@constraint,\@show,ustrip,println,Polynomial,apart,print,\@vars,binomial,factorial,global,\@generated,\@ntuple,\@nloops,push!},
+   morekeywords = [3]{\@variable,\@constraint,\@show,ustrip,println,Polynomial,apart,print,\@vars,binomial,factorial,global,\@generated,\@ntuple,\@nloops,push!,sum,mod,invmod,gcd,gcdx,Integer,AbstractArray},
    sensitive=true,%
    alsoother={$},%
    morecomment=[l]\#,%
@@ -19,20 +28,53 @@
    morestring=[m]{'}{'},%
 }[keywords,comments,strings]%
 
-\lstset{
-	backgroundcolor=\color{gray!20},%
-    numbers=left, numberstyle=\tiny\selectfont\fontfamily{garamondx}\textosfI, stepnumber=2, numbersep=5pt,%
+\lstset{%
+	basicstyle=\ttfamily\linespread{1.1},
+	%% backgroundcolor=\color{gray!20},%
+	%% backgroundcolor=\color{skyblue},
+	backgroundcolor=\color{lightgray},
+    numbers=left, 
+	numberstyle=\tiny\selectfont\fontfamily{garamondx}\textosfI, 
+	stepnumber=2, 
+	numbersep=5pt,%
     }
 
 \lstset{%
      language         = Julia,
-     basicstyle       = \ttfamily,
+     %% basicstyle       = \ttfamily\linespread{1.1},% https://tex.stackexchange.com/questions/129377/unwanted-white-lines-in-listings-environment
      keywordstyle     = \bfseries\color{JuliaPink},
      stringstyle      = \color{magenta},
      commentstyle     = \color{ForestGreen},
      showstringspaces = false,
      keywordstyle     = [2]{\bfseries\color{WhatZoeReckonsIsEmeraldGreen}},
      keywordstyle     = [3]{\bfseries\color{MyTurquoise}},
+	 mathescape		  = false
 }
 
+\newtcolorbox
+{myframe}
+{left skip = 2cm-\csname @totalleftmargin\endcsname,
+right skip = 2cm,
+}
+
+
+\newenvironment{julia}
+{
+	%% \begin{myframe}	
+	\begin{mdframed}[
+    backgroundcolor=gray,
+    hidealllines=true,
+    innertopmargin=0pt,
+    innerbottommargin=0pt,
+    innerleftmargin=0pt,
+    innerrightmargin=0pt
+]
+		\begin{lstlisting}[language=Julia, numbers=none]
+}{
+		\end{lstlisting}
+		\end{mdframed}
+		%% \end{myframe}
+}
+
+%% \newenvironment{julia}{\begin{lstlisting}[language=Julia, numbers=none]}{\end{lstlisting}}
 

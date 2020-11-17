@@ -67,6 +67,26 @@ build_template() {
         else
             mv "${2}/template_Class_Letter.tex" "${2}/${3}.tex"
         fi
+    elif [[ "${1}" == 'template_flow_chart' ]]
+    then
+        cp "${TEMPLATES_DIR}/template_flow_chart.tex" "${2}/"
+        if [[ -z $3 ]]
+        then
+            mv "${2}/template_flow_chart.tex" "${2}/document.tex"
+        else
+            mv "${2}/template_flow_chart.tex" "${2}/${3}.tex"
+        fi
+    elif [[ "${1}" == 'template_Tea_P-O-I' ]]
+    then
+        cp "${TEMPLATES_DIR}/template_Tea_P-O-I.tex" "${2}/"
+        if [[ -z $3 ]]
+        then
+            mv "${2}/template_Tea_P-O-I.tex" "${2}/document.tex"
+            mv "${2}/template_modern-cv.tex" "${2}/document.tex"
+        else
+            mv "${2}/template_Tea_P-O-I.tex" "${2}/${3}.tex"
+            mv "${2}/template_modern-cv.tex" "${2}/${3}.tex"
+        fi
     elif [[ "${1}" == 'class' ]]
     then
         if [ ! -e "${2}/arteacle.cls" ]

@@ -78,7 +78,7 @@ done
 if [[ -z $1 ]]
 then
     cd "${DIR}" || clean-exit
-    python3 "${BASH_DIR}/../python/ls.py" "${DIR}"
+    "${BASH_DIR}/../c/compiled/Darwin/64/ls" "${DIR}"
 fi
 
 

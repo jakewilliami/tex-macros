@@ -78,7 +78,7 @@ done
 if [[ -z $1 ]]
 then
     cd "${DIR}" || clean-exit
-    "${BASH_DIR}/../c/compiled/Darwin/64/ls" "${DIR}"
+    "${BASH_DIR}/../c/compiled/Darwin/64/ls.c" "${DIR}"
 fi
 
 

@@ -19,6 +19,7 @@ display_help() {
     echo -e "${BBLUE}\t -C | --classBib\t${BYELLOW}[DEPRECATED] Chooses the general template via the citations ${ULINE}${BBLUE}c${BYELLOW}lass${NORM}${BYELLOW}.${NORM}"
     echo -e "${BBLUE}\t -f | --figure\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}f${BYELLOW}igure${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -l | --letter\t\t${BYELLOW}Chooses the class for Teagoslavic ${ULINE}${BBLUE}l${BYELLOW}etter${NORM} ${BYELLOW}template.${NORM}"
+    echo -e "${BBLUE}\t -L | --formal-letter\t${BYELLOW}Chooses the class for Teagoslavic's ${ULINE}${BYELLOW}formal ${BBLUE}L${BYELLOW}etter${NORM} ${BYELLOW}template.${NORM}"
     echo -e "${BBLUE}\t -b | --beamer\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}b${BYELLOW}eamer${NORM}${BYELLOW} (slide-show) template.${NORM}"
     echo -e "${BBLUE}\t -B | --bib\t\t${BYELLOW}Creates a ${ULINE}${BBLUE}B${BYELLOW}ibliography${NORM}${BYELLOW} file named \`references.bib\` in a given directory.${NORM}"
     echo -e "${BBLUE}\t -p | --poi\t\t${BYELLOW}Chooses the ${ULINE}${BBLUE}P${BYELLOW}ersons of Interest${NORM}${BYELLOW} template.${NORM}"
@@ -66,6 +67,19 @@ build_template() {
             mv "${2}/template_Class_Letter.tex" "${2}/document.tex"
         else
             mv "${2}/template_Class_Letter.tex" "${2}/${3}.tex"
+        fi
+    elif [[ "${1}" == 'formalletter' ]]
+    then
+        if [ ! -e "${2}/lettear.cls" ]
+        then
+            cp -r "${CLASS_DIR}/lettear.cls" "${2}/"
+        fi
+        cp "${TEMPLATES_DIR}/template_Class_Letter_Formal.tex" "${2}/"
+        if [[ -z $3 ]]
+        then
+            mv "${2}/template_Class_Letter_Formal.tex" "${2}/document.tex"
+        else
+            mv "${2}/template_Class_Letter_Formal.tex" "${2}/${3}.tex"
         fi
     elif [[ "${1}" == 'template_flow_chart' ]]
     then
@@ -121,15 +135,34 @@ build_template() {
         then
             if [[ -f "${2}/document.tex" ]]
             then
-                perl -pi -e 's/\\signature\{Your name\}/\\signature\{Jake William Ireland\}/g' "${2}/document.tex" # change signature
-                perl -pi -e 's/\\address\{Street \\\\ City \\\\ Country\}/\\address\{Victoria University of Wellington,\\\\Wellington,\\\\ New Zealand\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\signature\{\\scshape Your name\}/\\signature\{\\scshape Jake William Ireland\}/g' "${2}/document.tex" # change signature
+                perl -pi -e 's/\\address\{Street \\\\ City \\\\ Country\}/\\address\{Wellington,\\\\ New Zealand\}/g' "${2}/document.tex"
                 perl -pi -e 's/\\closing{\Yours Faithfully,\}/\\closing\{I am, very sincerely yours,\\\\ With much respect and highest consideration,\}/g' "${2}/document.tex"
                 perl -pi -e 's/\\begin\{letter\}\{Company name \\\\ Street\\\\ City\\\\ Country\}/\\begin\{letter\}\{\}\%\{Company name \\\\ Street\\\\ City\\\\ Country\}/g' "${2}/document.tex"
             elif [[ -f "${2}/${3}.tex" ]]
             then
-                perl -pi -e 's/\\signature\{Your name\}/\\signature\{Jake William Ireland\}/g' "${2}/${3}.tex" # change signature
-                perl -pi -e 's/\\address\{Street \\\\ City \\\\ Country\}/\\address\{Victoria University of Wellington,\\\\Wellington,\\\\ New Zealand\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\signature\{\\scshape Your name\}/\\signature\{\\scshape Jake William Ireland\}/g' "${2}/${3}.tex" # change signature
+                perl -pi -e 's/\\address\{Street \\\\ City \\\\ Country\}/\\address\{Wellington,\\\\ New Zealand\}/g' "${2}/${3}.tex"
                 perl -pi -e 's/\\closing\{\Yours Faithfully,\}/\\closing\{I am, very sincerely yours,\\\\ With much respect and highest consideration,\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\begin\{letter\}\{Company name \\\\ Street\\\\ City\\\\ Country\}/\\begin\{letter\}\{\}\%\{Company name \\\\ Street\\\\ City\\\\ Country\}/g' "${2}/${3}.tex"
+
+            fi
+        elif [[ "${1}" == 'formalletter' ]]; then
+            if [[ -f "${2}/document.tex" ]]
+            then
+                perl -pi -e 's/\\signature\{\\scshape Your Name\}/\\signature\{\\scshape Jake William Ireland\}/g' "${2}/document.tex" # change signature
+                perl -pi -e 's/\\myopening\{Name of Recipient \\\\ Address of Recipient\}/\\myopening\{My dear Mister and Mistress Pick\\\\617 London Street, Blah Blah\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\address\{Your abbreviated title, \\\\ A subtitle\}/\\address\{J. W. Ireland,\\\\Little Friend\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\writaddress\{Street, City, Country\}/\\writaddress\{Wellington, New Zealand\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\closing{\Yours Faithfully,\}/\\closing\{I have the honour to be, Sir and Madame,\\\\ With much respect and highest consideration,\}/g' "${2}/document.tex"
+                perl -pi -e 's/\\begin\{letter\}\{Company name \\\\ Street\\\\ City\\\\ Country\}/\\begin\{letter\}\{\}\%\{Company name \\\\ Street\\\\ City\\\\ Country\}/g' "${2}/document.tex"
+            elif [[ -f "${2}/${3}.tex" ]]
+            then
+                perl -pi -e 's/\\signature\{\\scshape Your Name\}/\\signature\{\\scshape Jake William Ireland\}/g' "${2}/${3}.tex" # change signature
+                perl -pi -e 's/\\myopening\{Name of Recipient \\\\ Address of Recipient\}/\\myopening\{My dear Mister and Mistress Pick\\\\617 London Street, Blah Blah\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\address\{Your abbreviated title, \\\\ A subtitle\}/\\address\{J. W. Ireland\\\\Little Friend\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\writaddress\{Street, City, Country\}/\\writaddress\{Wellington, New Zealand\}/g' "${2}/${3}.tex"
+                perl -pi -e 's/\\closing{\Yours Faithfully,\}/\\closing\{I have the honour to be, Sir and Madame,\\\\ With much respect and highest consideration,\}/g' "${2}/${3}.tex"
                 perl -pi -e 's/\\begin\{letter\}\{Company name \\\\ Street\\\\ City\\\\ Country\}/\\begin\{letter\}\{\}\%\{Company name \\\\ Street\\\\ City\\\\ Country\}/g' "${2}/${3}.tex"
 
             fi
@@ -157,7 +190,7 @@ create_bib() {
 }
 
 # Make templates
-while getopts ":-:glfbphcCB" OPTION; do
+while getopts ":-:glfbLphcCB" OPTION; do
         case $OPTION in
                 -)
                     case $OPTARG in
@@ -165,6 +198,8 @@ while getopts ":-:glfbphcCB" OPTION; do
                             create_bib $2 ;;
                         letter)
                             build_template letter $2 $3;;
+                        letter-formal)
+                            build_template formalletter $2 $3;;
                         class)
                             build_template class $2 $3 ;;
                         classBib)
@@ -186,6 +221,8 @@ while getopts ":-:glfbphcCB" OPTION; do
                     build_template classBib $2 $3 ;;
                 l)
                     build_template letter $2 $3;;
+                L)
+                    build_template formalletter $2 $3;;
                 B)
                     create_bib $2 ;;
                 c)

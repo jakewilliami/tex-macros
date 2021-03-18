@@ -1,0 +1,26 @@
+% !TEX TS-program = pdflatexmk.py
+\documentclass{lettear}
+
+\signature{\scshape Your Name}
+\address{Your abbreviated title, \\ A subtitle}
+\def\myopening{Name of Recipient \\ Address of Recipient}
+\def\myopeningtwo{Dear Sir or Madam}
+\def\writaddress{Street, City, Country}
+\date{\vspace*{-4em}}
+
+\longindentation=0pt
+
+\begin{document}
+\begin{letter}{{\scshape\myopening}}%{Company name \\ Street\\ City\\ Country}
+\vspace*{-4em}
+\opening{\hspace*{3em}\myopeningtwo,\emdash}
+\phantom{\hspace*{3em}\myopeningtwo,\emdash}%
+    % Your message goes here
+    
+
+\closing{Yours Faithfully,}
+\begin{flushright}\par\noindent Writ this day, \today,\\In \writaddress\end{flushright}
+%\ps{P.S. Here goes your ps.}
+%\encl{Enclosures.}
+\end{letter}
+\end{document}

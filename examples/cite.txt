@@ -1,0 +1,3 @@
+\parencite{} -> (Author, 1997)
+\cite{} -> Author, 1997
+\autocite{} -> Author (1997)

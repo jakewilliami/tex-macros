@@ -98,7 +98,9 @@ It should be noted that I have had issues with Garamondx on Arch particularly.  
 - Simply reinstalling `garamondx` may work, though this is annoying.  
 - It looks like this error is actually from the (`chemmacros`)[https://tex.stackexchange.com/questions/512189/problem-with-chemmacros-beamer-and-filehook-scrlfile-sty] package; adding `\PassOptionsToPackage{force}{filehook}` to your preamble (**before adding everything else**).  
 - Ensure you are running the correct version of TeXLive if all else fails.
-I don't think this is a problem with arch, I think this is a problem with my system. 
+I don't think this is a problem with Arch, I think this is a problem with my system. 
+
+It should also be noted that since upgrading to BigSur, I had to download the file that `getnonfreefonts` uses and make `wget` ignore the certificate in order to download.
 
 To get PDFLaTeX.py installed, run the following:
 ```bash

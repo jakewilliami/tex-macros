@@ -101,12 +101,21 @@ It should be noted that I have had issues with Garamondx on Arch particularly.  
 I don't think this is a problem with arch, I think this is a problem with my system. 
 
 To get PDFLaTeX.py installed, run the following:
-```
+```bash
 cd /Library/TeX/Root/bin/ && \
 curl -s https://raw.githubusercontent.com/marcuswhybrow/texshop-pdflatex/master/pdflatex.py | sudo tee pdflatex.py > /dev/null && \
 sudo chmod +x /Library/TeX/Root/bin/pdflatex.py && \
 cd - > /dev/null && \
 echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatex.py\` installed successfully.\u001b[0;38m"
+```
+
+I also made a port for PDFLaTeXmk.py:
+```bash
+cd /Library/TeX/Root/bin/ && \
+curl -s https://raw.githubusercontent.com/jakewilliami/texshop-pdflatexmk/master/pdflatexmk.py | sudo tee pdflatexmk.py > /dev/null && \
+sudo chmod +x /Library/TeX/Root/bin/pdflatexmk.py && \
+cd - > /dev/null && \
+echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatexmk.py\` installed successfully.\u001b[0;38m"
 ```
 
 ### Plots, Flow Charts, Dot Graphs, and Figures

@@ -120,7 +120,7 @@ cd - > /dev/null && \
 echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatex.py\` installed successfully.\u001b[0;38m"
 ```
 
-I also made a fork for PDFLaTeXmk.py to [allow BibTeX to work](https://github.com/marcuswhybrow/texshop-pdflatex/issues/1#issuecomment-645712757):
+I also made [a fork](https://github.com/jakewilliami/texshop-pdflatexmk) for PDFLaTeXmk.py to [allow BibTeX to work](https://github.com/marcuswhybrow/texshop-pdflatex/issues/1#issuecomment-645712757):
 ```bash
 cd /Library/TeX/Root/bin/ && \
 curl -s https://raw.githubusercontent.com/jakewilliami/texshop-pdflatexmk/master/pdflatexmk.py | sudo tee pdflatexmk.py > /dev/null && \

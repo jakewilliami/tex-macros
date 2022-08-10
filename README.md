@@ -107,7 +107,7 @@ It should be noted that I have had issues with Garamondx on Arch particularly.  
 - Ensure you are running the correct version of TeXLive if all else fails.
 I don't think this is a problem with Arch, I think this is a problem with my system. 
 
-It should also be noted that since upgrading to BigSur, I had to download the file that `getnonfreefonts` uses and make `wget` ignore the certificate in order to download.
+It should also be noted that since upgrading to BigSur, I had to download the file that `getnonfreefonts` uses and make `wget` ignore the certificate in order to download.  However, before attempting to troubleshoot, try running the above script again, as I just did so after it failing and it worked...
 
 #### Installing PDFLaTeX.py
 

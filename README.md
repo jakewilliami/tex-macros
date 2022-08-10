@@ -17,7 +17,7 @@ This repository will show the progression of my macros used on LaTeX, in order t
 
 ## Installation
 Simply run
-```
+```bash
 cd ${HOME} && \
 git clone https://github.com/jakewilliami/tex-macros.git && \
 export PATH=$PATH:${HOME}/tex-macros && \
@@ -31,7 +31,7 @@ done
 ```
 
 Now try it out!
-```
+```bash
 chmod u+x ${HOME}/tex-macros/mktex && \
 cd ${HOME}/Documents/ && \
 mkdir test && \
@@ -47,7 +47,7 @@ Two directories exist in this repository:
 2) We also have a directory for some templates using these, which `mktex` references, as well as some some `beamer` stuff in this directory.
 
 I have configured TeXShop: press `⌘` + `,` and click on the `Engine` tab.  In the `pdflatex` box, I have
-```
+```bash
 /Library/TeX/Root/bin/pdflatex.py --file-line-error --synctex=1
 ```
 
@@ -58,7 +58,7 @@ Happy LaTeX-ing!
 ### Obtaining LaTeX, GaramondX, and PDFLaTeX.py
 
 If you don't have a TeX version, I ran the following
-```
+```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && \
 echo -e "\u001b[1;38;5;2mHomebrew installed successfully.\u001b[0;38m" && \
 brew install cask && \
@@ -68,25 +68,25 @@ echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and MacTeX apps/tools instal
 ```
 
 On my Arch machine I ran
-```
+```bash
 sudo pacman -S texlive-most texmaker && \
 echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
 ```
 
 On my Fedora machine I ran
-```
+```bash
 sudo dnf install texlive-scheme-full texmaker && \
 echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
 ```
 
 On my Debian machine I ran
-```
+```bash
 sudo apt install texlive-full texmaker texmaker-data && \
 echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
 ```
 
 To get the font Garamond on any Unix machine, I ran:
-```
+```bash
 cd /tmp && \
 curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts && \
 sudo texlua install-getnonfreefonts && \

@@ -5,13 +5,16 @@ This repository will show the progression of my macros used on LaTeX, in order t
 
 ## Contents
 
-- [LaTeX Macros](#latex-macros)
-- [Contents](#contents)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Obtaining LaTeX, GaramondX, and PDFLaTeX.py](#obtaining-latex-garamondx-and-pdflatex.py)
-- [Plots, Flow Charts, Dot Graphs, and Figures](#plots-flow-charts-dot-graphs-and-figures)
-- [Version History](#version-history)
+  - [LaTeX Macros](#latex-macros)
+  - [Contents](#contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Obtaining LaTeX, GaramondX, and PDFLaTeX.py](#obtaining-latex-garamondx-and-pdflatex.py)
+    - [Installing LaTeX](#installing-latex)
+	- [Installing Garamond](#installing-garamond)
+	- [Installing PDFLaTeX.py](#installing-pdflatex.py)
+  - [Plots, Flow Charts, Dot Graphs, and Figures](#plots-flow-charts-dot-graphs-and-figures)
+  - [Version History](#version-history)
 
 ---
 
@@ -57,6 +60,8 @@ Happy LaTeX-ing!
 
 ### Obtaining LaTeX, GaramondX, and PDFLaTeX.py
 
+#### Installing LaTeX
+
 If you don't have a TeX version, I ran the following
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && \
@@ -85,6 +90,8 @@ sudo apt install texlive-full texmaker texmaker-data && \
 echo -e "\u001b[1;38;5;2mTeXLive (TeX distribution) and a LaTeX Editor installed successfully.\u001b[0;38m"
 ```
 
+#### Installing Garamond
+
 To get the font Garamond on any Unix machine, I ran:
 ```bash
 cd /tmp && \
@@ -102,6 +109,8 @@ I don't think this is a problem with Arch, I think this is a problem with my sys
 
 It should also be noted that since upgrading to BigSur, I had to download the file that `getnonfreefonts` uses and make `wget` ignore the certificate in order to download.
 
+#### Installing PDFLaTeX.py
+
 To get PDFLaTeX.py installed, run the following:
 ```bash
 cd /Library/TeX/Root/bin/ && \
@@ -111,7 +120,7 @@ cd - > /dev/null && \
 echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatex.py\` installed successfully.\u001b[0;38m"
 ```
 
-I also made a port for PDFLaTeXmk.py:
+I also made a fork for PDFLaTeXmk.py to [allow BibTeX to work](https://github.com/marcuswhybrow/texshop-pdflatex/issues/1#issuecomment-645712757):
 ```bash
 cd /Library/TeX/Root/bin/ && \
 curl -s https://raw.githubusercontent.com/jakewilliami/texshop-pdflatexmk/master/pdflatexmk.py | sudo tee pdflatexmk.py > /dev/null && \

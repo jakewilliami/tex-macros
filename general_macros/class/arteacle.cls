@@ -8,6 +8,10 @@
 \bibapafalse
 % define bib-apa option
 \DeclareOption{bib-apa}{\bibapatrue}
+% Also process numeric option
+\newif\ifbibnumeric
+\bibnumericfalse
+\DeclareOption{numeric}{\bibnumerictrue}
 % see https://tex.stackexchange.com/questions/524468/, https://www.reddit.com/r/LaTeX/comments/epftjv/, https://tex.stackexchange.com/a/394471/181375
 
 % pass other options to class
@@ -18,9 +22,13 @@
 \input{\string~/projects/tex-macros/general_macros/general_typesetting.sty}
 
 \ifbibapa
-	\input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references_cite.sty} 
+    \ifbibnumeric
+	    \input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references_cite_numeric.sty} 
+    \else
+		\input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references_cite.sty} 
+	\fi
 \else
-	\input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references.sty} 
+    \input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references.sty} 
 \fi
 
 \input{\string~/projects/tex-macros/general_macros/figures.sty}

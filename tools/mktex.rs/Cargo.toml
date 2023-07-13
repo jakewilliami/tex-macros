@@ -8,4 +8,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.3.11", features = ["cargo", "wrap_help", "derive"] }
+home = "0.5.5"
 

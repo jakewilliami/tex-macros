@@ -5,7 +5,7 @@
 // out to the kpsewhich tool
 
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 use home;
 
@@ -70,4 +70,10 @@ pub fn texmf_local_resources() -> PathBuf {
     }
 
     local_dir
+}
+
+pub fn resource_in_local_texmf(resource: &str) -> bool {
+    texmf_local_resources()
+        .join(Path::new(resource))
+        .as_path().exists()
 }

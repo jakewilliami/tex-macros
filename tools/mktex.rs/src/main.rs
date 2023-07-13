@@ -6,14 +6,15 @@ use clap::{
     crate_version,
     Parser,
 };
-use home;
 
 mod texmf;
+mod resource;
+
+use resource::{fetch_resource, ResourceLocation};
 
 // TODO:
 //   - sync
 //   - freeze
-//   - allow remote pull
 //   - class option local with no texmf
 //   - no-option default?
 //   - decouple from tex-macros repo as much as possible
@@ -53,15 +54,14 @@ struct Cli {
     )]
     dir: Option<String>,
 
-    // /// Local
-    // #[arg(
-    //     short = 'l',
-    //     long = "local",
-    //     action = ArgAction::SetTrue,
-    //     num_args = 0,
-    //     default_value = true,
-    // )]
-    // local: Option<bool>,
+    /// Try to use local files rather than remote
+    #[arg(
+        short = 'l',
+        long = "local",
+        action = ArgAction::SetTrue,
+        num_args = 0,
+    )]
+    local: Option<bool>,
 
     // /// Sync
     // #[arg(
@@ -92,34 +92,30 @@ struct Cli {
 }
 
 fn main() {
-    let tex_macros_dir = home::home_dir().expect("Cannot get home directory")
-        .join("projects").join("tex-macros");
     let cli = Cli::parse();
+
+    let resource_location = if let Some(local) = cli.local {
+        if local { ResourceLocation::Local } else { ResourceLocation::Remote }
+    } else {
+        ResourceLocation::Remote
+    };
 
     // Make class file
     if let Some(use_class) = cli.class {
         if use_class {
             let cls_name = "arteacle.cls";
-            let cls_file = tex_macros_dir
-                .join("general_macros").join("class")
-                .join(&cls_name);
+            let cls_resource = "general_macros/class/arteacle.cls";
 
             // Need to move class file to local texmf if possible
-            if !cls_in_local_texmf(&cls_name) {
-                // Ensure that class file exists locally
-                if !cls_file.as_path().exists() {
-                    panic!("Cannot find arteacle.cls locally");
-                }
-
-                // Move class file to local texmf direcotry
+            if !texmf::resource_in_local_texmf(&cls_name) {
+                // Write class file to local texmf directory
                 let local_dir = texmf::texmf_local_resources();
-                fs::copy(&cls_file, local_dir.join(&cls_name)).unwrap();
+                let cls_contents = fetch_resource(cls_resource, &resource_location);
+                fs::write(local_dir.join(&cls_name), cls_contents).unwrap();
             }
 
             // Make template in target dir
-            let tmplt_name = "template_Class_Typesetting.tex";
-            let tmplt_file = tex_macros_dir
-                .join("templates").join(&tmplt_name);
+            let tmplt_resource = "templates/template_Class_Typesetting.tex";
             let out_file = Path::new(&cli.dir.unwrap()).join(&cli.file.unwrap());
 
             // Check that we are not overwriting a file!
@@ -127,13 +123,9 @@ fn main() {
                 panic!("Failed to mktex: file exists")
             }
 
-            // Copy the template file to the specified directory
-            fs::copy(tmplt_file, out_file).unwrap();
+            // Write the template file to the specified directory
+            let tmplt_contents = fetch_resource(tmplt_resource, &resource_location);
+            fs::write(out_file, tmplt_contents).unwrap();
         }
     };
-}
-
-fn cls_in_local_texmf(cls_name: &str) -> bool {
-    texmf::texmf_local_resources()
-        .join(cls_name).as_path().exists()
 }

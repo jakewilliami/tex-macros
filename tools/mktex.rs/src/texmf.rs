@@ -7,7 +7,6 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
-use home;
 
 // Get texmf from kpsewhich
 // kpsewhich -var-value TEXMFHOME
@@ -40,26 +39,6 @@ pub fn texmf() -> Option<PathBuf> {
     }
 }
 
-pub fn texmf_exists() -> bool {
-    texmf().is_some()
-}
-
-// Get texmf manually
-#[cfg(target_os = "macos")]
-pub fn texmf_manual() -> PathBuf {
-    home::home_dir().expect("Cannot get home directory")
-        .join("Library").join("texmf")
-}
-#[cfg(any(target_os = "linux", target_os = "windows"))]
-pub fn texmf_manual() -> PathBuf {
-    home::home_dir().expect("Cannot get home directory")
-        .join("texmf")
-}
-
-pub fn texmf_exists_manual() -> bool {
-    texmf_manual().as_path().exists()
-}
-
 pub fn texmf_local_resources() -> PathBuf {
     let local_dir = texmf().expect("Cannot get texmf dir")
         .join("tex").join("latex").join("local");
@@ -77,3 +56,25 @@ pub fn resource_in_local_texmf(resource: &str) -> bool {
         .join(Path::new(resource))
         .as_path().exists()
 }
+
+/*
+// Get texmf manually
+#[cfg(target_os = "macos")]
+pub fn texmf_manual() -> PathBuf {
+    home::home_dir().expect("Cannot get home directory")
+        .join("Library").join("texmf")
+}
+#[cfg(any(target_os = "linux", target_os = "windows"))]
+pub fn texmf_manual() -> PathBuf {
+    home::home_dir().expect("Cannot get home directory")
+        .join("texmf")
+}
+
+pub fn texmf_exists() -> bool {
+    texmf().is_some()
+}
+
+pub fn texmf_exists_manual() -> bool {
+    texmf_manual().as_path().exists()
+}
+*/

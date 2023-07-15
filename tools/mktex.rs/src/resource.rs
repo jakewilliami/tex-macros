@@ -4,10 +4,11 @@ use std::fs;
 use std::path::Path;
 use home;
 
-// https://stackoverflow.com/a/49476448/12069968 (comment #2)
-#[path = "remote.rs"]
-mod remote;
+// https://stackoverflow.com/a/73840814/12069968
+// include!("remote.rs");
+#[path = "remote.rs"] mod remote;
 
+#[derive(PartialEq)]
 pub enum ResourceLocation {
     Local,
     Remote,

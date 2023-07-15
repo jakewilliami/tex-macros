@@ -1,21 +1,23 @@
-use std::fs;
-use std::path::Path;
+use std::{fs, path::Path};
 use clap::{
     ArgAction,
     crate_authors,
     crate_version,
     Parser,
+    Subcommand,
 };
 
+mod freeze;
 mod texmf;
 mod resource;
 
 use resource::{fetch_resource, ResourceLocation};
 
 // TODO:
-//   - sync
-//   - freeze
+//   - config.rs
+//   - sync/overwrite
 //   - class option local with no texmf
+//   - freeze more than just class
 //   - no-option default?
 //   - decouple from tex-macros repo as much as possible
 //   - author
@@ -33,6 +35,7 @@ use resource::{fetch_resource, ResourceLocation};
     author = crate_authors!("\n"),
     version = crate_version!(),
     allow_missing_positional = true,
+    subcommand_negates_reqs = true,
 )]
 /// Make LaTeX projects with custom macros.
 struct Cli {
@@ -72,15 +75,6 @@ struct Cli {
     // )]
     // sync: Option<bool>,
 
-    // /// Freeze
-    // #[arg(
-    //     short = 'f',
-    //     long = "freeze",
-    //     action = ArgAction::SetTrue,
-    //     num_args = 0,
-    // )]
-    // freeze: Option<bool>,
-
     /// Use class
     #[arg(
         short = 'c',
@@ -89,6 +83,15 @@ struct Cli {
         num_args = 0,
     )]
     class: Option<bool>,
+
+    #[command(subcommand)]
+    command: Option<Commands>,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Freeze latest class files
+    Freeze,
 }
 
 fn main() {
@@ -128,4 +131,13 @@ fn main() {
             fs::write(out_file, tmplt_contents).unwrap();
         }
     };
+
+    match &cli.command {
+        Some(Commands::Freeze) => {
+            let cls_resource = "general_macros/class/arteacle.cls";
+            let cls_contents = fetch_resource(cls_resource, &resource_location);
+            println!("{}", freeze::expand_input_paths(cls_contents, &resource_location));
+        },
+        None => {},
+    }
 }

@@ -1,13 +1,16 @@
 [package]
 name = "mktex"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Jake W. Ireland <jakewilliami@icloud.com>"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "0.4.26"
 clap = { version = "4.3.11", features = ["cargo", "wrap_help", "derive"] }
 home = "0.5.5"
+regex = "1.9.1"
 reqwest = { version = "0.11.18", features = ["blocking"] }
+serde_json = "1.0.102"
 

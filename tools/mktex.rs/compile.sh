@@ -1,3 +1,5 @@
+set -xe
+
 MODE="release"
 cargo build --$MODE
 D="$(basename "$PWD")"

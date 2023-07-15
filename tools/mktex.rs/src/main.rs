@@ -7,14 +7,17 @@ use clap::{
     Subcommand,
 };
 
+mod config;
 mod freeze;
 mod texmf;
 mod resource;
 
+use config::*;
 use resource::{fetch_resource, ResourceLocation};
 
 // TODO:
-//   - config.rs
+//   - More idiomatic result handling
+//   - allow freeze to accept commit id
 //   - sync/overwrite
 //   - class option local with no texmf
 //   - freeze more than just class
@@ -106,19 +109,15 @@ fn main() {
     // Make class file
     if let Some(use_class) = cli.class {
         if use_class {
-            let cls_name = "arteacle.cls";
-            let cls_resource = "general_macros/class/arteacle.cls";
-
             // Need to move class file to local texmf if possible
-            if !texmf::resource_in_local_texmf(&cls_name) {
+            if !texmf::resource_in_local_texmf(&CLS_NAME) {
                 // Write class file to local texmf directory
                 let local_dir = texmf::texmf_local_resources();
-                let cls_contents = fetch_resource(cls_resource, &resource_location);
-                fs::write(local_dir.join(&cls_name), cls_contents).unwrap();
+                let cls_contents = fetch_resource(CLS_RESOURCE, &resource_location);
+                fs::write(local_dir.join(&CLS_NAME), cls_contents).unwrap();
             }
 
             // Make template in target dir
-            let tmplt_resource = "templates/template_Class_Typesetting.tex";
             let out_file = Path::new(&cli.dir.unwrap()).join(&cli.file.unwrap());
 
             // Check that we are not overwriting a file!
@@ -127,15 +126,14 @@ fn main() {
             }
 
             // Write the template file to the specified directory
-            let tmplt_contents = fetch_resource(tmplt_resource, &resource_location);
-            fs::write(out_file, tmplt_contents).unwrap();
+            let tmpl_contents = fetch_resource(TMPL_RESOURCE, &resource_location);
+            fs::write(out_file, tmpl_contents).unwrap();
         }
     };
 
     match &cli.command {
         Some(Commands::Freeze) => {
-            let cls_resource = "general_macros/class/arteacle.cls";
-            let cls_contents = fetch_resource(cls_resource, &resource_location);
+            let cls_contents = fetch_resource(CLS_RESOURCE, &resource_location);
             println!("{}", freeze::expand_input_paths(cls_contents, &resource_location));
         },
         None => {},

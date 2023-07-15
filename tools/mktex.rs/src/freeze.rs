@@ -1,3 +1,4 @@
+#[path = "config.rs"] mod config;
 #[path = "remote.rs"] mod remote;
 
 // https://stackoverflow.com/a/72397385/12069968
@@ -7,6 +8,7 @@ use chrono::prelude::*;
 use regex::{Captures, Regex};
 
 pub fn expand_input_paths(contents_raw: String, loc: &ResourceLocation) -> String {
+    // We want to expand/evaluate lines in LaTeX like `\input{...}`
     let re = Regex::new(r"\\input\{(?P<path>.+)\}").unwrap();
     let expanded = re.replace_all(&contents_raw, |caps: &Captures| {
         let input_path = caps.name("path").unwrap().as_str();
@@ -16,7 +18,7 @@ pub fn expand_input_paths(contents_raw: String, loc: &ResourceLocation) -> Strin
 }
 
 fn fetch_resource(input_path: &str, loc: &ResourceLocation) -> String {
-    let resource_path = input_path.split("tex-macros/").last().expect("Cannot find tex-macros/ repo in input path");
+    let resource_path = input_path.split(config::GITHUB_REPO_NAME).last().expect("Cannot find tex-macros/ repo in input path");
     resource::fetch_resource(resource_path, loc)
 }
 

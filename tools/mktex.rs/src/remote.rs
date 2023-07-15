@@ -1,11 +1,10 @@
 // Fetch resource remotely
 
+#[path = "config.rs"] mod config;
+use config::*;
+
 use reqwest;
 use serde_json;
-
-const GITHUB_USER: &str = "jakewilliami";
-const GITHUB_REPO_NAME: &str = "tex-macros";
-const MAIN_BRANCH: &str = "master";
 
 // use "master" for tag
 pub fn get_remote_resource(resource: &str, tag: &str) -> String {

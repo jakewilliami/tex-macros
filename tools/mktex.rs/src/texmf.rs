@@ -26,11 +26,8 @@ pub fn texmf() -> Option<PathBuf> {
 
         // Strip trailing new line
         // https://stackoverflow.com/a/55041833/12069968
-        if texmf_home.ends_with('\n') {
+        while texmf_home.ends_with('\n') || texmf_home.ends_with('\r') {
             texmf_home.pop();
-            if texmf_home.ends_with('\r') {
-                texmf_home.pop();
-            }
         }
 
         Some(PathBuf::from(texmf_home))

@@ -1,0 +1,76 @@
+\documentclass[border=5pt,tikz]{standalone}
+
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% \usepackage{garamondx}
+% https://tex.stackexchange.com/a/153558/181375
+\usepackage{mathptmx}
+
+\def\emdash
+		{\discretionary{}{}{\kern 0.1em}---\discretionary{}{}{\kern 0.1em}}
+
+\definecolor{redtea}{rgb}{0.6823529412,0.2792156863,0.2666666667}
+
+\usetikzlibrary{positioning, shapes, calc, shapes.geometric,
+  shapes.multipart, shapes, arrows.meta, arrows, decorations.markings,
+  external, trees}
+
+\tikzstyle{controlled}=[rectangle, draw=gray!90, auto]  % controlled variables
+\tikzstyle{arrow}=[thick, ->, >=latex]
+\tikzstyle{dottedarrow}=[dotted, thick, ->, >=latex]
+
+% Inspiration from:
+% https://github.com/go-bayes/templates/blob/c06066a6/projects/latex/tikz-template-example.tex
+% See also:
+% https://github.com/jakewilliami/tex-macros
+
+\newcounter{confound}
+\renewcommand{\theconfound}{\stepcounter{confound}\alph{confound}}
+\def\confounder#1{$L_{\theconfound,\; t - 1}$: #1}
+
+\newcounter{outcome}
+\renewcommand{\theoutcome}{\stepcounter{outcome}\alph{outcome}}
+\def\outcome#1{$Y_{\theoutcome,\; t + 1}$: #1}
+
+\newcounter{baseoutcome}
+\renewcommand{\thebaseoutcome}{\stepcounter{baseoutcome}\alph{baseoutcome}}
+\def\baseoutcome#1{$Y_{\thebaseoutcome,\; t - 1}$: #1}
+
+\def\outcomeone{Kessler-6}
+\def\outcometwo{PWI}
+
+\begin{document}
+
+    \begin{tikzpicture}[node distance=5em]
+    	% Nodes
+    	\node (unmeasured) {$U$};
+		\node[controlled, right=of unmeasured, align=left] (confounders) {
+			\confounder{Ethnicity}\\
+			\confounder{Age}\\
+			\confounder{Gender}\\
+			\confounder{SES}\\
+			\confounder{Personality}\\
+			\confounder{Religion}\\
+			$A_{t - 1}$: Baseline support\\
+			\baseoutcome{\outcomeone}\\
+			\baseoutcome{\outcometwo}
+		};
+		\node[right=of confounders] (exposure) {$A_t$: Support};
+		\node[right=of exposure, align=left] (outcome) {
+			\outcome{\outcomeone}\\
+			\outcome{\outcometwo}
+		};
+				
+    	% Full arrows
+		\draw[arrow] (unmeasured) to (confounders);
+		\draw[arrow] (confounders) to (exposure);
+		\draw[arrow, bend left=50] (confounders) to (outcome);
+		
+		% Dotted arrows
+		\draw[dottedarrow, bend left=70] (unmeasured) to (exposure);
+		\draw[dottedarrow, bend right=60] (unmeasured) to (outcome);
+		\draw[dottedarrow, redtea] (exposure) to (outcome);  
+    \end{tikzpicture}
+
+\end{document}

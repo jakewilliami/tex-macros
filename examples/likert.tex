@@ -1,0 +1,42 @@
+\documentclass[varwidth, border=5pt]{standalone}
+
+% Inspiration:
+% https://wpforms.com/wp-content/uploads/2018/07/likert-scale-example.jpg
+
+\usepackage{kpfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[table]{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+
+% Grey colour for every second row
+% https://tex.stackexchange.com/a/5365/181375
+\definecolor{lightgrey}{gray}{0.9}
+\rowcolors{2}{white}{lightgrey}
+
+% Centered table column type
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+% Increase row height
+% https://tex.stackexchange.com/a/31681/181375
+\def\arraystretch{2}
+
+% Likert option circle
+\newcommand{\likertoption}{%
+	\tikz\draw[fill=white, draw=black] (0,0) circle (.5em);%
+}
+
+\begin{document}
+
+How satisfied are you with\bigskip
+
+\begin{tabularx}{\textwidth}{m{2cm}YYYYY}
+	& Strongly Disagree & Disagree & Neutral & Agree & Strongly Agree \\
+	Purchase & \likertoption & \likertoption & \likertoption & \likertoption & \likertoption \\
+	Service & & & & & \\
+	Company Overall & & & & & \\
+\end{tabularx}
+
+\end{document}

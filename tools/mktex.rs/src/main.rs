@@ -16,7 +16,14 @@ use config::*;
 use resource::{fetch_resource, ResourceLocation};
 
 // TODO:
-//   - More idiomatic result handling
+//   - add version history to readme
+//   - fix broken pipe: https://stackoverflow.com/a/65760807/12069968
+//   - fix -c freeze crash
+//   - warn if -l passed without -c or something (-l only relevant with other things)
+//   - do not allow freeze with other options
+//   - allow freeze options (e.g., don't assume the user wants to use freeze with -c)
+//   - add support for teamer class
+//   - more idiomatic result handling
 //   - allow freeze to accept commit id
 //   - sync/overwrite
 //   - class option local with no texmf

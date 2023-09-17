@@ -40,7 +40,6 @@ use file::LocalFile;
 //   - beamer option
 //   - figure option
 //   - poi option
-//   - add option to just print the location of local texmf dir
 
 #[derive(Parser)]
 #[command(
@@ -105,6 +104,8 @@ struct Cli {
 enum Commands {
     /// Freeze latest class files
     Freeze,
+    /// Print local texmf directory
+    Texmf,
 }
 
 fn main() {
@@ -134,6 +135,13 @@ fn main() {
         Some(Commands::Freeze) => {
             let cls_contents = fetch_resource(CLS_RESOURCE, &resource_location);
             println!("{}", freeze::expand_input_paths(cls_contents, &resource_location));
+        },
+        Some(Commands::Texmf) => {
+            if let Some(texmf_path) = texmf::texmf() {
+                println!("{}", texmf_path.display());
+            } else {
+                eprintln!("ERROR: Could not find local texmf directory");
+            }
         },
         None => {},
     }

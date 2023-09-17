@@ -62,7 +62,7 @@
   \def\beamer@themelocation{}
 
 % State where to find theme and figures
-\usefolder{theme}
+\usefolder{teamer}
 \usetheme{tea}
 \graphicspath{{./figs/}}
 

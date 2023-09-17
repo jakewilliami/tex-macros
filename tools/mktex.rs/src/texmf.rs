@@ -48,9 +48,9 @@ pub fn texmf_local_resources() -> PathBuf {
     local_dir
 }
 
-pub fn resource_in_local_texmf(resource: &str) -> bool {
+pub fn resource_in_local_texmf(resource: &PathBuf) -> bool {
     texmf_local_resources()
-        .join(Path::new(resource))
+        .join(resource)
         .as_path().exists()
 }
 

@@ -1,4 +1,4 @@
-use std::{fs, path::Path};
+use std::{fs, path::Path, process};
 use clap::{
     ArgAction,
     crate_authors,
@@ -15,7 +15,7 @@ mod file;
 
 use config::*;
 use resource::{fetch_resource, ResourceLocation};
-use file::LocalFile;
+use file::{LocalTemplate, LocalResource};
 
 // TODO:
 //   - add version history to readme
@@ -24,7 +24,7 @@ use file::LocalFile;
 //   - warn if -l passed without -c or something (-l only relevant with other things)
 //   - do not allow freeze with other options
 //   - allow freeze options (e.g., don't assume the user wants to use freeze with -c)
-//   - add support for teamer class
+//   - handle updating of local texmf files
 //   - more idiomatic result handling
 //   - allow freeze to accept commit id
 //   - sync/overwrite
@@ -37,7 +37,6 @@ use file::LocalFile;
 //   - bibligraphy file option
 //   - letter option
 //   - formal letter option
-//   - beamer option
 //   - figure option
 //   - poi option
 
@@ -87,7 +86,7 @@ struct Cli {
     // )]
     // sync: Option<bool>,
 
-    /// Use class
+    /// Use article class
     #[arg(
         short = 'c',
         long = "class",
@@ -95,6 +94,15 @@ struct Cli {
         num_args = 0,
     )]
     class: Option<bool>,
+
+    /// Use beamer class
+    #[arg(
+        short = 'b',
+        long = "beamer",
+        action = ArgAction::SetTrue,
+        num_args = 0,
+    )]
+    beamer: Option<bool>,
 
     #[command(subcommand)]
     command: Option<Commands>,
@@ -117,24 +125,12 @@ fn main() {
         ResourceLocation::Remote
     };
 
-    // Make class file
-    if let Some(use_class) = cli.class {
-        if use_class {
-            let cls = LocalFile {
-                cls_path: CLS_RESOURCE.to_string(),
-                template_path: TMPL_RESOURCE.to_string(),
-                resource_location: &resource_location,
-                out_dir: cli.dir.unwrap().to_string(),
-                out_file: cli.file.unwrap().to_string(),
-            };
-            file::write_cls(cls);
-        }
-    };
-
+    // Parse subcommands and exit
     match &cli.command {
         Some(Commands::Freeze) => {
             let cls_contents = fetch_resource(CLS_RESOURCE, &resource_location);
             println!("{}", freeze::expand_input_paths(cls_contents, &resource_location));
+            process::exit(0);
         },
         Some(Commands::Texmf) => {
             if let Some(texmf_path) = texmf::texmf() {
@@ -142,7 +138,55 @@ fn main() {
             } else {
                 eprintln!("ERROR: Could not find local texmf directory");
             }
+            process::exit(0);
         },
         None => {},
+    }
+
+    let out_dir = cli.dir.unwrap().to_string();
+    let out_file = cli.file.unwrap().to_string();
+
+    // Make class file
+    if let Some(use_class) = cli.class {
+        if use_class {
+            let cls = LocalResource {
+                resource_path: CLS_RESOURCE.to_string(),
+                resource_location: &resource_location,
+                template: Some(LocalTemplate {
+                    template_path: TMPL_RESOURCE.to_string(),
+                    out_dir: &out_dir,
+                    out_file: &out_file,
+                }),
+            };
+            file::write_resource(cls);
+        }
+    };
+
+    // Make beamer file
+    if let Some(use_beamer) = cli.beamer {
+        if use_beamer {
+            // Custom Beamer theme files
+            for file in vec![BMR_THEME_COLOUR, BMR_THEME_INNER, BMR_THEME_OUTER, BMR_THEME_MAIN] {
+                let theme_file = Path::new(BMR_THEME_PATH).join(file);
+                let sty = LocalResource {
+                    resource_path: theme_file.display().to_string(),
+                    resource_location: &resource_location,
+                    template: None,
+                };
+                file::write_resource(sty);
+            }
+
+            // Main Beamer class file
+            let cls = LocalResource {
+                resource_path: BMR_RESOURCE.to_string(),
+                resource_location: &resource_location,
+                template: Some(LocalTemplate {
+                    template_path: BMR_TMPL_RESOURCE.to_string(),
+                    out_dir: &out_dir,
+                    out_file: &out_file,
+                }),
+            };
+            file::write_resource(cls);
+        }
     }
 }

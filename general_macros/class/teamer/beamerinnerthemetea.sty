@@ -1,0 +1,50 @@
+\mode<presentation>
+
+% https://tex.stackexchange.com/a/573293/181375
+\def\teamertitlepageheader{No Title Page Header Set}
+\def\titleheader#1{\gdef\teamertitlepageheader{#1}}
+
+% Background
+\setbeamertemplate{background}
+{%
+	\begin{tikzpicture}%
+		\useasboundingbox (0, 0) rectangle(\the\paperwidth, \the\paperheight);%
+		\fill[color=TeamerRed] (0, 7.5) rectangle(\the\paperwidth, 9.2);%
+		% \node  at (10,4.6) {\includegraphics[height=3.5cm]{tile_vuw_words.pdf}};%
+		\node[color=white] at (6, 8.4) {\Large \textbf{\teamertitlepageheader}};%
+		\fill[color=TeamerGreen] (0, 0.5) rectangle(\the\paperwidth, 2.2);%
+		\ifnum\thepage>1\relax%
+			\fill[white,opacity=1] (0, 0) rectangle(\the\paperwidth, \the\paperheight);%
+		\fi%
+	\end{tikzpicture}%
+}
+
+% Title page
+% TODO: dynamically fill space no matter title length!
+\defbeamertemplate*{title page}{texsx}[1][]
+{%
+	\vskip4em%
+
+	% Title
+	\begin{beamercolorbox}[wd=0.85\paperwidth, leftskip=7em, sep=8pt, #1]{title page header}%
+		\usebeamerfont{title}\inserttitle\par%
+		\usebeamerfont{subtitle}\insertsubtitle\par%
+	\end{beamercolorbox}%
+
+	\vfill%
+
+	% Author
+	\begin{beamercolorbox}[wd=0.85\paperwidth, leftskip=8em, #1]{author}%
+		\usebeamerfont{author}\insertauthor%
+	\end{beamercolorbox}%
+	\vskip0.6em%
+
+	% Date
+	\begin{beamercolorbox}[wd=0.85\paperwidth, leftskip=8em, #1]{author}%
+		\usebeamerfont{author}\insertdate%
+	\end{beamercolorbox}%
+	\vskip-6.5em%
+}
+
+\mode
+<all>

@@ -11,9 +11,11 @@ mod config;
 mod freeze;
 mod texmf;
 mod resource;
+mod file;
 
 use config::*;
 use resource::{fetch_resource, ResourceLocation};
+use file::LocalFile;
 
 // TODO:
 //   - add version history to readme
@@ -38,6 +40,7 @@ use resource::{fetch_resource, ResourceLocation};
 //   - beamer option
 //   - figure option
 //   - poi option
+//   - add option to just print the location of local texmf dir
 
 #[derive(Parser)]
 #[command(
@@ -116,25 +119,14 @@ fn main() {
     // Make class file
     if let Some(use_class) = cli.class {
         if use_class {
-            // Need to move class file to local texmf if possible
-            if !texmf::resource_in_local_texmf(&CLS_NAME) {
-                // Write class file to local texmf directory
-                let local_dir = texmf::texmf_local_resources();
-                let cls_contents = fetch_resource(CLS_RESOURCE, &resource_location);
-                fs::write(local_dir.join(&CLS_NAME), cls_contents).unwrap();
-            }
-
-            // Make template in target dir
-            let out_file = Path::new(&cli.dir.unwrap()).join(&cli.file.unwrap());
-
-            // Check that we are not overwriting a file!
-            if out_file.exists() {
-                panic!("Failed to mktex: file exists")
-            }
-
-            // Write the template file to the specified directory
-            let tmpl_contents = fetch_resource(TMPL_RESOURCE, &resource_location);
-            fs::write(out_file, tmpl_contents).unwrap();
+            let cls = LocalFile {
+                cls_path: CLS_RESOURCE.to_string(),
+                template_path: TMPL_RESOURCE.to_string(),
+                resource_location: &resource_location,
+                out_dir: cli.dir.unwrap().to_string(),
+                out_file: cli.file.unwrap().to_string(),
+            };
+            file::write_cls(cls);
         }
     };
 

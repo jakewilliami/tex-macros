@@ -18,17 +18,15 @@ use resource::{fetch_resource, ResourceLocation};
 use file::{LocalTemplate, LocalResource};
 
 // TODO:
-//   - warn when local version not same as remote
+//   - better logging
 //   - add version history to readme
 //   - fix broken pipe: https://stackoverflow.com/a/65760807/12069968
 //   - fix -c freeze crash
 //   - warn if -l passed without -c or something (-l only relevant with other things)
 //   - do not allow freeze with other options
 //   - allow freeze options (e.g., don't assume the user wants to use freeze with -c)
-//   - handle updating of local texmf files
 //   - more idiomatic result handling
 //   - allow freeze to accept commit id
-//   - sync/overwrite
 //   - class option local with no texmf
 //   - freeze more than just class
 //   - no-option default?
@@ -78,15 +76,6 @@ struct Cli {
     )]
     local: Option<bool>,
 
-    // /// Sync
-    // #[arg(
-    //     short = 's',
-    //     long = "sync",
-    //     action = ArgAction::SetTrue,
-    //     num_args = 0,
-    // )]
-    // sync: Option<bool>,
-
     /// Use article class
     #[arg(
         short = 'c',
@@ -104,6 +93,15 @@ struct Cli {
         num_args = 0,
     )]
     beamer: Option<bool>,
+
+    /// Do the process without writing anything
+    #[arg(
+        short = 'n',
+        long = "dry-run",
+        action = ArgAction::SetTrue,
+        num_args = 0,
+    )]
+    dry_run: Option<bool>,
 
     #[command(subcommand)]
     command: Option<Commands>,
@@ -127,7 +125,7 @@ fn main() {
     };
 
     // Parse subcommands and exit
-    match &cli.command {
+    match cli.command {
         Some(Commands::Freeze) => {
             let cls_contents = fetch_resource(CLS_RESOURCE, &resource_location);
             println!("{}", freeze::expand_input_paths(cls_contents, &resource_location));
@@ -146,6 +144,7 @@ fn main() {
 
     let out_dir = cli.dir.unwrap().to_string();
     let out_file = cli.file.unwrap().to_string();
+    let dry_run = if let Some(dry_run) = cli.dry_run { dry_run } else { false };
 
     // Make class file
     if let Some(use_class) = cli.class {
@@ -159,7 +158,7 @@ fn main() {
                     out_file: &out_file,
                 }),
             };
-            file::write_resource(cls);
+            file::write_resource(cls, dry_run);
         }
     };
 
@@ -174,7 +173,7 @@ fn main() {
                     resource_location: &resource_location,
                     template: None,
                 };
-                file::write_resource(sty);
+                file::write_resource(sty, dry_run);
             }
 
             // Main Beamer class file
@@ -187,7 +186,7 @@ fn main() {
                     out_file: &out_file,
                 }),
             };
-            file::write_resource(cls);
+            file::write_resource(cls, dry_run);
         }
     }
 }

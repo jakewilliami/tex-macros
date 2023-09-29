@@ -27,26 +27,32 @@ impl LocalTemplate<'_> {
     }
 }
 
-fn write_template(file: LocalResource) {
+fn write_template(file: LocalResource, dry_run: bool) {
     let template = file.template.unwrap();
 
     // Make template in target dir
     let out_file = template.out_file();
 
     // Check that we are not overwriting a file!
-    if out_file.exists() {
+    if out_file.exists() && !dry_run {
         panic!("Failed to mktex: file exists")
     }
 
-    // Write the template file to the specified directory
-    let tmpl_contents = fetch_resource(
-        template.template_path.as_str(),
-        &file.resource_location
-    );
-    fs::write(out_file, tmpl_contents).unwrap();
+    if dry_run {
+        println!("[INFO] Would have written template {:?} to {:?}", &template.template_path, &out_file);
+    } else {
+        // Write the template file to the specified directory
+        let tmpl_contents = fetch_resource(
+            template.template_path.as_str(),
+            &file.resource_location
+        );
+
+        println!("[INFO] Writing template {:?} to {:?}", &template.template_path, &out_file);
+        fs::write(out_file, tmpl_contents).unwrap();
+    }
 }
 
-pub fn write_resource(file: LocalResource) {
+pub fn write_resource(file: LocalResource, dry_run: bool) {
     let file_name = Path::new(&file.resource_path)
         .strip_prefix(config::RESOURCE_PARENT)
         .unwrap().to_path_buf();
@@ -58,7 +64,12 @@ pub fn write_resource(file: LocalResource) {
         local_path.push(&file_parent)
     }
     if !local_path.exists() {
-        fs::create_dir_all(&local_path).unwrap();
+        if dry_run {
+            println!("[INFO] Would have created the directory {:?}", &local_path);
+        } else {
+            println!("[INFO] Creating directory {:?}", &local_path);
+            fs::create_dir_all(&local_path).unwrap();
+        }
     }
 
     // Append file name to local resource path
@@ -72,26 +83,32 @@ pub fn write_resource(file: LocalResource) {
 
     // Need to move file to local texmf if possible
     if !texmf::resource_in_local_texmf(&file_name) {
-        println!("[INFO] Writing resource to {:?}", file_name);
-        fs::write(&local_path, &contents).unwrap();
+        if dry_run {
+            println!("[INFO] Would have written resource {:?} to {:?}", &file_name, &local_path);
+        } else {
+            println!("[INFO] Writing resource {:?} to {:?}", &file_name, &local_path);
+            fs::write(&local_path, &contents).unwrap();
+        }
     }
 
     // If local (texmf) resource is not in sync with remote, ask user if we should update local
     if !sync::check_resource(&local_path, &contents) {
         println!("[WARN] Local resource exists but is out of sync with remote ({:?})", file_name);
-        if Confirm::new()//::with_theme(&dialoguer::theme::ColorfulTheme::default())
-            .with_prompt(format!("Would you like to update the local resource at {:?}?", &local_path))
-            .interact()
-            .unwrap()
-        {
-            fs::write(&local_path, &contents).unwrap();
-            println!("[INFO] Updated local resource at {:?}", &local_path);
-        } else {
-            println!("[INFO] Ignoring out-of-sync local file");
+        if !dry_run {
+            if Confirm::new()//::with_theme(&dialoguer::theme::ColorfulTheme::default())
+                .with_prompt(format!("Would you like to update the local resource at {:?}?", &local_path))
+                .interact()
+                .unwrap()
+            {
+                println!("[INFO] Updating local resource {:?} at {:?}", &file_name, &local_path);
+                fs::write(&local_path, &contents).unwrap();
+            } else {
+                println!("[INFO] Ignoring out-of-sync local file");
+            }
         }
     }
 
     if file.template.is_some() {
-        write_template(file);
+        write_template(file, dry_run);
     }
 }

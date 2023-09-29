@@ -61,9 +61,9 @@ struct Cli {
     /// Output directory
     #[arg(
         action = ArgAction::Set,
-        num_args = 1,
+        num_args = 0..=1,
         value_name = "output directory",
-        required = true,
+        default_value = ".",
     )]
     dir: Option<String>,
 

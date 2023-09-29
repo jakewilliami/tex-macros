@@ -18,6 +18,7 @@ use resource::{fetch_resource, ResourceLocation};
 use file::{LocalTemplate, LocalResource};
 
 // TODO:
+//   - warn when local version not same as remote
 //   - add version history to readme
 //   - fix broken pipe: https://stackoverflow.com/a/65760807/12069968
 //   - fix -c freeze crash

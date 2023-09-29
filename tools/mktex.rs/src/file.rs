@@ -1,6 +1,7 @@
 use std::{fs, path::{Path, PathBuf}};
 
 #[path = "config.rs"] mod config;
+#[path = "sync.rs"] mod sync;
 #[path = "texmf.rs"] mod texmf;
 
 use crate::resource::{fetch_resource, ResourceLocation};
@@ -41,7 +42,7 @@ fn write_template(file: LocalResource) {
         template.template_path.as_str(),
         &file.resource_location
     );
-    fs::write(out_file, tmpl_contents).unwrap();
+    // fs::write(out_file, tmpl_contents).unwrap();
 }
 
 pub fn write_resource(file: LocalResource) {
@@ -49,27 +50,31 @@ pub fn write_resource(file: LocalResource) {
         .strip_prefix(config::RESOURCE_PARENT)
         .unwrap().to_path_buf();
 
+    // Ensure parent path exists
+    let mut local_path = texmf::texmf_local_resources();
+    let file_parent = &file_name.parent();
+    if let Some(file_parent) = file_parent {
+        local_path.push(&file_parent)
+    }
+    if !local_path.exists() {
+        fs::create_dir_all(&local_path).unwrap();
+    }
+
+    // Append file name to local resource path
+    local_path.push(file_name.file_name().unwrap());
+
+    // Write file to local texmf directory
+    let contents = fetch_resource(
+        file.resource_path.as_str(),
+        &file.resource_location
+    );
+
     // Need to move file to local texmf if possible
     if !texmf::resource_in_local_texmf(&file_name) {
-        // Ensure parent path exists
-        let mut local_path = texmf::texmf_local_resources();
-        let file_parent = &file_name.parent();
-        if let Some(file_parent) = file_parent {
-            local_path.push(&file_parent)
-        }
-        if !local_path.exists() {
-            fs::create_dir_all(&local_path).unwrap();
-        }
-
-        // Append file name to local resource path
-        local_path.push(file_name.file_name().unwrap());
-
-        // Write file to local texmf directory
-        let contents = fetch_resource(
-            file.resource_path.as_str(),
-            &file.resource_location
-        );
-        fs::write(local_path, contents).unwrap();
+        println!("[INFO] Writing resource to {:?}", file_name);
+        // fs::write(local_path, contents).unwrap();
+    } else if !sync::check_resource(local_path.clone(), contents) {
+        println!("[WARN] Local resource exists but is out of sync with remote ({:?})", file_name);
     }
 
     if file.template.is_some() {

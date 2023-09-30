@@ -23,6 +23,8 @@
 % TODO: dynamically fill space no matter title length!
 \def\teamertitlepagevskip{4em}
 \def\titleskip#1{\gdef\teamertitlepagevskip{#1}}
+\def\teamerauthorpagevskip{-6em}
+\def\authorskip#1{\gdef\teamerauthorpagevskip{#1}}
 
 \defbeamertemplate*{title page}{texsx}[1][]
 {%
@@ -46,7 +48,7 @@
 	\begin{beamercolorbox}[wd=0.85\paperwidth, leftskip=8em, #1]{author}%
 		\usebeamerfont{author}\insertdate%
 	\end{beamercolorbox}%
-	\vskip-6.5em%
+	\vskip\teamerauthorpagevskip%
 }
 
 \mode

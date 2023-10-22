@@ -1,4 +1,8 @@
-# mktex
+# [DEPRECATED] mktex
+
+**[DEPRECATED] This project has moved to [jakewilliami/mktex](https://github.com/jakewilliami/mktex)**
+
+---
 
 For a while, I've had a script [`mktex`](../mktex).  However, it is written in Bash, so it's very big and not super portable/reliable.  I figured, now that I am back at uni and using LaTeX, it would be a good time to start to port some of the functionality (and perhaps some more complex functionality) of `mktex` to a more reliable-in-production language.  I chose Rust.
 

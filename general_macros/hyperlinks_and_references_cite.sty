@@ -1,4 +1,7 @@
 \usepackage[bibencoding=utf8,style=apa,backend=biber]{biblatex}
+
+% TODO: make the bibliography resource a dynamic
+% class option (defaulting to references.bib)
 \addbibresource{references.bib}
 
 %For spanish books
@@ -9,50 +12,42 @@
 	\printbibliography
 }
 
-% Make whole citation hyperlink rather than just date
-% https://tex.stackexchange.com/a/1690/181375
-\DeclareCiteCommand{\cite}
-{\usebibmacro{prenote}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{\usebibmacro{cite}}}
-{\multicitedelim}
-{\usebibmacro{postnote}}
-\DeclareCiteCommand*{\cite}
-{\usebibmacro{prenote}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{\usebibmacro{citeyear}}}
-{\multicitedelim}
-{\usebibmacro{postnote}}
-\DeclareCiteCommand{\parencite}[\mkbibparens]
-{\usebibmacro{prenote}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{\usebibmacro{cite}}}
-{\multicitedelim}
-{\usebibmacro{postnote}}
-\DeclareCiteCommand*{\parencite}[\mkbibparens]
-{\usebibmacro{prenote}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{\usebibmacro{citeyear}}}
-{\multicitedelim}
-{\usebibmacro{postnote}}
-\DeclareCiteCommand{\footcite}[\mkbibfootnote]
-{\usebibmacro{prenote}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{ \usebibmacro{cite}}}
-{\multicitedelim}
-{\usebibmacro{postnote}}
-\DeclareCiteCommand{\footcitetext}[\mkbibfootnotetext]
-{\usebibmacro{prenote}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{\usebibmacro{cite}}}
-{\multicitedelim}
-{\usebibmacro{postnote}}
-\DeclareCiteCommand{\textcite}
-{\boolfalse{cbx:parens}}
-{\usebibmacro{citeindex}%
-\printtext[bibhyperref]{\usebibmacro{textcite}}}
-{\ifbool{cbx:parens}
-{\bibcloseparen\global\boolfalse{cbx:parens}}
-{}%
-\multicitedelim}
-{\usebibmacro{textcite:postnote}}
+% Make whole citation hyperlink rather than just date:
+%   https://tex.stackexchange.com/a/27107
+% See also:
+%   https://tex.stackexchange.com/a/537471
+%   https://tex.stackexchange.com/a/1690
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{#1}}
+
+\DeclareFieldFormat{textcitehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{%
+    #1%
+    \ifbool{cbx:parens}
+      {\bibcloseparen\global\boolfalse{cbx:parens}}
+      {}}}
+
+\savebibmacro{cite}
+\savebibmacro{textcite}
+
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}}}
+
+\renewbibmacro*{textcite}{%
+  \ifboolexpr{
+    ( not test {\iffieldundef{prenote}} and
+      test {\ifnumequal{\value{citecount}}{1}} )
+    or
+    ( not test {\iffieldundef{postnote}} and
+      test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )
+  }
+    {\DeclareFieldAlias{textcitehyperref}{noformat}}
+    {}%
+  \printtext[textcitehyperref]{%
+    \restorebibmacro{textcite}%
+    \usebibmacro{textcite}}}
+

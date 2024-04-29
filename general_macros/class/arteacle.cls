@@ -18,22 +18,66 @@
 % Also process numeric option
 \newif\ifbibnumeric
 \bibnumericfalse
-\DeclareOption{numeric}{\bibnumerictrue}
+\DeclareOption{bib-apa=numeric}{\bibnumerictrue}
+\DeclareOption{numeric}{
+  \bibnumerictrue
+  \ClassWarning{arteacle}{Use of numeric is deprecated in favour of bib-apa=numeric}
+}
+
+% Define font switches
+% We have the following options:
+%  - old-style-numbers
+%  - Optionally old-style-numbers=math for OSF just in math mode
+%  - osfI: TODO
+%  - swishQ: TODO
+%  - times-font
+%  - double-spacing
+\newif\ifoldstylenumbers
+\oldstylenumbersfalse
+\DeclareOption{old-style-numbers}{\oldstylenumberstrue}
+\newif\ifoldstylenumbersmath
+\oldstylenumbersmathfalse
+\DeclareOption{old-style-numbers=math}{\oldstylenumbersmathtrue}
+\newif\iftimesfont
+\timesfontfalse
+\DeclareOption{times-font}{\timesfonttrue}
+\newif\ifdoublespacing
+\doublespacingfalse
+\DeclareOption{double-spacing}{\doublespacingtrue}
 
 % Pass any remaining class options (unhandled by arteacle) to
 % the underlying article class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
-% Extend the article class
+% Extend the article class options
 % By default we use 11pt font and a4 paper
 \LoadClass[11pt, a4paper]{article}
 
+
+% Process font options
+\ifoldstylenumbers
+    \PassOptionsToPackage{osf}{garamondx}
+    \oldstylenumbersmathtrue
+\fi
+\ifoldstylenumbersmath
+    \PassOptionsToPackage{garamondx}{newtxmath}
+\fi
+% TODO: get osfI option working with newtxmath (#10)
+\iftimesfont
+    % https://tex.stackexchange.com/a/153558
+    \usepackage{mathptmx}
+\fi
+\ifdoublespacing
+    \usepackage{setspace}
+    \setstretch{2}
+\fi
 
 % Input macro source files
 \input{\string~/projects/tex-macros/general_macros/general_typesetting.sty}
 
 % If bib-apa and numeric, we input cite numeric, otherwise input regular cite file
+\ifbibnumeric\bibapatrue\fi % ensure bib-apa is set if numeric is set too
 \ifbibapa
     \ifbibnumeric
 	    \input{\string~/projects/tex-macros/general_macros/hyperlinks_and_references_cite_numeric.sty} 

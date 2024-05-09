@@ -68,7 +68,8 @@
     % https://tex.stackexchange.com/a/153558
     \usepackage{mathptmx}
     % https://tex.stackexchange.com/a/95348
-    \usepackage{newtxtext, newtxmath}
+    % TODO: get timesfont working
+    % \usepackage{newtxtext, newtxmath}
 \fi
 \ifdoublespacing
     \usepackage{setspace}

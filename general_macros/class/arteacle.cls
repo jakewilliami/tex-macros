@@ -67,6 +67,8 @@
 \iftimesfont
     % https://tex.stackexchange.com/a/153558
     \usepackage{mathptmx}
+    % https://tex.stackexchange.com/a/95348
+    \usepackage{newtxtext, newtxmath}
 \fi
 \ifdoublespacing
     \usepackage{setspace}

@@ -66,10 +66,11 @@
 % TODO: get osfI option working with newtxmath (#10)
 \iftimesfont
     % https://tex.stackexchange.com/a/153558
-    \usepackage{mathptmx}
+    % TODO: I can't write square brackets in maths mode with this package
+    %\usepackage{mathptmx}
     % https://tex.stackexchange.com/a/95348
     % TODO: get timesfont working
-    % \usepackage{newtxtext, newtxmath}
+    \usepackage{newtxtext, newtxmath}
 \fi
 \ifdoublespacing
     \usepackage{setspace}

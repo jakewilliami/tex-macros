@@ -106,28 +106,28 @@
 \fi % end if doublespacing
 
 % Input macro source files
-\input{\string~/projects/tex-macros/macros/general.sty}
+\input{jakewilliami/tex-macros/macros/general.sty}
 
 % If bib-apa and numeric, we input cite numeric, otherwise input regular cite file
 \ifbibnumeric\bibapatrue\fi % ensure bib-apa is set if numeric is set too
 \ifbibapa
   \ifbibnumeric
-    \input{\string~/projects/tex-macros/macros/cite/numeric/hyperref.sty} 
+    \input{jakewilliami/tex-macros/macros/cite/numeric/hyperref.sty}
   \else % else not bibnumeric
-    \input{\string~/projects/tex-macros/macros/cite/hyperref.sty} 
+    \input{jakewilliami/tex-macros/macros/cite/hyperref.sty}
   \fi % end if bibnumeric
 \else % else not bibapa
-  \input{\string~/projects/tex-macros/macros/hyperref.sty} 
+  \input{jakewilliami/tex-macros/macros/hyperref.sty}
 \fi % end if bibapa
 
 % Continue inputting macro source files
-\input{\string~/projects/tex-macros/macros/colours.sty}
-\input{\string~/projects/tex-macros/macros/figures.sty}
-\input{\string~/projects/tex-macros/macros/tables.sty}
-\input{\string~/projects/tex-macros/macros/footnotes.sty}
-\input{\string~/projects/tex-macros/macros/mathematical.sty}
-\input{\string~/projects/tex-macros/macros/units.sty}
-\input{\string~/projects/tex-macros/macros/miscellaneous.sty}
+\input{jakewilliami/tex-macros/macros/colours.sty}
+\input{jakewilliami/tex-macros/macros/figures.sty}
+\input{jakewilliami/tex-macros/macros/tables.sty}
+\input{jakewilliami/tex-macros/macros/footnotes.sty}
+\input{jakewilliami/tex-macros/macros/mathematical.sty}
+\input{jakewilliami/tex-macros/macros/units.sty}
+\input{jakewilliami/tex-macros/macros/miscellaneous.sty}
 
 
 %%%%%% Put any custom features after this line! %%%%%%

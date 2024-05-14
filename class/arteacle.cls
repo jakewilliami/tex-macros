@@ -19,7 +19,7 @@
 \newif\ifbibnumeric
 \bibnumericfalse
 \DeclareOption{bib-apa=numeric}{\bibnumerictrue}
-\DeclareOption{numeric}{
+\DeclareOption{numeric}{%
   \bibnumerictrue
   \ClassWarning{arteacle}{Use of numeric is deprecated as of v.TODOOOOOOOOOOOOOOOOOO in favour of bib-apa=numeric}
 }
@@ -34,15 +34,40 @@
 %  - double-spacing
 \newif\ifoldstylenumbers
 \oldstylenumbersfalse
-\DeclareOption{old-style-numbers}{\oldstylenumberstrue}
 \newif\ifoldstylenumbersmath
 \oldstylenumbersmathfalse
-\DeclareOption{old-style-numbers=math}{\oldstylenumbersmathtrue}
 \newif\iftimesfont
 \timesfontfalse
-\DeclareOption{times-font}{\timesfonttrue}
 \newif\ifdoublespacing
 \doublespacingfalse
+\def\timesfonterror{%
+  \ClassError{arteacle}%
+             {Cannot use old-style-numbers with times-font, as old-style-numbers pertains to Garamond}%
+             {If Times font is required, remove old-style-numbers}
+}
+\DeclareOption{old-style-numbers}{%
+  \iftimesfont
+    \timesfonterror
+  \else
+    \oldstylenumberstrue
+  \fi
+}
+\DeclareOption{old-style-numbers=math}{%
+  \iftimesfont
+    \timesfonterror
+  \else
+    \oldstylenumbersmathtrue
+  \fi
+}
+\DeclareOption{times-font}{%
+  \ifoldstylenumbers
+    \timesfonterror
+  \elseifoldstylenumbersmath
+    \timesfonterror
+  \else
+    \timesfonttrue
+  \fi
+}
 \DeclareOption{double-spacing}{\doublespacingtrue}
 
 % Pass any remaining class options (unhandled by arteacle) to
@@ -67,11 +92,13 @@
 % TODO: get osfI option working with newtxmath (#10)
 \iftimesfont
   % https://tex.stackexchange.com/a/153558
-  % TODO: I can't write square brackets in maths mode with this package
-  %\usepackage{mathptmx}
+  \RequirePackage{mathptmx}
   % https://tex.stackexchange.com/a/95348
-  % TODO: get timesfont working
-  \RequirePackage{newtxtext, newtxmath}
+  % Note: newtxmath is loaded in mathematical.sty
+  \RequirePackage{newtxtext}
+\else
+  % Default font is Garamond
+  \RequirePackage{garamondx}
 \fi % end if timesfont
 \ifdoublespacing
   \RequirePackage{setspace}

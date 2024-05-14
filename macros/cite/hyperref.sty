@@ -1,0 +1,92 @@
+%%% Hyperlinks, References, and Citations Typesetting %%%
+
+% APA-style referencing
+\PassOptionsToPackage{
+  bibencoding=utf8,
+  style=apa,
+  backend=biber
+}{biblatex}
+\RequirePackage{biblatex}
+
+% TODO: make the bibliography resource a dynamic class option
+% Defaulting to references.bib
+\addbibresource{references.bib}
+
+% Unicode support for Spanish characters
+\DeclareUnicodeCharacter{0301}{\'{e}}
+
+% Print bibliography at end of document
+\AtEndDocument{
+    % Using \clearpage over \newpage
+    % https://tex.stackexchange.com/a/141995/
+    \clearpage
+	\printbibliography
+}
+
+% Make whole citation hyperlink rather than just date:
+%   https://tex.stackexchange.com/a/27107
+% See also:
+%   https://tex.stackexchange.com/a/537471
+%   https://tex.stackexchange.com/a/1690
+%   https://tex.stackexchange.com/a/537666
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{#1}%
+}
+\DeclareFieldFormat{textcitehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{%
+    #1%
+    \ifbool{cbx:parens}
+           {\bibcloseparen\global\boolfalse{cbx:parens}}
+           {}%
+  }%
+}
+\savebibmacro{cite}
+\savebibmacro{textcite}
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}%
+  }%
+}
+\renewbibmacro*{textcite}{%
+  \ifboolexpr{
+    ( not test {\iffieldundef{prenote}} and
+      test {\ifnumequal{\value{citecount}}{1}} )
+    or
+    ( not test {\iffieldundef{postnote}} and
+      test {\ifnumequal{\value{citecount}}{\value{citetotal}}} )
+  }%
+    {\DeclareFieldAlias{textcitehyperref}{noformat}}%
+    {}%
+  \printtext[textcitehyperref]{%
+    \restorebibmacro{textcite}%
+    \usebibmacro{textcite}%
+  }%
+}
+
+% Do not hyperlink for textcite
+% Adapted from https://tex.stackexchange.com/a/467662
+% Importantly, one line is commented out so as to keep the year
+% (in parentheses) a hyperlink.  The hope is that this provides a
+% good balance between readability of in-text citations and reader
+% experience.
+\DeclareFieldFormat{citehyperref}{%
+  \DeclareFieldAlias{bibhyperref}{noformat}% Avoid nested links
+  \bibhyperref{#1}%
+}
+\savebibmacro{cite}
+\savebibmacro{textcite}
+\renewbibmacro*{cite}{%
+  \printtext[citehyperref]{%
+    \restorebibmacro{cite}%
+    \usebibmacro{cite}%
+  }%
+}
+\renewbibmacro*{textcite}{%
+  \restorebibmacro{textcite}%
+  \usebibmacro{textcite}%
+}
+
+%%% End Hyperlinks, References, and Citations Typesetting %%%

@@ -1,5 +1,7 @@
 %%% Hyperlinks, References, and Numeric Citations Typesetting %%%
 
+% NOTE: this file cannot be called hyperref.sty!
+
 % Make citations numeric (and compressed where possible, e.g. [1–3] over [1, 2, 3])
 \PassOptionsToPackage{
   bibencoding=utf8,
@@ -14,6 +16,20 @@
 
 % Unicode support for Spanish characters
 \DeclareUnicodeCharacter{0301}{\'{e}}
+
+% Set hyperlink colours
+% Make sure to load colours.sty first
+% Hyperlinks are blue which pretty typical for hyperlinks
+% Don't need citations to be different colours in this because they are short anyway
+\RequirePackage{hypdoc}
+\RequirePackage{hyperref}
+\AtEndPreamble{\RequirePackage{cleveref}}
+\hypersetup{
+  colorlinks = true,
+  urlcolor = linkblue,
+  linkcolor = linkblue,
+  citecolor = linkblue,%darkelectricblue,
+}
 
 % Add numbers to APA-formatted bibliography
 % https://tex.stackexchange.com/a/373395/

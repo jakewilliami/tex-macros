@@ -107,22 +107,25 @@
 
 % Input macro source files
 \input{jakewilliami/tex-macros/macros/general.sty}
+% Float might need to be loaded before hyperref
+% https://tex.stackexchange.com/a/1868/
+\input{jakewilliami/tex-macros/macros/figures.sty}
+% Colours also required before hyperref setup
+\input{jakewilliami/tex-macros/macros/colours.sty}
 
 % If bib-apa and numeric, we input cite numeric, otherwise input regular cite file
 \ifbibnumeric\bibapatrue\fi % ensure bib-apa is set if numeric is set too
 \ifbibapa
   \ifbibnumeric
-    \input{jakewilliami/tex-macros/macros/cite/numeric/hyperref.sty}
+    \input{jakewilliami/tex-macros/macros/cite/numeric/reflink.sty}
   \else % else not bibnumeric
-    \input{jakewilliami/tex-macros/macros/cite/hyperref.sty}
+    \input{jakewilliami/tex-macros/macros/cite/reflink.sty}
   \fi % end if bibnumeric
 \else % else not bibapa
-  \input{jakewilliami/tex-macros/macros/hyperref.sty}
+  \input{jakewilliami/tex-macros/macros/reflink.sty}
 \fi % end if bibapa
 
 % Continue inputting macro source files
-\input{jakewilliami/tex-macros/macros/colours.sty}
-\input{jakewilliami/tex-macros/macros/figures.sty}
 \input{jakewilliami/tex-macros/macros/tables.sty}
 \input{jakewilliami/tex-macros/macros/footnotes.sty}
 \input{jakewilliami/tex-macros/macros/mathematical.sty}

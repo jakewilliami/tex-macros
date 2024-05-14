@@ -1,5 +1,7 @@
 %%% Hyperlinks and References Typesetting %%%
 
+% NOTE: this file cannot be called hyperref.sty!
+
 \RequirePackage{hypdoc}
 \RequirePackage{hyperref}
 \AtEndPreamble{\RequirePackage{cleveref}}
@@ -7,13 +9,11 @@
 
 % Set hyperlink colours
 % Make sure to load colours.sty first
-% Most hyperlinks are blue which pretty typical for hyperlinks, but it's nicer for flow of reading
-% if you can kind of mentally ignore citations as they are more of a background colour
+% No need to define citation colours here
 \hypersetup{
   colorlinks = true,
   urlcolor = linkblue,
   linkcolor = linkblue,
-  citecolor = darkelectricblue,
 }
 
 % Make endnote marker subscripted in brackers (the following two are equivalent)

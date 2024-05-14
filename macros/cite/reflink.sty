@@ -1,5 +1,7 @@
 %%% Hyperlinks, References, and Citations Typesetting %%%
 
+% NOTE: this file cannot be called hyperref.sty!
+
 % APA-style referencing
 \PassOptionsToPackage{
   bibencoding=utf8,
@@ -11,6 +13,20 @@
 % TODO: make the bibliography resource a dynamic class option
 % Defaulting to references.bib
 \addbibresource{references.bib}
+
+% Set hyperlink colours
+% Make sure to load colours.sty first
+% Most hyperlinks are blue which pretty typical for hyperlinks, but it's nicer for flow of reading
+% if you can kind of mentally ignore citations as they are more of a background colour
+\RequirePackage{hypdoc}
+\RequirePackage{hyperref}
+\AtEndPreamble{\RequirePackage{cleveref}}
+\hypersetup{
+  colorlinks = true,
+  urlcolor = linkblue,
+  linkcolor = linkblue,
+  citecolor = darkelectricblue,
+}
 
 % Unicode support for Spanish characters
 \DeclareUnicodeCharacter{0301}{\'{e}}

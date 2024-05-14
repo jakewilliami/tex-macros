@@ -1,0 +1,45 @@
+%%% Tables Typesetting %%%
+
+% Table Options
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{rotating}
+\RequirePackage{makecell}
+\PassOptionsToPackage{inline}{enumitem}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs, cfr-lm}
+
+% New column defining the math mode version of `c` column type
+\newcolumntype{C}{>{$}c<{$}}
+
+% Ensure table header is normal font size
+\renewcommand\theadfont{\normalsize}
+
+% Three part table
+% TODO: do we need this anymore?  I seldom ever use it
+\PassOptionsToPackage{referable}{threeparttablex}
+\RequirePackage{threeparttablex}
+
+% Define table notes for compatibility with caption and threeparttablex
+% https://tex.stackexchange.com/a/294527/
+\renewlist{tablenotes}{enumerate}{1}
+\makeatletter
+\setlist[tablenotes]{%
+  label=\tnote{\alph*},
+  ref=\alph*,
+  itemsep=\z@,
+  topsep=\z@skip,
+  partopsep=\z@skip,
+  parsep=\z@,
+  itemindent=\z@,
+  labelindent=\tabcolsep,
+  labelsep=.2em,
+  leftmargin=*,
+  align=left,
+  before={\footnotesize}%
+}
+\makeatother
+
+%%% End Tables Typesetting %%%

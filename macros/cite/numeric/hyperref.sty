@@ -1,0 +1,48 @@
+%%% Hyperlinks, References, and Numeric Citations Typesetting %%%
+
+% Make citations numeric (and compressed where possible, e.g. [1–3] over [1, 2, 3])
+\PassOptionsToPackage{
+  bibencoding=utf8,
+  style=apa,
+  bibstyle=apa,
+  backend=biber,
+  citestyle=numeric-comp,
+  sorting=none
+}{biblatex}
+\RequirePackage{biblatex}
+\addbibresource{references.bib}
+
+% Unicode support for Spanish characters
+\DeclareUnicodeCharacter{0301}{\'{e}}
+
+% Add numbers to APA-formatted bibliography
+% https://tex.stackexchange.com/a/373395/
+\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+\defbibenvironment{bibliography}{%
+  \list{%
+    \printtext[labelnumberwidth]{%
+      \printfield{labelprefix}%
+      \printfield{labelnumber}%
+    }%
+  }{%
+    \setlength{\labelwidth}{\labelnumberwidth}%
+    \setlength{\leftmargin}{\labelwidth}%
+    \setlength{\labelsep}{\biblabelsep}%
+    \addtolength{\leftmargin}{\labelsep}%
+    \setlength{\itemsep}{\bibitemsep}%
+    \setlength{\parsep}{\bibparsep}%
+  }%
+  \renewcommand*{\makelabel}[1]{\hss##1}
+}%
+{\endlist}%
+{\item}
+
+% Print bibliography at end of document
+\AtEndDocument{
+    % Using \clearpage over \newpage
+    % https://tex.stackexchange.com/a/141995/
+    \clearpage
+	\printbibliography
+}
+
+%%% End Hyperlinks, References, and Numeric Citations Typesetting %%%

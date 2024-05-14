@@ -1,0 +1,43 @@
+%%% Miscellaneous Typesetting %%%
+
+% For filler text (see also lipsum)
+\RequirePackage{blindtext}
+
+% For better underlining
+\RequirePackage{ulem}
+% Ensure \emph is not redefined
+\AtBeginDocument{\normalem}
+
+% Convenience macros for common NZ ethnicity words
+\def\maori{M\=aori~}
+\def\pakeha{P\=akeh\=a~}
+
+% Ordinal number suffixes
+\renewcommand{\th}{\textsuperscript{th}~}
+\def\st{\textsuperscript{st}~}
+\def\nd{\textsuperscript{nd}~}
+\def\rd{\textsuperscript{rd}~}
+
+% Redefine author and tile style on \maketitle
+\makeatletter
+\xpatchcmd{\@maketitle}
+  {\@title}
+  {\vspace*{-9ex}\fontsize{20}{28}\LARGE\scshape\@title}
+  {}{}
+  \xpatchcmd{\@maketitle}
+  {\@author}
+  {\fontsize{10}{18}\scshape\small\bfseries\@author}
+  {}{}
+  \makeatother
+
+% Redefine date time for ordinal
+\PassOptionsToPackage{en-GB, showdow}{datetime2}
+\RequirePackage{datetime2}
+\DTMlangsetup[en-GB]{ord=raise,monthyearsep={,\space},dowdaysep={,\space}}
+
+% Ensuring date is processed last so that is will be changed if needed
+\let\olddate\date
+\renewcommand{\date}[1]{\AtEndPreamble{\olddate{#1}}}
+\date{\today}
+
+%%% End Miscellaneous Typesetting %%%

@@ -21,7 +21,7 @@
 \DeclareOption{bib-apa=numeric}{\bibnumerictrue}
 \DeclareOption{numeric}{%
   \bibnumerictrue
-  \ClassWarning{arteacle}{Use of numeric is deprecated as of v.TODOOOOOOOOOOOOOOOOOO in favour of bib-apa=numeric}
+  \ClassWarning{arteacle}{Use of numeric is deprecated as of 07d0ecbc in favour of bib-apa=numeric}
 }
 
 % Define font switches

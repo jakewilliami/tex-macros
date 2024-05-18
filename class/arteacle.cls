@@ -87,6 +87,7 @@
 \ifoldstylenumbersmath
   % This option somehow requires newtxmath to be loaded but after other packages
   % It is hence loaded in mathematical.sty
+  % For some reason this option also seems to require `cfr-lm` to be loaded for it to work!
   \PassOptionsToPackage{garamondx}{newtxmath}
 \fi % end if oldstylenumbersmath
 % TODO: get osfI option working with newtxmath (#10)

@@ -3,8 +3,8 @@
 \LoadClass[11pt, a5paper]{letter} % extend article class
 
 \input{jakewilliami/tex-macros/macros/letter/general.sty}
-\input{jakewilliami/tex-macros/macros/colours.sty}
 \input{jakewilliami/tex-macros/macros/figures.sty}
+\input{jakewilliami/tex-macros/macros/colours.sty}
 \input{jakewilliami/tex-macros/macros/tables.sty}
 \input{jakewilliami/tex-macros/macros/footnotes.sty}
 \input{jakewilliami/tex-macros/macros/mathematical.sty}

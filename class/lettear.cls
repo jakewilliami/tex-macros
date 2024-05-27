@@ -1,6 +1,14 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{lettear}[A LaTeX Letter Class of Teagoslavia]
-\LoadClass[11pt, a5paper]{letter} % extend article class
+
+% Pass any remaining class options (unhandled by arteacle) to
+% the underlying letter class
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{letter}}
+\ProcessOptions\relax
+
+% Extend the letter class options
+% By default we use 11pt font with a5 paper
+\LoadClass[11pt, a5paper]{letter}
 
 \input{jakewilliami/tex-macros/macros/letter/general.sty}
 \input{jakewilliami/tex-macros/macros/figures.sty}

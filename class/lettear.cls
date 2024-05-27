@@ -9,7 +9,7 @@
 \input{jakewilliami/tex-macros/macros/footnotes.sty}
 \input{jakewilliami/tex-macros/macros/mathematical.sty}
 \input{jakewilliami/tex-macros/macros/units.sty}
-\intpu{jakewilliami/tex-macros/macros/letter/signature.sty}
+\input{jakewilliami/tex-macros/macros/letter/signature.sty}
 \input{jakewilliami/tex-macros/macros/miscellaneous.sty}
 
 

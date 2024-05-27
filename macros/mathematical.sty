@@ -1,5 +1,10 @@
 %%% Mathematical Typesetting %%%
 
+% Fix phanntom error when compiling lettear class
+% https://tex.stackexchange.com/a/41553/
+\let\openbox\relax
+
+% Load mathematical packages
 \RequirePackage{amsthm}
 \RequirePackage{mathtools}
 \RequirePackage{newtxmath}

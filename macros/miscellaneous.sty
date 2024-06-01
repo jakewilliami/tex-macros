@@ -18,15 +18,11 @@
 \def\nd{\textsuperscript{nd}~}
 \def\rd{\textsuperscript{rd}~}
 
-% Redefine author and tile style on \maketitle
+% Shift title up
 \makeatletter
 \xpatchcmd{\@maketitle}
   {\@title}
-  {\vspace*{-9ex}\fontsize{20}{28}\LARGE\scshape\@title}
-  {}{}
-  \xpatchcmd{\@maketitle}
-  {\@author}
-  {\fontsize{10}{18}\scshape\small\bfseries\@author}
+  {\vspace*{-9ex}\@title}
   {}{}
   \makeatother
 

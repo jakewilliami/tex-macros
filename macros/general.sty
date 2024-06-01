@@ -21,14 +21,11 @@
 \RequirePackage{multicol}
 \RequirePackage{verbatim}
 \RequirePackage{changepage}  % defines adjustwidth
+\RequirePackage{titlesec}
 
 % Line breaks in monospaced text
 \PassOptionsToPackage{htt}{hyphenat}
 \RequirePackage{hyphenat}
-
-% Redefine title sections
-\RequirePackage{titlesec}
-\RequirePackage{titletoc}
 
 % The all-important em dash
 \AtEndPreamble{%
@@ -39,19 +36,6 @@
 % https://en.wikipedia.org/wiki/Widows_and_orphans
 \widowpenalty10000	
 \clubpenalty10000
-
-% Make various section headings use small caps
-\addto\captionsenglish{%
-  \renewcommand{\contentsname}{\scshape Contents}%
-}
-% TODO: make this dynamic for all sections?  Add subsubsection?
-% Note that this formatting doesn't extent to ToC but that is fine
-\titleformat{\section}[hang]{%
-  \fontsize{14.4}{18}\scshape\bfseries%
-}{\thesection}{1em}{}[]
-\titleformat{\subsection}[hang]{%
-  \fontsize{12}{14}\scshape\bfseries%
-}{\thesubsection}{1em}{}[]
 
 % Make paragraph headings use italics
 % https://tex.stackexchange.com/a/469869

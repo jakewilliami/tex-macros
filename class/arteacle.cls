@@ -32,6 +32,7 @@
 %  - swishQ: TODO
 %  - times-font
 %  - double-spacing
+%  - sc-headings (small caps headings)
 \newif\ifoldstylenumbers
 \oldstylenumbersfalse
 \newif\ifoldstylenumbersmath
@@ -40,6 +41,8 @@
 \timesfontfalse
 \newif\ifdoublespacing
 \doublespacingfalse
+\newif\ifscheadings
+\scheadingsfalse
 \def\timesfonterror{%
   \ClassError{arteacle}%
              {Cannot use old-style-numbers with times-font, as old-style-numbers pertains to Garamond}%
@@ -69,6 +72,7 @@
   \fi
 }
 \DeclareOption{double-spacing}{\doublespacingtrue}
+\DeclareOption{sc-headings}{\scheadingstrue}
 
 % Pass any remaining class options (unhandled by arteacle) to
 % the underlying article class
@@ -108,6 +112,43 @@
 
 % Input macro source files
 \input{jakewilliami/tex-macros/macros/general.sty}
+
+% Redefine headings to use scshape
+\ifscheadings
+  % Redefine title sections
+  \RequirePackage{titlesec}
+  \RequirePackage{titletoc}
+
+  % Make various section headings use small caps
+  % Cannot lead this before general---I think it requires babel
+  \addto\captionsenglish{%
+    \renewcommand{\contentsname}{\scshape Contents}%
+  }
+
+  % TODO: make this dynamic for all sections?
+  % Note that this formatting doesn't extent to ToC but that is fine
+  \titleformat{\section}[hang]{%
+    \fontsize{14.4}{18}\scshape\bfseries%
+  }{\thesection}{1em}{}[]
+  \titleformat{\subsection}[hang]{%
+    \fontsize{12}{14}\scshape\bfseries%
+  }{\thesubsection}{1em}{}[]
+  \titleformat{\subsubsection}[hang]{%
+    \fontsize{10.4}{12}\scshape\bfseries%
+  }{\thesubsubsection}{1em}{}[]
+  % Redefine author and tile style on \maketitle
+  \makeatletter
+  \xpatchcmd{\@maketitle}
+    {\@title}
+    {\fontsize{20}{28}\LARGE\scshape\@title}
+    {}{}
+    \xpatchcmd{\@maketitle}
+    {\@author}
+    {\fontsize{10}{18}\scshape\small\bfseries\@author}
+    {}{}
+    \makeatother
+\fi % end if scheadings
+
 % Float might need to be loaded before hyperref
 % https://tex.stackexchange.com/a/1868/
 \input{jakewilliami/tex-macros/macros/figures.sty}

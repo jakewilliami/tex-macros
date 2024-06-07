@@ -15,6 +15,7 @@
   \RequirePackage{amssymb}%
 }
 \RequirePackage{marvosym}
+\RequirePackage{mleftright}  % Used for \mleft and \mright
 
 % Mathematical graphs and diagrams
 \RequirePackage{pgfplots}
@@ -84,10 +85,13 @@
 \makeatother
 
 % Convenience commands for wrapping things in various parenthetical symbols
-\def\paren#1{\ensuremath{\left(#1\right)}}
-\def\bparen#1{\ensuremath{\left[#1\right]}}
-\def\abs#1{\left|#1\right|}
-\def\curly#1{\ensuremath{\left\{#1\right\}}}
+% See following for discussions around spacing:
+%   - https://tex.stackexchange.com/a/482731/
+%   - https://tex.stackexchange.com/a/2610/
+\def\paren#1{\ensuremath{\mleft(#1\mright)}}
+\def\bparen#1{\ensuremath{\mleft[#1\mright]}}
+\def\abs#1{\mleft|#1\mright|}
+\def\curly#1{\ensuremath{\mleft\{#1\mright\}}}
 
 % Convenience macros for writing various general mathematical symbols
 \def\reals{\ensuremath{\mathds{R}}}
@@ -113,8 +117,8 @@
 \def\intdd{\mathop{}\!\dd}%because there is no integral space
 \def\intddx{\mathop{}\!\dd x}
 \def\dvx{\dv{x}}
-\def\laplace#1{\ensuremath{\mathcal{L}\left\{#1\right\}\left(s\right)}}
-\def\invlaplace#1{\ensuremath{\mathcal{L}^{-1}\left\{#1\right\}\left(s\right)}}
+\def\laplace#1{\ensuremath{\mathcal{L}\mleft\{#1\mright\}\mleft(s\mright)}}
+\def\invlaplace#1{\ensuremath{\mathcal{L}^{-1}\mleft\{#1\mright\}\mleft(s\mright)}}
 
 % Convenience macros for writing linear algebra notation
 \def\vect#1{\ensuremath{\mathbf{\boldsymbol{#1}}}}  % a vector is typeset boldface

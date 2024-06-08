@@ -33,16 +33,12 @@
 %  - times-font
 %  - double-spacing
 %  - sc-headings (small caps headings)
-\newif\ifoldstylenumbers
-\oldstylenumbersfalse
-\newif\ifoldstylenumbersmath
-\oldstylenumbersmathfalse
-\newif\iftimesfont
-\timesfontfalse
-\newif\ifdoublespacing
-\doublespacingfalse
-\newif\ifscheadings
-\scheadingsfalse
+\newif\ifoldstylenumbers\oldstylenumbersfalse
+\newif\ifoldstylenumbersmath\oldstylenumbersmathfalse
+\newif\iftimesfont\timesfontfalse
+\newif\ifdoublespacing\doublespacingfalse
+\newif\ifscheadings\scheadingsfalse
+\newif\ifmonthyear\monthyearfalse
 \def\timesfonterror{%
   \ClassError{arteacle}%
              {Cannot use old-style-numbers with times-font, as old-style-numbers pertains to Garamond}%
@@ -73,6 +69,7 @@
 }
 \DeclareOption{double-spacing}{\doublespacingtrue}
 \DeclareOption{sc-headings}{\scheadingstrue}
+\DeclareOption{month-year}{\monthyeartrue}
 
 % Pass any remaining class options (unhandled by arteacle) to
 % the underlying article class
@@ -173,6 +170,14 @@
 \input{jakewilliami/tex-macros/macros/mathematical.sty}
 \input{jakewilliami/tex-macros/macros/units.sty}
 \input{jakewilliami/tex-macros/macros/miscellaneous.sty}
+
+% Only display month and year in date
+\ifmonthyear
+  % This must come after datetime2 is loaded in miscellaneous.sty
+  % https://tex.stackexchange.com/a/250057/
+  \DTMlangsetup{showdayofmonth=false}
+  \DTMsetup{showdow=false}
+\fi % end if monthyear
 
 
 %%%%%% Put any custom features after this line! %%%%%%

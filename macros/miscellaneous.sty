@@ -27,9 +27,14 @@
   \makeatother
 
 % Redefine date time for ordinal
+% https://tex.stackexchange.com/a/327964/
 \PassOptionsToPackage{en-GB, showdow}{datetime2}
 \RequirePackage{datetime2}
-\DTMlangsetup[en-GB]{ord=raise,monthyearsep={,\space},dowdaysep={,\space}}
+\DTMlangsetup[en-GB]{
+  ord=raise,
+  monthyearsep={,\space},
+  dowdaysep={,\space}
+}
 
 % Ensuring date is processed last so that is will be changed if needed
 \let\olddate\date

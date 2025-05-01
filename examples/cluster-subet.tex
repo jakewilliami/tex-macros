@@ -1,0 +1,94 @@
+\documentclass[tikz, border=5pt]{standalone}
+
+% Adapted from https://nemo.kiwi/latex/portfolio/clusters.html
+
+\usepackage{kpfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+
+\usetikzlibrary{patterns, fillbetween, intersections}
+
+
+% Some functions to generate random numbers from StackExchange:
+% https://tex.stackexchange.com/a/148133
+\makeatletter
+\pgfmathdeclarefunction{invgauss}{2}{%
+	\pgfmathln{#1}% <- might need parsing
+	\pgfmathmultiply@{\pgfmathresult}{-2}%
+	\pgfmathsqrt@{\pgfmathresult}%
+	\let\@radius=\pgfmathresult%
+	\pgfmathmultiply{6.28318531}{#2}% <- might need parsing
+	\pgfmathdeg@{\pgfmathresult}%
+	\pgfmathcos@{\pgfmathresult}%
+	\pgfmathmultiply@{\pgfmathresult}{\@radius}%
+}
+\pgfmathdeclarefunction{randnormal}{0}{%
+	\pgfmathrnd@
+	\ifdim\pgfmathresult pt=0.0pt\relax%
+		\def\pgfmathresult{0.00001}%
+	\fi%
+	\let\@tmp=\pgfmathresult%
+	\pgfmathrnd@%
+	\ifdim\pgfmathresult pt=0.0pt\relax%
+		\def\pgfmathresult{0.00001}%
+	\fi
+	\pgfmathinvgauss@{\pgfmathresult}{\@tmp}%
+}
+\makeatother
+
+
+% Layers
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg, main}
+
+
+% Colours
+% https://nemo.kiwi/latex/colors.tex
+\definecolor{red}{RGB}{175, 49, 39}
+\definecolor{orange}{RGB}{217, 156, 55}
+\definecolor{green}{RGB}{144, 169, 84}
+\definecolor{grey}{rgb}{0.33, 0.41, 0.47}
+\definecolor{blue}{rgb}{0.29, 0.59, 0.82}
+\colorlet{qind}{grey}
+\tikzstyle{point colour}=[blue]
+\tikzstyle{early colour}=[green]
+\tikzstyle{target colour}=[orange]
+\tikzstyle{other colour}=[red]
+\tikzstyle{question colour}=[black]
+\tikzstyle{question indicator colour}=[qind]
+
+
+% Styles
+\def\pointsz{0.05}
+\tikzstyle{point}=[point colour, opacity=0.7]
+\tikzstyle{group bounds}=[very thick, densely dashed]
+\tikzstyle{group bounds plot}=[smooth cycle, tension=1]
+\tikzstyle{question}=[question colour, font=\fontsize{4}{5}\selectfont]
+
+
+\begin{document}
+    \begin{tikzpicture}
+        \pgfmathsetseed{6969} % set the seed for reproducible documents
+
+	% Draw dots
+	\foreach \i in {0, ..., 20} {
+		\fill [point] (0.5 + randnormal / 3, 2.5 + randnormal / 4) circle (\pointsz);
+	}
+
+	% Draw bounding groups
+	\draw [name path=second, group bounds, early colour]
+		plot [group bounds plot]
+		coordinates {(-0.1, 2.45) (0.3, 2.45) (0, 2)};
+
+	\draw [name path=early, group bounds, other colour]
+		plot [group bounds plot]
+		coordinates {(0, 2) (1, 1.8) (1.2, 3) (-0.1, 3)};
+
+	% Group labels
+	\node [red!70!black, font=\tiny] at (0.5, 3.45) {$\mathcal{G}_1$};
+	% \node [green!70!black, font=\tiny] at (0.35, 2.05) {$\mathcal{G}_{2}$};
+	\node [green!70!black, font=\tiny] at (-0.15, 1.85) {$\mathcal{G}_{2}$};
+    \end{tikzpicture}
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass[varwidth, border=5pt]{standalone}
+
+% Inspiration:
+% https://tex.stackexchange.com/a/106967
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}
+
+\tikzset{
+    every node/.style={font=\scriptsize},
+    decision/.style={
+        rectangle,
+        draw,
+        rounded corners=1ex,
+        minimum height=3em,
+        text width=5em,
+        text centered,
+    },
+    outcome/.style={
+        ellipse,
+        draw,
+        fill=gray!15,
+        text width=3.5em,
+        text centered
+    },
+    edge from parent path={[-{latex}] (\tikzparentnode.south) -- ++(0,-0.5) -| (\tikzchildnode.north)},
+    level distance=5.5em,
+    sibling distance=7em
+}
+
+\begin{tikzpicture}[grow=down]
+
+\node[decision] { has the behaviour been detected? }
+  child { node[decision, xshift=-4em] { is the nature of the detection malicious? }
+    child { node[outcome] { true positive } 
+            edge from parent node[left] { \emph{yes} } }
+    child { node[decision, yshift=-1em] { is the rule working as intended? }  % { would the same rule logic catch a true positive detection? }
+      child { node[outcome, yshift=-1.3em] { ignored \\\emph{a.k.a.}\\ benign positive } edge from parent node[left] { \emph{yes} } }
+      child { node[outcome, yshift=-0em] { false positive } edge from parent node[right] { \emph{no} } }
+      edge from parent node[right] { \emph{no} }
+    }
+    edge from parent node[left] { \emph{yes} }
+  }
+  child { node[outcome, yshift=-3em, text width=5em] { how are you here? while you're here, make sure to tell someone to update the detection logic }
+          edge from parent node[right] { \emph{no} } };
+
+\end{tikzpicture}
+
+\end{document}

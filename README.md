@@ -3,7 +3,7 @@
 This repository will show the progression of my macros used on LaTeX, in order to **a)** keep track of history of my macros, and **b)** extend my (currently limited) knowledge of Git and GitHub.  I hope that this provides good coding practice for any future coding-related endeavours.
 
 
-TODO: redo this whole thing
+TODO: redo this whole readme - and see archive: https://github.com/jakewilliami/tex-macros/tree/6ca86a43a9ffa84f36d7fa312b91edc8d7d17455/archive
 
 ## Contents
 

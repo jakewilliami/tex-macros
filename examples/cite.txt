@@ -1,3 +1,5 @@
 \parencite{} -> (Author, 1997)
 \cite{} -> Author, 1997
 \autocite{} -> Author (1997)
+(...; \nptextcite{}) -> Author, 1997 (useful for citing inside parentheses with APA references)
+

@@ -1,6 +1,10 @@
 % !TEX TS-program = pdflatexmk
 \documentclass{lettear}
 
+%% Adjust the foot skip and text height as needed
+%\setlength{\footskip}{1em}
+%\setlength{\textheight}{\dimexpr\textheight+6em}
+
 \signature{\scshape Your Name}
 \address{Your abbreviated title, \\ A subtitle}
 \def\myopening{Name of Recipient \\ Address of Recipient}
@@ -19,8 +23,9 @@
     
 
 \closing{Yours Faithfully,}
-%\vspace*{-\signaturepadding}
-%\includegraphics[height=\signatureheight]{sig.pdf}
+% \vspace*{-\signaturepadding}
+%% https://stackoverflow.com/a/1548257
+%\noindent\hfill\includegraphics[height=\signatureheight]{sig.pdf}\hspace{5em}
 %\vspace*{\signaturepadding}
 \begin{flushright}\par\noindent Writ this day, \today,\\In \writaddress\end{flushright}
 %\ps{P.S. Here goes your ps.}

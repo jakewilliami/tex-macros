@@ -1,19 +1,24 @@
 % !TEX TS-program = pdflatexmk
 \documentclass{lettear}
 
+%% Adjust the foot skip and text height as needed
+%\setlength{\footskip}{1em}
+%\setlength{\textheight}{\dimexpr\textheight+6em}
+
 \signature{\scshape Your name}
-\address{Street \\ City \\ Country}
+\address{Sender's Street \\ City \\ Country}
 \def\myopening{Dear Sir or Madam}
 
 \begin{document}
-\begin{letter}{Company name \\ Street\\ City\\ Country}
+\begin{letter}{Company/Recipient Name \\ Street\\ City\\ Country}
 \opening{\myopening\emdash:}
 \phantom{\myopening\emdash:}%
     % Your message goes here
     
 \closing{Yours Faithfully,}
 %\vspace*{-\signaturepadding}
-%\includegraphics[height=\signatureheight]{sig.pdf}
+%% https://stackoverflow.com/a/1548257
+%\noindent\hfill\includegraphics[height=\signatureheight]{sig.pdf}\hspace{5em}
 %\vspace*{\signaturepadding}
 %\ps{P.S. Here goes your ps.}
 %\encl{Enclosures.}

@@ -25,7 +25,9 @@
 \usetikzlibrary{shapes.geometric, arrows, positioning, calc}
 
 % Mathematical environment utilities
-\RequirePackage{arydshln}  % For dashed lined in arrays or tabulars (e.g., for RREF matrices)
+% This package was causing issues in the tabular environment.  It is loaded by cfr-lm so,
+% in theory, we do not need to explicitly load it
+% \RequirePackage{arydshln}  % For dashed lined in arrays or tabulars (e.g., for RREF matrices)
 \RequirePackage{tabu}  % For tabular in mathmode
 \RequirePackage{blkarray}  % For the \blockarray commands
 % \RequirePackage{nicematrix}

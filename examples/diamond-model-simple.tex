@@ -1,0 +1,68 @@
+\documentclass[varwidth=\maxdimen, border=5pt]{standalone}
+
+% Diamond Model of Intrusion Analysis
+%   - https://apps.dtic.mil/sti/pdfs/ADA586960.pdf
+%   - https://www.recordedfuture.com/blog/diamond-model-intrusion-analysis
+%   - FOR578 (2025), Book 1, Page 79
+%   - FOR578 (2025), Book 2, Page 28
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{varwidth}
+\usetikzlibrary{positioning, calc}
+
+\begin{document}
+
+\begin{tikzpicture}[
+  node distance=10em,
+  vertex list/.style={
+    inner sep=6pt,
+    execute at begin node=\begin{varwidth}{12em}\setlist[itemize]{nosep, leftmargin=*, label=\textbullet}\raggedright,
+    execute at end node=\end{varwidth},
+  },
+]
+
+\coordinate (core) at (0, 0);
+
+% Central label
+\node[text centered, text width=9em] at (core) {THREAT ACTOR\\NAME};
+
+% Vertex labels
+\node[vertex list, above=of core, anchor=south] (adversary) {
+  \begin{itemize}
+    \item Adversary item 1
+    \item Adversary item 2
+  \end{itemize}
+};
+\node[vertex list, right=of core, anchor=west] (capability) {  % or TTP
+  \begin{itemize}
+    \item Capability item 1
+    \item Capability item 2
+  \end{itemize}
+};
+\node[vertex list, below=of core, anchor=north] (victim) {
+  \begin{itemize}
+    \item Victim item 1
+    \item Victim item 2
+  \end{itemize}
+};
+\node[vertex list, left=of core, anchor=east] (infrastructure) {
+  \begin{itemize}
+    \item Infrastructure item 1
+    \item Infrastructure item 2
+  \end{itemize}
+};
+
+% Draw diamond
+\draw (adversary.south) -- (capability.west) -- (victim.north) -- (infrastructure.east) -- cycle;
+
+% Make the left/right extent symmetric so the diamond is centred in the output
+%\path let \p1=(infrastructure.west), \p2=(capability.east), \p3=(adversary.north), \p4=(victim.south),
+%  \n1={max(-\x1,\x2)} in
+%  [use as bounding box] (-\n1,\y4) rectangle (\n1,\y3);
+
+\end{tikzpicture}
+
+\end{document}

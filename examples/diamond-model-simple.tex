@@ -17,10 +17,23 @@
 % vertex item environment with hanging indent if line break occurs
 \newcommand{\vitem}[1]{\raggedright \leftskip=1em \parindent=-1em #1\par}
 
+% activity name label, including optional tracking ID
+\newcommand{\namelabel}[2][]{%
+  #2%
+  \ifx\relax#1\relax\else
+    \\[2pt]{\normalsize\upshape (#1)}%
+  \fi
+}
+
 \begin{document}
 
 \begin{tikzpicture}[
   node distance=10em,
+  name label/.style={
+    align=center,
+    text width=9em,
+    font=\LARGE\scshape\linespread{0.7}\selectfont,
+  },
   vertex list/.style={
     inner sep=6pt,
     execute at begin node=\begin{varwidth}{12em}\raggedright,
@@ -31,11 +44,7 @@
 \coordinate (core) at (0, 0);
 
 % Central label
-\node[
-  align=center,
-  text width=9em,
-  font=\LARGE\scshape\linespread{0.7}\selectfont,
-] at (core) {Threat Actor Name};
+\node[name label] at (core) {\namelabel{Threat Actor Name}};
 
 % Vertex labels
 \node[vertex list, above=of core, anchor=south] (adversary) {

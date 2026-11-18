@@ -11,7 +11,11 @@
 \usepackage{tikz}
 \usepackage{enumitem}
 \usepackage{varwidth}
+\usepackage[none]{hyphenat}
 \usetikzlibrary{positioning, calc}
+
+% vertex item environment with hanging indent if line break occurs
+\newcommand{\vitem}[1]{\raggedright \leftskip=1em \parindent=-1em #1\par}
 
 \begin{document}
 
@@ -19,7 +23,7 @@
   node distance=10em,
   vertex list/.style={
     inner sep=6pt,
-    execute at begin node=\begin{varwidth}{12em}\setlist[itemize]{nosep, leftmargin=*, label=\textbullet}\raggedright,
+    execute at begin node=\begin{varwidth}{12em}\raggedright,
     execute at end node=\end{varwidth},
   },
 ]
@@ -27,32 +31,28 @@
 \coordinate (core) at (0, 0);
 
 % Central label
-\node[text centered, text width=9em] at (core) {THREAT ACTOR\\NAME};
+\node[
+  align=center,
+  text width=9em,
+  font=\LARGE\scshape\linespread{0.7}\selectfont,
+] at (core) {Threat Actor Name};
 
 % Vertex labels
 \node[vertex list, above=of core, anchor=south] (adversary) {
-  \begin{itemize}
-    \item Adversary item 1
-    \item Adversary item 2
-  \end{itemize}
+  \vitem{Adversary item 1}
+  \vitem{Adversary item 2}
 };
 \node[vertex list, right=of core, anchor=west] (capability) {  % or TTP
-  \begin{itemize}
-    \item Capability item 1
-    \item Capability item 2
-  \end{itemize}
+  \vitem{Capability item 1}
+  \vitem{Capability item 2}
 };
 \node[vertex list, below=of core, anchor=north] (victim) {
-  \begin{itemize}
-    \item Victim item 1
-    \item Victim item 2
-  \end{itemize}
+  \vitem{Victim item 1}
+  \vitem{Victim item 2}
 };
 \node[vertex list, left=of core, anchor=east] (infrastructure) {
-  \begin{itemize}
-    \item Infrastructure item 1
-    \item Infrastructure item 2
-  \end{itemize}
+  \vitem{Infrastructure item 1}
+  \vitem{Infrastructure item 2}
 };
 
 % Draw diamond
